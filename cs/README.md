@@ -1,6 +1,8 @@
 # 🪱 Don't Be Shy, Hulud
 
-> **Praktický průvodce detekcí a ochranou proti npm supply-chain útokům**  
+![Don't Be Shy, Hulud Banner](../assets/banner.png)
+
+> **Praktický průvodce detekcí a ochranou proti npm supply-chain útokům**
 > Zaměřeno na Shai-Hulud 2.0 (listopad 2025) a podobné hrozby
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -10,8 +12,8 @@
 
 ```bash
 # 1. Stáhni tento repo
-git clone https://github.com/miccy/hunting-worms-guide.git
-cd hunting-worms-guide
+git clone https://github.com/miccy/dont-be-shy-hulud.git
+cd dont-be-shy-hulud
 
 # 2. Spusť rychlý audit (macOS/Linux)
 chmod +x scripts/*.sh
@@ -162,29 +164,29 @@ Praktický příklad analýzy 78 alertů ze Socket.dev:
 
 | Script | Účel |
 |--------|------|
-| [`quick-audit.sh`](scripts/quick-audit.sh) | Rychlý security audit (5 min) |
-| [`full-audit.sh`](scripts/full-audit.sh) | Kompletní audit s IOC skenováním |
-| [`scan-node-modules.sh`](scripts/scan-node-modules.sh) | Skenování node_modules ve všech projektech |
-| [`check-github-repos.sh`](scripts/check-github-repos.sh) | Kontrola GitHub repos na kompromitaci |
-| [`rotate-credentials.sh`](scripts/rotate-credentials.sh) | Asistovaná rotace credentials |
-| [`harden-npm.sh`](scripts/harden-npm.sh) | Hardening npm/bun konfigurace |
+| [`quick-audit.sh`](../scripts/quick-audit.sh) | Rychlý security audit (5 min) |
+| [`full-audit.sh`](../scripts/full-audit.sh) | Kompletní audit s IOC skenováním |
+| [`scan-node-modules.sh`](../scripts/scan-node-modules.sh) | Skenování node_modules ve všech projektech |
+| [`check-github-repos.sh`](../scripts/check-github-repos.sh) | Kontrola GitHub repos na kompromitaci |
+| [`rotate-credentials.sh`](../scripts/rotate-credentials.sh) | Asistovaná rotace credentials |
+| [`harden-npm.sh`](../scripts/harden-npm.sh) | Hardening npm/bun konfigurace |
 
 ## ⚙️ Konfigurace
 
 | Soubor | Účel |
 |--------|------|
-| [`renovate-lockdown.json`](configs/renovate-lockdown.json) | Renovate config pro krizový lockdown |
-| [`renovate-hardened.json`](configs/renovate-hardened.json) | Renovate config pro běžný provoz |
-| [`socket.yml`](configs/socket.yml) | Socket.dev konfigurace |
-| [`.npmrc-secure`](configs/.npmrc-secure) | Bezpečná .npmrc template |
+| [`renovate-lockdown.json`](../configs/renovate-lockdown.json) | Renovate config pro krizový lockdown |
+| [`renovate-hardened.json`](../configs/renovate-hardened.json) | Renovate config pro běžný provoz |
+| [`socket.yml`](../configs/socket.yml) | Socket.dev konfigurace |
+| [`.npmrc-secure`](../configs/.npmrc-secure) | Bezpečná .npmrc template |
 
 ## 📊 IOC databáze
 
 Aktualizované seznamy IOC (Indicators of Compromise):
 
-- [`malicious-packages.json`](ioc/malicious-packages.json) – Seznam kompromitovaných packages
-- [`malicious-hashes.json`](ioc/malicious-hashes.json) – SHA hashes malicious payloads
-- [`github-repos.json`](ioc/github-repos.json) – Známé exfiltration repos
+- [`malicious-packages.json`](../ioc/malicious-packages.json) – Seznam kompromitovaných packages
+- [`malicious-hashes.json`](../ioc/malicious-hashes.json) – SHA hashes malicious payloads
+- [`github-repos.json`](../ioc/github-repos.json) – Známé exfiltration repos
 
 **Zdroje IOC:**
 - [Tenable IOC List](https://github.com/tenable/shai-hulud-second-coming-affected-packages)
@@ -199,6 +201,30 @@ PRs jsou vítány! Zejména:
 - Aktualizace IOC
 - Dokumentace pro specifické platformy
 - Překlady
+- CI/CD integrace
+
+## 🛠️ Správa repozitáře
+
+### Výběr jazyka
+
+Tento repozitář obsahuje dvojjazyčnou dokumentaci (EN/CS). Pokud chcete ponechat jen jeden jazyk:
+
+```bash
+# Ponechat jen Češtinu (přesune soubory z cs/ do rootu a smaže anglické)
+./scripts/set-language.sh cs
+
+# Ponechat jen Angličtinu (smaže složku cs/)
+./scripts/set-language.sh en
+```
+
+Toto můžete provést i přes **GitHub Actions**: Jděte na `Actions` -> `Set Repository Language` -> `Run workflow`.
+
+### VS Code Integrace
+
+Projekt obsahuje předpřipravené VS Code tasks. Stiskněte `Cmd+Shift+P` -> `Tasks: Run Task` pro spuštění:
+- `🛡️ Quick Audit`
+- `🔍 Full Audit`
+- `🧹 Set Language`
 
 ## 📚 Reference
 
@@ -211,7 +237,7 @@ PRs jsou vítány! Zejména:
 
 ## 📄 License
 
-MIT – viz [LICENSE](LICENSE)
+MIT – viz [LICENSE](../LICENSE)
 
 ---
 

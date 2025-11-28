@@ -1,6 +1,8 @@
 # 🪱 Don't Be Shy, Hulud
 
-> **Incident Response & Protection Guide for npm Supply Chain Attacks**  
+![Don't Be Shy, Hulud Banner](assets/banner.png)
+
+> **Incident Response & Protection Guide for npm Supply Chain Attacks**
 > Defense guide for detection & remediation against npm supply-chain worms | Shai-Hulud 2.0 (November 2025) and future threats
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,8 +14,8 @@ If you suspect you're compromised, run this immediately:
 
 ```bash
 # Clone this repo
-git clone https://github.com/miccy/hunting-worms-guide.git
-cd hunting-worms-guide
+git clone https://github.com/miccy/dont-be-shy-hulud.git
+cd dont-be-shy-hulud
 
 # Run the detector
 chmod +x scripts/detect.sh
@@ -148,7 +150,7 @@ For full list, see [IOC Lists](#ioc-lists).
 npm token revoke $(npm token ls --json | jq -r '.[].key')
 
 # 5. Rotate credentials
-# See: docs/credential-rotation.md
+# See: docs/REMEDIATION.md
 ```
 
 ### 🟠 Preventive (Not Yet Confirmed Compromised)
@@ -197,12 +199,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Shai-Hulud Detector
         run: |
-          curl -sSL https://raw.githubusercontent.com/miccy/hunting-worms-guide/main/scripts/detect.sh | bash -s -- .
+          curl -sSL https://raw.githubusercontent.com/miccy/dont-be-shy-hulud/main/scripts/detect.sh | bash -s -- .
 ```
 
 ## Remediation Guide
 
-See [docs/remediation.md](docs/remediation.md) for detailed steps.
+See [docs/REMEDIATION.md](docs/REMEDIATION.md) for detailed steps.
 
 ### Quick Remediation
 
@@ -243,7 +245,7 @@ See [configs/renovate-secure.json](configs/renovate-secure.json) for a hardened 
 
 ### GitHub Settings
 
-See [docs/github-hardening.md](docs/github-hardening.md) for:
+See [docs/GITHUB-HARDENING.md](docs/GITHUB-HARDENING.md) for:
 - Branch protection rules
 - Actions security settings
 - Secret scanning configuration
@@ -261,7 +263,7 @@ See [configs/dependabot.yml](configs/dependabot.yml) for secure settings.
 
 ### GitHub Actions
 
-See [configs/actions-permissions.md](configs/actions-permissions.md) for lockdown guide.
+See [docs/GITHUB-HARDENING.md](docs/GITHUB-HARDENING.md) for lockdown guide.
 
 ## IOC Lists
 
@@ -326,6 +328,30 @@ Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 - [ ] Language translations
 - [ ] CI/CD integrations
 - [ ] Tool configurations
+- [ ] Language translations
+
+## 🛠️ Repository Maintenance
+
+### Language Selection
+
+This repository comes with bilingual documentation (English/Czech). To keep only one language:
+
+```bash
+# Keep only English (removes cs/ folder)
+./scripts/set-language.sh en
+
+# Keep only Czech (promotes cs/ files to root)
+./scripts/set-language.sh cs
+```
+
+You can also do this via **GitHub Actions**: Go to `Actions` -> `Set Repository Language` -> `Run workflow`.
+
+### VS Code Integration
+
+This project includes VS Code tasks. Press `Cmd+Shift+P` -> `Tasks: Run Task` to easily run:
+- `🛡️ Quick Audit`
+- `🔍 Full Audit`
+- `🧹 Set Language`
 
 ## License
 

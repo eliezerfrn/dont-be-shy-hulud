@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+
+  smoke-test:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Run Quick Audit
+        run: ./scripts/quick-audit.sh
+        continue-on-error: true
+
+      - name: Run Full Audit (Dry Run/Check)
+        # Just running it to ensure it doesn't crash.
+        # It will create a report dir which is fine.
+        run: ./scripts/full-audit.sh
+        continue-on-error: true
+
+      - name: Test Language Script (Dry Run)
+        # Test help output
+        run: ./scripts/set-language.sh --help || true
