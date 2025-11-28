@@ -76,7 +76,7 @@ The malware actively searches for credentials in these locations:
 | `~/.gitconfig` | Git credentials |
 | `~/.ssh/*` | SSH keys |
 | `~/.aws/credentials` | AWS credentials |
-| `~/.aws/config` | AWS config |
+| `~/.aws/config` | AWS config (scans ALL regions) |
 | `~/.azure/` | Azure credentials |
 | `~/.config/gcloud/application_default_credentials.json` | GCP credentials |
 | `~/.docker/config.json` | Docker registry tokens |
@@ -104,6 +104,8 @@ The malware enumerates all user repositories and extracts:
 - Repository secrets
 - Environment secrets
 - Organization secrets (if accessible)
+
+It specifically hunts for `npm_` prefixed secrets in GitHub Actions metadata to pivot and compromise more packages (Secondary Token Mining).
 
 #### Cloud Metadata Services
 
@@ -153,7 +155,7 @@ If it doesn't have GitHub credentials, it uses credentials stolen from another v
 async function propagate(npmToken) {
   const packages = await getUserPackages(npmToken);
   const targetCount = Math.min(packages.length, 100); // Max 100 packages
-  
+
   for (const pkg of packages.slice(0, targetCount)) {
     await injectPayload(pkg);
     await publishMaliciousVersion(pkg, npmToken);
@@ -181,6 +183,17 @@ jobs:
 ```
 
 This registers the infected machine as a self-hosted runner and enables remote command execution via GitHub Discussions.
+
+#### GitHub Actions Privilege Escalation
+
+On Linux runners, the malware attempts to gain root access to manipulate DNS and firewalls:
+
+1.  **Sudo:** Attempts `sudo -n true`.
+2.  **Docker Escape:** If sudo fails, it uses Docker to mount the host filesystem and overwrite `/etc/sudoers.d/runner`:
+    ```bash
+    docker run --rm --privileged -v /:/host ubuntu bash -c "cp /host/tmp/runner /host/etc/sudoers.d/runner"
+    ```
+3.  **Network Control:** Once root, it disables `systemd-resolved`, hijacks DNS via `/tmp/resolved.conf`, and flushes `iptables` to bypass firewalls or redirect traffic.
 
 ### 8. Destructive Fallback (Dead-man switch)
 

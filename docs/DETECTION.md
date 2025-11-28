@@ -128,7 +128,24 @@ ls -la ~/Developer/my-project/.github/workflows/
 cat ~/Developer/my-project/.github/workflows/*.yml | grep -E "self-hosted|discussion"
 ```
 
-### 6. Check credentials exposure
+### 6. Check System Integrity (Linux/CI)
+
+Check for privilege escalation artifacts:
+
+```bash
+# Check for malicious sudoers file
+if [ -f "/etc/sudoers.d/runner" ]; then
+  echo "🚨 CRITICAL: /etc/sudoers.d/runner found! (Privilege Escalation)"
+  cat /etc/sudoers.d/runner
+fi
+
+# Check for DNS hijacking
+if [ -f "/tmp/resolved.conf" ]; then
+  echo "⚠️  SUSPICIOUS: /tmp/resolved.conf found (DNS Hijacking)"
+fi
+```
+
+### 7. Check credentials exposure
 
 #### npm token
 

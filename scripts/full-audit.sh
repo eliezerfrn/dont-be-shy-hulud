@@ -116,7 +116,7 @@ find "$SCAN_PATH" -maxdepth 15 \
 if [ -s "$REPORT_DIR/payload-files.txt" ]; then
     while read -r file; do
         log_critical "Payload found: $file"
-        
+
         # Calculate hash
         if command -v shasum &>/dev/null; then
             hash=$(shasum -a 256 "$file" | cut -d' ' -f1)
@@ -165,7 +165,7 @@ if [ -f "$REPORT_DIR/ioc/malicious-packages.txt" ]; then
     find "$SCAN_PATH" -name "package-lock.json" -not -path "*/node_modules/*" 2>/dev/null | \
     while read -r lockfile; do
         log_info "Checking: $lockfile"
-        
+
         # Extract packages from lockfile
         jq -r '.packages | keys[]' "$lockfile" 2>/dev/null | \
         sed 's|node_modules/||g' | \
@@ -224,7 +224,7 @@ check_credential_file() {
     local path="$1"
     local name="$2"
     local severity="${3:-MEDIUM}"
-    
+
     if [ -f "$path" ]; then
         log_medium "$name exists: $path"
         echo "  Potentially compromised - rotation recommended" >> "$REPORT_DIR/findings.log"
@@ -249,12 +249,12 @@ echo -e "\n${CYAN}═══ PHASE 6: GitHub Check ═══${NC}"
 
 if command -v gh &>/dev/null && gh auth status &>/dev/null 2>&1; then
     log_info "Checking GitHub repos..."
-    
+
     # Search Shai-Hulud repos
     gh repo list --limit 500 --json name,description,createdAt 2>/dev/null | \
-        jq -r '.[] | select(.description != null) | select(.description | test("hulud|Hulud"; "i")) | 
+        jq -r '.[] | select(.description != null) | select(.description | test("hulud|Hulud"; "i")) |
         "REPO: \(.name) | CREATED: \(.createdAt) | DESC: \(.description)"' > "$REPORT_DIR/hulud-repos.txt" || true
-    
+
     if [ -s "$REPORT_DIR/hulud-repos.txt" ]; then
         while read -r line; do
             log_critical "Shai-Hulud repo found: $line"
@@ -262,15 +262,15 @@ if command -v gh &>/dev/null && gh auth status &>/dev/null 2>&1; then
     else
         log_ok "No Shai-Hulud repos"
     fi
-    
+
     # Check recent repos
     log_info "Checking recently created repos..."
     WEEK_AGO=$(date -v-7d +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -d "7 days ago" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null)
-    
+
     gh repo list --limit 100 --json name,createdAt,description 2>/dev/null | \
-        jq -r --arg date "$WEEK_AGO" '.[] | select(.createdAt > $date) | 
+        jq -r --arg date "$WEEK_AGO" '.[] | select(.createdAt > $date) |
         "\(.name) | \(.createdAt)"' > "$REPORT_DIR/recent-repos.txt" || true
-    
+
     if [ -s "$REPORT_DIR/recent-repos.txt" ]; then
         log_info "Recently created repos (review manually):"
         cat "$REPORT_DIR/recent-repos.txt"
@@ -289,11 +289,11 @@ if command -v npm &>/dev/null; then
     if npm whoami &>/dev/null 2>&1; then
         NPM_USER=$(npm whoami 2>/dev/null)
         log_info "npm user: $NPM_USER"
-        
+
         # Check published packages
         log_info "Checking published packages..."
         npm access ls-packages 2>/dev/null > "$REPORT_DIR/npm-packages.txt" || true
-        
+
         if [ -s "$REPORT_DIR/npm-packages.txt" ]; then
             log_info "Your packages:"
             cat "$REPORT_DIR/npm-packages.txt"
@@ -302,7 +302,7 @@ if command -v npm &>/dev/null; then
     else
         log_info "npm is not authenticated"
     fi
-    
+
     # npm audit
     log_info "Running npm audit in available projects..."
     find "$SCAN_PATH" -name "package.json" -not -path "*/node_modules/*" -maxdepth 5 2>/dev/null | \
@@ -312,7 +312,7 @@ if command -v npm &>/dev/null; then
             log_info "Audit: $dir"
             (cd "$dir" && npm audit --json 2>/dev/null | jq -r '.metadata.vulnerabilities.high // 0' || echo "0") | \
             read -r high_vulns || high_vulns=0
-            
+
             if [ "$high_vulns" != "0" ] && [ -n "$high_vulns" ]; then
                 log_high "npm audit: $high_vulns high vulnerabilities in $dir"
             fi
@@ -320,6 +320,20 @@ if command -v npm &>/dev/null; then
     done
 else
     log_info "npm is not installed"
+fi
+
+# ============================================
+# PHASE 8: System Integrity Check
+# ============================================
+echo -e "\n${CYAN}═══ PHASE 8: System Integrity Check ═══${NC}"
+
+if [ -f "/etc/sudoers.d/runner" ]; then
+    log_critical "Privilege Escalation Artifact: /etc/sudoers.d/runner found!"
+    ls -la /etc/sudoers.d/runner >> "$REPORT_DIR/findings.log"
+fi
+
+if [ -f "/tmp/resolved.conf" ]; then
+    log_high "DNS Hijacking Artifact: /tmp/resolved.conf found!"
 fi
 
 # ============================================
@@ -375,7 +389,7 @@ echo "
     <h1>🪱 Shai-Hulud 2.0 Audit Report</h1>
     <p>Generated: $(date)</p>
     <p>Scan path: $SCAN_PATH</p>
-    
+
     <h2>Summary</h2>
     <ul>
         <li class='critical'>Critical: $CRITICAL</li>
@@ -383,7 +397,7 @@ echo "
         <li class='medium'>Medium: $MEDIUM</li>
         <li class='low'>Low: $LOW</li>
     </ul>
-    
+
     <h2>Findings</h2>
     <pre>$(cat "$REPORT_DIR/findings.log" 2>/dev/null || echo "No findings")</pre>
 </body>

