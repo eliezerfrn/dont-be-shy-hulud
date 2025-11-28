@@ -1,5 +1,7 @@
 # 🪱 Don't Be Shy, Hulud
 
+![Don't Be Shy, Hulud Banner](assets/banner.png)
+
 > **Incident Response & Protection Guide for npm Supply Chain Attacks**  
 > Defense guide for detection & remediation against npm supply-chain worms | Shai-Hulud 2.0 (November 2025) and future threats
 

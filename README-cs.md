@@ -1,5 +1,7 @@
 # 🪱 Don't Be Shy, Hulud
 
+![Don't Be Shy, Hulud Banner](assets/banner.png)
+
 > **Praktický průvodce detekcí a ochranou proti npm supply-chain útokům**  
 > Zaměřeno na Shai-Hulud 2.0 (listopad 2025) a podobné hrozby
 
