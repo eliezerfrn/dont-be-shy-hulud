@@ -111,7 +111,11 @@ We currently **do not** have a bug bounty program. However, we deeply appreciate
 
 - **Security Issues**: Use GitHub Security Advisory or email
 - **General Questions**: Open a GitHub Discussion
-- **Twitter/X**: [@miccy](https://twitter.com/miccy) (for urgent coordination)
+- **X/Twitter**: [@miccycz](https://x.com/miccycz)
+- **Bluesky**: [@miccy-dev](https://bsky.app/profile/miccy-dev.bsky.social)
+- **Mastodon**: [@miccy](https://mastodon.social/@miccy)
+- **Email**: [support@miccy.dev](mailto:support@miccy.dev)
+
 
 ## PGP Key
 

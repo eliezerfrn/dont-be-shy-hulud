@@ -111,7 +111,10 @@ V současné době **nemáme** program odměn za chyby. Hluboce si však váží
 
 - **Bezpečnostní problémy**: Použijte GitHub Security Advisory nebo e-mail
 - **Obecné dotazy**: Otevřete GitHub Discussion
-- **Twitter/X**: [@miccy](https://twitter.com/miccy) (pro naléhavou koordinaci)
+- **X/Twitter**: [@miccycz](https://x.com/miccycz)
+- **Bluesky**: [@miccy-dev](https://bsky.app/profile/miccy-dev.bsky.social)
+- **Mastodon**: [@miccy](https://mastodon.social/@miccy)
+- **Email**: [support@miccy.dev](mailto:support@miccy.dev)
 
 ## PGP Klíč
 
