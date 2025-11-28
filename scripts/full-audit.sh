@@ -130,10 +130,10 @@ fi
 # 2.2 TruffleHog cache
 log_info "Checking .truffler-cache..."
 if [ -d "$HOME/.truffler-cache" ]; then
-    log_critical "~/.truffler-cache exists!"
+    log_critical "$HOME/.truffler-cache exists!"
     ls -la "$HOME/.truffler-cache" >> "$REPORT_DIR/findings.log" 2>/dev/null
 else
-    log_ok "~/.truffler-cache does not exist"
+    log_ok "$HOME/.truffler-cache does not exist"
 fi
 
 # 2.3 Suspicious workflow files

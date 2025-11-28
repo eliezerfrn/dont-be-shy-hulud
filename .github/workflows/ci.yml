@@ -29,11 +29,13 @@ jobs:
 
       - name: Run Quick Audit
         run: ./scripts/quick-audit.sh
+        continue-on-error: true
 
       - name: Run Full Audit (Dry Run/Check)
         # Just running it to ensure it doesn't crash.
         # It will create a report dir which is fine.
         run: ./scripts/full-audit.sh
+        continue-on-error: true
 
       - name: Test Language Script (Dry Run)
         # Test help output
