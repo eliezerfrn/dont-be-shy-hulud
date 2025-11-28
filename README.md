@@ -328,6 +328,30 @@ Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 - [ ] Language translations
 - [ ] CI/CD integrations
 - [ ] Tool configurations
+- [ ] Language translations
+
+## 🛠️ Repository Maintenance
+
+### Language Selection
+
+This repository comes with bilingual documentation (English/Czech). To keep only one language:
+
+```bash
+# Keep only English (removes cs/ folder)
+./scripts/set-language.sh en
+
+# Keep only Czech (promotes cs/ files to root)
+./scripts/set-language.sh cs
+```
+
+You can also do this via **GitHub Actions**: Go to `Actions` -> `Set Repository Language` -> `Run workflow`.
+
+### VS Code Integration
+
+This project includes VS Code tasks. Press `Cmd+Shift+P` -> `Tasks: Run Task` to easily run:
+- `🛡️ Quick Audit`
+- `🔍 Full Audit`
+- `🧹 Set Language`
 
 ## License
 

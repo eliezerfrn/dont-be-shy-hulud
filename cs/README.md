@@ -201,6 +201,30 @@ PRs jsou vítány! Zejména:
 - Aktualizace IOC
 - Dokumentace pro specifické platformy
 - Překlady
+- CI/CD integrace
+
+## 🛠️ Správa repozitáře
+
+### Výběr jazyka
+
+Tento repozitář obsahuje dvojjazyčnou dokumentaci (EN/CS). Pokud chcete ponechat jen jeden jazyk:
+
+```bash
+# Ponechat jen Češtinu (přesune soubory z cs/ do rootu a smaže anglické)
+./scripts/set-language.sh cs
+
+# Ponechat jen Angličtinu (smaže složku cs/)
+./scripts/set-language.sh en
+```
+
+Toto můžete provést i přes **GitHub Actions**: Jděte na `Actions` -> `Set Repository Language` -> `Run workflow`.
+
+### VS Code Integrace
+
+Projekt obsahuje předpřipravené VS Code tasks. Stiskněte `Cmd+Shift+P` -> `Tasks: Run Task` pro spuštění:
+- `🛡️ Quick Audit`
+- `🔍 Full Audit`
+- `🧹 Set Language`
 
 ## 📚 Reference
 

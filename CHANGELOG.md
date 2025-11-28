@@ -23,6 +23,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed broken internal documentation links
 - Corrected references to documentation paths
+## [1.1.0] - 2025-11-28
+
+### Added
+- **CI/CD**: Added GitHub Actions workflow (`ci.yml`) for ShellCheck linting and smoke tests.
+- **Automation**: Added `scripts/set-language.sh` to easily switch between English/Czech or keep both.
+- **VS Code**: Added `.vscode/tasks.json` for easy script execution and `.vscode/extensions.json` recommendations.
+- **Security**: Updated `THREAT-OVERVIEW.md` and `DETECTION.md` with new Shai-Hulud v2 findings (Privilege Escalation, Secondary Token Mining).
+- **Scripts**: Added System Integrity Check to `full-audit.sh`.
+
+### Changed
+- **Restructuring**: Moved all Czech documentation to `cs/` directory for better organization.
+- **Documentation**: Updated `README.md` and `cs/README.md` to reflect the new structure.
+- **Robustness**: Improved `full-audit.sh` error handling for permission denied errors.
+
 
 ## [1.0.0] - 2025-11-28
 
