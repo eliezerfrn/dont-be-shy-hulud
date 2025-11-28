@@ -25,6 +25,9 @@ case "$LANG" in
         [ -f cs/SECURITY.md ] && rm SECURITY.md
         [ -f cs/AGENTS.md ] && rm AGENTS.md
 
+        # Remove English docs
+        rm -rf docs/
+
         echo "Promoting Czech files to root..."
         cp -r cs/* .
         rm -rf cs/
