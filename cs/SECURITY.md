@@ -23,7 +23,7 @@ Místo toho je prosím nahlaste jedním z následujících způsobů:
 
 ### E-mail
 
-Pošlete e-mail na: **security@miccy.dev** (pokud je k dispozici) nebo vytvořte soukromé upozornění výše.
+Pošlete e-mail na: **support@miccy.dev** nebo vytvořte soukromé upozornění výše.
 
 ### Co uvést
 

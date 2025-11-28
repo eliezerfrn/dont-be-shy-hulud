@@ -23,7 +23,7 @@ Instead, please report them via one of the following methods:
 
 ### Email
 
-Send an email to: **security@miccy.dev** (if available) or create a private advisory as above.
+Send an email to: **support@miccy.dev** or create a private advisory as above.
 
 ### What to Include
 
