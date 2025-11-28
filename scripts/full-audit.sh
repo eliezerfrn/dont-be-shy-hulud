@@ -162,7 +162,7 @@ echo -e "\n${CYAN}═══ PHASE 3: Dependency Check ═══${NC}"
 log_info "Scanning package-lock.json files..."
 
 if [ -f "$REPORT_DIR/ioc/malicious-packages.txt" ]; then
-    find "$SCAN_PATH" -name "package-lock.json" -not -path "*/node_modules/*" 2>/dev/null | \
+    find "$SCAN_PATH" -name "package-lock.json" -not -path "*/node_modules/*" 2>/dev/null || true | \
     while read -r lockfile; do
         log_info "Checking: $lockfile"
 
