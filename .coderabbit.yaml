@@ -26,8 +26,8 @@ reviews:
   # Feedback filter
   profile: "chill"
 
-  # Request changes if critical issues are found
-  request_changes_workflow: false
+  # Approve the review once CodeRabbit’s comments are resolved
+  request_changes_workflow: true
 
 chat:
   # Enable conversational bot on PRs
