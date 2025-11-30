@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Komunita section to cs/README.md (CZ)
 - Shared Renovate preset reference (`github>miccy/renovate-config`) in both READMEs
 - `scripts/sync-version.sh` now automatically synchronizes version in `package.json`
+- **New badge**: GitHub Release version badge (dynamic)
+
+### Changed
+- License badge: Yellow → Green, now links to LICENSE file
+- PRs Welcome badge: Now links to CONTRIBUTING.md instead of external site
+- Removed static Security Advisories badge (redundant with Community section)
 
 ### Fixed
 - Removed duplicate `drafts: false` line in `.coderabbit.yaml`

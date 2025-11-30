@@ -5,10 +5,10 @@
 > **Incident Response & Protection Guide for npm Supply Chain Attacks**
 > Defense guide for detection & remediation against npm supply-chain worms | Shai-Hulud 2.0 (November 2025) and future threats
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/miccy/dont-be-shy-hulud?include_prereleases&label=Release)](https://github.com/miccy/dont-be-shy-hulud/releases)
 [![GitHub Stars](https://img.shields.io/github/stars/miccy/dont-be-shy-hulud?style=social)](https://github.com/miccy/dont-be-shy-hulud)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Security Advisories](https://img.shields.io/badge/security-advisories-red)](https://github.com/miccy/dont-be-shy-hulud/security/advisories)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 ![CodeRabbit PR Reviews](https://img.shields.io/coderabbit/prs/github/miccy/dont-be-shy-hulud?utm_source=oss&utm_medium=github&utm_campaign=miccy%2Fdont-be-shy-hulud&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 ## ⚠️ CRITICAL: Dead Man's Switch Warning
