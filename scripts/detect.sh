@@ -69,6 +69,31 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# --- begin insertion ---
+# Ensure OUTPUT_FILE is absolute in CI and pre-create file so the artifact step can find it.
+if [[ -n "${OUTPUT_FILE:-}" ]]; then
+  if [[ "${CI_MODE:-}" == "true" && -n "${GITHUB_WORKSPACE:-}" ]]; then
+    OUTPUT_FILE="${GITHUB_WORKSPACE%/}/$OUTPUT_FILE"
+  else
+    OUTPUT_FILE="$(pwd)/$OUTPUT_FILE"
+  fi
+  mkdir -p "$(dirname "$OUTPUT_FILE")"
+  # Pre-create file so upload-artifact sees it even if script exits early.
+  echo "Shai-Hulud scan started: $(date)" > "$OUTPUT_FILE" || true
+fi
+
+# Ensure we always append a summary on exit (runs on normal and error exits)
+_trap_write_summary() {
+  # Avoid failing in the trap (|| true assures non-zero in trap doesn't abort)
+  if [[ -n "${OUTPUT_FILE:-}" ]]; then
+    echo "" >> "$OUTPUT_FILE" || true
+    echo "Issues found: ${FOUND_ISSUES:-0}" >> "$OUTPUT_FILE" || true
+    echo "Scan finished at: $(date)" >> "$OUTPUT_FILE" || true
+  fi
+}
+trap _trap_write_summary EXIT
+# --- end insertion ---
+
 # Logging
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1"
