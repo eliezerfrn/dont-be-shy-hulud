@@ -21,7 +21,7 @@ OUTPUT_FILE=""
 VERBOSE=false
 CI_MODE=false
 FOUND_ISSUES=0
-VERSION="1.3.0"
+VERSION="1.3.1"
 
 # Parse arguments
 for arg in "$@"; do

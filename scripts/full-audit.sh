@@ -17,7 +17,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Config
-VERSION="1.3.0"
+VERSION="1.3.1"
 SCAN_PATH="${1:-$HOME/Developer}"
 # SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # Unused
 # IOC_DIR="$SCRIPT_DIR/../ioc" # Unused
