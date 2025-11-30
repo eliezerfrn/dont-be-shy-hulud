@@ -24,7 +24,7 @@
   "devDependencies": {
     "lockfile-lint": "^4.12.1"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@10.24.0",
   "engines": {
     "node": ">=20"
   }
