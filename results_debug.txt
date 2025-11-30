@@ -1,0 +1,4 @@
+Shai-Hulud scan started: Sun Nov 30 16:25:54 CET 2025
+
+Issues found: 1
+Scan finished at: Sun Nov 30 16:25:57 CET 2025
