@@ -1,10 +1,17 @@
 {
   "name": "dont-be-shy-hulud",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Shai-Hulud 2.0 Detection and Remediation",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:lockfile": "lockfile-lint --path pnpm-lock.yaml --allowed-hosts npm --validate-https"
+    "lint:lockfile": "lockfile-lint --path pnpm-lock.yaml --allowed-hosts npm --validate-https",
+    "release": "./scripts/release.sh",
+    "detect": "./scripts/detect.sh",
+    "audit:full": "./scripts/full-audit.sh",
+    "audit:quick": "./scripts/quick-audit.sh",
+    "harden": "./scripts/harden-npm.sh",
+    "lang": "./scripts/set-language.sh",
+    "check:repos": "./scripts/check-github-repos.sh"
   },
   "keywords": [
     "security",

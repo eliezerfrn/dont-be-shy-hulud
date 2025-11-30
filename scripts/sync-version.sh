@@ -60,4 +60,14 @@ VERSION=\"$LATEST_VERSION\"" "$script" && rm "$script.bak"
     fi
 done
 
+# 3. Update package.json
+if [ -f "package.json" ]; then
+    echo "Updating package.json..."
+    # Update "version": "x.y.z"
+    sed -i.bak "s/\"version\": \".*\"/\"version\": \"$LATEST_VERSION\"/" package.json && rm package.json.bak
+    echo -e "  ✓ Updated package.json"
+else
+    echo "  ! package.json not found"
+fi
+
 echo -e "${GREEN}All scripts synchronized to version $LATEST_VERSION${NC}"
