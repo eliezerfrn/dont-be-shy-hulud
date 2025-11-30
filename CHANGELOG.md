@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Community sections to English and Czech READMEs
 - Shared Renovate configuration preset documentation in READMEs
 - Automated release notes extraction from `CHANGELOG.md` in `release.yml`
+- Enhanced CodeRabbit configuration with linters (ShellCheck, Markdownlint, etc.) and Conventional Commits enforcement
 
 ### Changed
 - Updated `scripts/release.sh` to support releases from `*-dev` branches (e.g., `claude-dev`, `gemini-dev`)
