@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION="1.3.0"
 #
 # harden-npm.sh - Hardening npm and bun configuration
 # https://github.com/miccy/dont-be-shy-hulud

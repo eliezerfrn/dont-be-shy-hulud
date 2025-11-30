@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION="1.3.0"
 #
 # set-language.sh - Removes unwanted language files from the repository
 # Usage: ./scripts/set-language.sh [en|cs|both]

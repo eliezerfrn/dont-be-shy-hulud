@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION="1.3.0"
 #
 # quick-audit.sh - Quick security audit for Shai-Hulud 2.0
 # https://github.com/miccy/dont-be-shy-hulud

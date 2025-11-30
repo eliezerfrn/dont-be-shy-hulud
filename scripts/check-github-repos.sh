@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION="1.3.0"
 #
 # check-github-repos.sh - Check GitHub account for compromise
 # https://github.com/miccy/dont-be-shy-hulud

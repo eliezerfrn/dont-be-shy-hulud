@@ -10,6 +10,58 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Security Advisories](https://img.shields.io/badge/security-advisories-red)](https://github.com/miccy/dont-be-shy-hulud/security/advisories)
 
+## ⚠️ CRITICAL: Dead Man's Switch Warning
+
+> **🔴 Shai-Hulud 2.0 contains a destructive fallback mechanism!**
+
+If the malware cannot exfiltrate data or propagate (no GitHub/npm token, blocked network), it will **OVERWRITE AND DELETE ALL WRITABLE FILES IN YOUR HOME DIRECTORY**.
+
+### ❌ DO NOT:
+- Forcefully disconnect from the internet without backup
+- Block all network traffic immediately
+- Kill suspicious processes without proper isolation
+
+### ✅ INSTEAD:
+1. **Backup first** — If possible, copy critical data before any action
+2. **Selective network isolation** — Block outbound except GitHub API
+3. **Evidence collection** — Preserve logs before cleanup
+4. **Follow remediation carefully** — See [docs/REMEDIATION.md](docs/REMEDIATION.md)
+
+> This is not theoretical — the wiper code has been [confirmed by multiple security researchers](https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/).
+
+---
+
+## 🚨 URGENT: npm Token Deadline — December 9, 2025
+
+npm is revoking **ALL legacy (classic) tokens** on December 9, 2025 as a direct response to Shai-Hulud attacks.
+
+### Check Your Tokens Now:
+```bash
+npm token list
+```
+
+### Migration Options:
+
+**Option 1: Trusted Publishing (Recommended)**
+```yaml
+# .github/workflows/publish.yml
+- uses: actions/setup-node@v4
+  with:
+    registry-url: 'https://registry.npmjs.org'
+- run: npm publish --provenance --access public
+  env:
+    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+**Option 2: Granular Tokens**
+- Max lifetime: 90 days (default 7 days)
+- Scope to specific packages only
+- Enable IP allowlist if possible
+
+📚 [npm Token Migration Guide](https://docs.npmjs.com/about-access-tokens)
+
+---
+
 ## ⚡ Quick Start
 
 If you suspect you're compromised, run this immediately:
@@ -41,13 +93,21 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 
 ### Attack Timeline
 
-| Date | Event |
-|------|-------|
-| Sep 15, 2025 | Shai-Hulud v1 discovered (postinstall-based) |
-| Nov 21-23, 2025 | Shai-Hulud 2.0 packages uploaded to npm |
-| Nov 24, 2025 | Mass propagation detected |
-| Nov 25, 2025 | 700+ packages, 25,000+ repos affected |
-| Nov 26, 2025 | GitHub begins mass removal |
+| Date | Event | Source |
+|------|-------|--------|
+| Aug 27, 2025 | S1ngularity/Nx GitHub token theft (precursor) | Unit42 |
+| Sep 15, 2025 | Shai-Hulud v1 discovered (postinstall-based) | Aikido |
+| Sep 23, 2025 | CISA Advisory issued | CISA |
+| Nov 5, 2025 | npm disables new classic token creation | GitHub |
+| Nov 21-23, 2025 | Shai-Hulud 2.0 packages uploaded | Multiple |
+| Nov 24, 2025 03:16 UTC | First detection (go-template, AsyncAPI) | Wiz |
+| Nov 24, 2025 04:11 UTC | PostHog packages compromised | PostHog |
+| Nov 24, 2025 05:09 UTC | Postman packages compromised | Postman |
+| Nov 24, 2025 | Peak: **1,000 new repos every 30 minutes** | Datadog |
+| Nov 25, 2025 | **796 packages**, 25,000+ repos, **20M+ weekly downloads** | Wiz |
+| Nov 25, 2025 | Secondary phase detected ("Continued Coming") | Wiz |
+| Nov 26, 2025 | GitHub reduces public malicious repos to ~300 | GitHub |
+| **Dec 9, 2025** | **npm legacy token revocation deadline** | npm |
 
 ### Key Differences from v1
 
@@ -58,7 +118,7 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 | Runtime | Node.js | Bun |
 | Fallback | None | Dead-man switch (wipe data) |
 | Persistence | None | GitHub Actions backdoor |
-| Propagation | ~500 packages | 700+ packages |
+| Propagation | ~500 packages | **796 packages** (20M+ downloads) |
 
 ### How It Works
 
@@ -133,7 +193,9 @@ If you use any of these packages, **immediately audit your lockfile**:
 | `zapier-sdk` | 🟠 High | |
 | `angulartics2` | 🟠 High | |
 | `koa2-swagger-ui` | 🟠 High | |
-| `tinycolor` | 🟠 High | v4.1.2 specifically |
+| `tinycolor2` | 🟠 High | v4.1.2 specifically (note: tinycolor2, not tinycolor) |
+| `ngx-bootstrap` | 🟠 High | Angular bootstrap components |
+| `@zapier/zapier-sdk` | 🔴 Critical | v0.15.5-0.15.7 |
 
 For full IOC database with detailed indicators, see [IOC Lists](#ioc-lists) below and [ioc/malicious-packages.json](ioc/malicious-packages.json).
 
@@ -236,6 +298,31 @@ ignore-scripts=true
 audit=true
 fund=false
 ```
+
+### ⚠️ Critical: Bun Users Must Read This
+
+**Bun has a known bug**: The `.npmrc` setting `ignore-scripts=true` does **NOT** work reliably!
+
+Bun prioritizes its internal `trustedDependencies` allowlist over `.npmrc` settings. This means lifecycle scripts may still execute even with `ignore-scripts=true` in your config.
+
+#### ❌ This is NOT reliable in Bun:
+```ini
+# ~/.npmrc or .npmrc
+ignore-scripts=true
+```
+
+#### ✅ ALWAYS use CLI flag:
+```bash
+bun install --ignore-scripts
+```
+
+#### In CI/CD:
+```yaml
+- name: Install dependencies (Bun)
+  run: bun install --ignore-scripts  # REQUIRED flag
+```
+
+> **Why This Matters:** Shai-Hulud 2.0 specifically installs Bun runtime as an **evasion technique** because most security tools only monitor Node.js processes.
 
 ### Renovate Configuration
 

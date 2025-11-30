@@ -8,6 +8,58 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
+## ⚠️ KRITICKÉ: Varování Dead Man's Switch
+
+> **🔴 Shai-Hulud 2.0 obsahuje destruktivní fallback mechanismus!**
+
+Pokud malware nemůže exfiltrovat data nebo se propagovat (žádný GitHub/npm token, blokované síťové spojení), **PŘEPÍŠE A SMAŽE VŠECHNY ZAPISOVATELNÉ SOUBORY V HOME DIRECTORY**.
+
+### ❌ NEDĚLEJTE:
+- Násilné odpojení od internetu bez zálohy
+- Okamžité blokování veškerého síťového provozu
+- Kill podezřelých procesů bez správné izolace
+
+### ✅ MÍSTO TOHO:
+1. **Nejprve záloha** — Pokud možno, zkopírujte kritická data před jakýmkoli zásahem
+2. **Selektivní síťová izolace** — Blokujte outbound kromě GitHub API
+3. **Evidence collection** — Zachovejte logy před čištěním
+4. **Postupujte opatrně** — Viz [docs/REMEDIATION.md](docs/REMEDIATION.md)
+
+> Není to teoretické — wiper kód byl [potvrzen více bezpečnostními výzkumníky](https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/).
+
+---
+
+## 🚨 URGENTNÍ: npm Token Deadline — 9. prosince 2025
+
+npm ruší **VŠECHNY legacy (classic) tokeny** 9. prosince 2025 jako přímou reakci na Shai-Hulud útok.
+
+### Zkontrolujte své tokeny teď:
+```bash
+npm token list
+```
+
+### Možnosti migrace:
+
+**Možnost 1: Trusted Publishing (Doporučeno)**
+```yaml
+# .github/workflows/publish.yml
+- uses: actions/setup-node@v4
+  with:
+    registry-url: 'https://registry.npmjs.org'
+- run: npm publish --provenance --access public
+  env:
+    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+**Možnost 2: Granulární tokeny**
+- Max životnost: 90 dní (default 7 dní)
+- Omezit na konkrétní packages
+- Povolit IP allowlist pokud možno
+
+📚 [npm Token Migration Guide](https://docs.npmjs.com/about-access-tokens)
+
+---
+
 ## ⚡ TL;DR – Co dělat HNED
 
 ```bash
@@ -45,6 +97,7 @@ chmod +x scripts/*.sh
 | **Kompromitované packages** | 796+ unique, 1092+ versions |
 | **Zasažené GitHub repos** | 25,000+ |
 | **Weekly downloads zasažených** | 20+ milionů |
+| **Peak propagace** | 1,000 nových repos každých 30 minut |
 | **Exfiltrované credentials** | 775+ GitHub, 373 AWS, 300 GCP, 115 Azure |
 
 **Klíčové vlastnosti:**
@@ -132,6 +185,20 @@ npm config set ignore-scripts true
 
 # Nebo per-project v .npmrc
 echo "ignore-scripts=true" >> .npmrc
+```
+
+### ⚠️ Kritické pro Bun uživatele
+
+**Bun má známý bug**: Nastavení `.npmrc` `ignore-scripts=true` **NEFUNGUJE** spolehlivě!
+
+Bun upřednostňuje interní `trustedDependencies` allowlist před `.npmrc` nastaveními.
+
+```bash
+# ❌ Toto NENÍ spolehlivé v Bun:
+echo "ignore-scripts=true" >> .npmrc
+
+# ✅ VŽDY použijte CLI flag:
+bun install --ignore-scripts
 ```
 
 ➡️ [Kompletní prevention guide](docs/PREVENTION.md)

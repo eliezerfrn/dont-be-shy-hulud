@@ -21,6 +21,7 @@ OUTPUT_FILE=""
 VERBOSE=false
 CI_MODE=false
 FOUND_ISSUES=0
+VERSION="1.3.0"
 
 # Parse arguments
 for arg in "$@"; do
@@ -83,6 +84,20 @@ IOC_FILES=(
     "contents.json"
     "environment.json"
     "truffleSecrets.json"
+    "data.json"
+)
+
+# Known malicious file hashes (SHA256)
+MALICIOUS_HASHES=(
+    "a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a"  # setup_bun.js
+    "62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0"  # bun_environment.js
+    "46faab8ab153fae6e80e7cca38eab363075bb524edd79e42269217a083628f09"  # bundle.js (v1)
+)
+
+# Secondary phase patterns
+SECONDARY_PATTERNS=(
+    "Sha1-Hulud: The Continued Coming"
+    "Shai-Hulud Migration"
 )
 
 for file in "${IOC_FILES[@]}"; do
@@ -308,7 +323,124 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 log_info "Manually check for suspicious repos on your GitHub account:"
 echo "         → https://github.com/YOUR_USERNAME?tab=repositories"
 echo "         → Look for repos with description: 'Sha1-Hulud: The Second Coming'"
+echo "         → Look for repos with description: 'Sha1-Hulud: The Continued Coming'"
 echo "         → Look for repos with '-migration' suffix"
+echo "         → Check for unauthorized self-hosted runners named 'SHA1HULUD'"
+
+# If gh CLI is available, offer automated check
+if command -v gh &> /dev/null; then
+    log_info "GitHub CLI detected. Running automated check..."
+    gh_repos=$(gh repo list --json name,description 2>/dev/null | grep -i "hulud" || true)
+    if [[ -n "$gh_repos" ]]; then
+        log_error "Found suspicious repositories on your account!"
+        echo "$gh_repos"
+    else
+        log_ok "No suspicious repos found via GitHub CLI"
+    fi
+fi
+
+# =============================================================================
+# 9. Hash-based IOC detection (more reliable than filename)
+# =============================================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "9. Hash-based malware detection..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Check JS files between 1MB-15MB (payload size range)
+hash_matches=0
+while IFS= read -r jsfile; do
+    if [[ -f "$jsfile" ]]; then
+        file_hash=$(sha256sum "$jsfile" 2>/dev/null | cut -d' ' -f1)
+        for known_hash in "${MALICIOUS_HASHES[@]}"; do
+            if [[ "$file_hash" == "$known_hash" ]]; then
+                log_error "MALICIOUS FILE DETECTED (hash match): $jsfile"
+                log_error "Hash: $file_hash"
+                ((hash_matches++))
+            fi
+        done
+    fi
+done < <(find "$SCAN_PATH" -name "*.js" -type f -size +1M -size -15M 2>/dev/null)
+
+if [[ $hash_matches -eq 0 ]]; then
+    log_ok "No known malicious hashes detected"
+fi
+
+# =============================================================================
+# 10. Check for cloud metadata service abuse (CI/CD environments)
+# =============================================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "10. Checking for cloud metadata service abuse..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+metadata_abuse=$(grep -r "169.254.169.254" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | grep -v "node_modules" | head -5 || true)
+if [[ -n "$metadata_abuse" ]]; then
+    log_error "Found references to cloud metadata service (potential credential theft):"
+    echo "$metadata_abuse"
+else
+    log_ok "No metadata service abuse indicators found"
+fi
+
+# =============================================================================
+# 11. Check for secondary phase indicators
+# =============================================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "11. Checking for secondary phase (Continued Coming) indicators..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+secondary_found=false
+for pattern in "${SECONDARY_PATTERNS[@]}"; do
+    matches=$(grep -r "$pattern" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | head -3 || true)
+    if [[ -n "$matches" ]]; then
+        log_error "Found secondary phase indicator: '$pattern'"
+        echo "$matches"
+        secondary_found=true
+    fi
+done
+
+if [[ "$secondary_found" == false ]]; then
+    log_ok "No secondary phase indicators found"
+fi
+
+# =============================================================================
+# 12. Bun-specific security checks
+# =============================================================================
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "12. Bun-specific security checks..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Check if Bun is used
+if [[ -f "$SCAN_PATH/bun.lockb" ]] || command -v bun &> /dev/null; then
+    log_warn "Bun detected in project"
+    echo "         → ⚠️  Remember: .npmrc ignore-scripts does NOT work reliably in Bun!"
+    echo "         → ALWAYS use: bun install --ignore-scripts"
+
+    # Check for trustedDependencies that might allow malicious scripts
+    if [[ -f "$SCAN_PATH/package.json" ]]; then
+        trusted=$(grep -o '"trustedDependencies"' "$SCAN_PATH/package.json" 2>/dev/null || true)
+        if [[ -n "$trusted" ]]; then
+            log_warn "trustedDependencies found in package.json - review carefully"
+            grep -A 10 '"trustedDependencies"' "$SCAN_PATH/package.json" | head -12
+        fi
+    fi
+
+    # Check .npmrc for false sense of security
+    for npmrc in "$HOME/.npmrc" "$SCAN_PATH/.npmrc"; do
+        if [[ -f "$npmrc" ]]; then
+            npmrc_ignore=$(grep "ignore-scripts" "$npmrc" 2>/dev/null || true)
+            if [[ -n "$npmrc_ignore" ]]; then
+                log_warn "⚠️  .npmrc ignore-scripts found in $npmrc BUT:"
+                echo "         → Bun does NOT reliably respect this setting!"
+                echo "         → ALWAYS use: bun install --ignore-scripts"
+            fi
+        fi
+    done
+else
+    log_ok "No Bun lockfile detected"
+fi
 
 # =============================================================================
 # Summary
