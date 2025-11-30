@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refined `scripts/detect.sh` to exclude documentation and IOC files from self-detection (False Positives)
 - Improved `release.yml` version extraction with error handling
 - Fixed `detect.sh` argument parsing to support space-separated flags (e.g., `--output results.txt`)
+- Updated `scripts/release.sh` to support releases from `*-dev` branches
 
 ### Fixed
 - Markdown linting issues in READMEs and documentation

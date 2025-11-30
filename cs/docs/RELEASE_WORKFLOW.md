@@ -5,7 +5,7 @@ Tento dokument popisuje proces vydávání nových verzí projektu **Don't Be Sh
 ## 1. Příprava
 Ujistěte se, že máte:
 - Čistý pracovní adresář (žádné necommitnuté změny).
-- Jste na větvi `dev`.
+- Jste na větvi `dev` (nebo jakékoliv `*-dev` větvi).
 - Máte stažené nejnovější změny (`git pull`).
 
 ## 2. Spuštění procesu
@@ -18,7 +18,7 @@ Pro vydání nové verze použijte automatizační skript:
 ## 3. Průběh skriptu
 Skript vás provede následujícími kroky:
 
-1.  **Kontrola**: Ověří, zda jste na větvi `dev` a nemáte rozpracované změny.
+1.  **Kontrola**: Ověří, zda jste na větvi `dev` (nebo `*-dev`) a nemáte rozpracované změny.
 2.  **Volba verze**: Zobrazí aktuální verzi a zeptá se na novou.
 3.  **Vytvoření větve**: Vytvoří novou větev `preview/vX.Y.Z`.
 4.  **Úprava Changelogu**: Otevře `CHANGELOG.md` pro doplnění poznámek.

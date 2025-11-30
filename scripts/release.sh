@@ -21,10 +21,10 @@ if ! git diff-index --quiet HEAD --; then
     exit 1
 fi
 
-# 2. Check branch (must be on dev)
+# 2. Check branch (must be on dev or *-dev)
 CURRENT_BRANCH=$(git branch --show-current)
-if [ "$CURRENT_BRANCH" != "dev" ]; then
-    echo -e "${RED}Error: You must be on 'dev' branch to start a release.${NC}"
+if [[ "$CURRENT_BRANCH" != "dev" && "$CURRENT_BRANCH" != *"-dev" ]]; then
+    echo -e "${RED}Error: You must be on 'dev' or a '*-dev' branch to start a release.${NC}"
     echo "Current branch: $CURRENT_BRANCH"
     echo "Run: git checkout dev"
     exit 1

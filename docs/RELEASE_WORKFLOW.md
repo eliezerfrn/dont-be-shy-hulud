@@ -5,7 +5,7 @@ This document describes the process of releasing new versions of the **Don't Be 
 ## 1. Preparation
 Ensure that you have:
 - A clean working directory (no uncommitted changes).
-- You are on the `dev` branch.
+- You are on the `dev` branch (or any `*-dev` branch).
 - You have pulled the latest changes (`git pull`).
 
 ## 2. Starting the Process
@@ -18,7 +18,7 @@ To release a new version, use the automation script:
 ## 3. Script Workflow
 The script guides you through the following steps:
 
-1.  **Check**: Verifies that you are on the `dev` branch and have no uncommitted changes.
+1.  **Check**: Verifies that you are on the `dev` branch (or `*-dev`) and have no uncommitted changes.
 2.  **Version Selection**: Displays the current version and asks for the new one.
 3.  **Branch Creation**: Creates a new branch `preview/vX.Y.Z`.
 4.  **Changelog Update**: Opens `CHANGELOG.md` for you to add release notes.
