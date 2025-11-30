@@ -24,7 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New badge**: GitHub Release version badge (dynamic)
 
 ### Changed
-- Updated `packageManager` to `pnpm@10.24.0`
 - License badge: Yellow → Green, now links to LICENSE file
 - PRs Welcome badge: Now links to CONTRIBUTING.md instead of external site
 - Removed static Security Advisories badge (redundant with Community section)
