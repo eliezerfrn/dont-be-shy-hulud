@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.3] - 2025-11-30
+
+### Added
+- Community sections to English and Czech READMEs
+- Shared Renovate configuration preset documentation in READMEs
+- Automated release notes extraction from `CHANGELOG.md` in `release.yml`
+
+### Changed
+- Updated `scripts/release.sh` to support releases from `*-dev` branches (e.g., `claude-dev`, `gemini-dev`)
+- Updated release script instructions to reflect the automated release process
+- Updated `docs/RELEASE_WORKFLOW.md` and `cs/docs/RELEASE_WORKFLOW.md` to reflect `*-dev` branch support
+
+### Fixed
+- Cleaned up `.coderabbit.yaml` configuration
+
 ## [1.3.2] - 2025-11-30
 
 ### Added
@@ -21,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refined `scripts/detect.sh` to exclude documentation and IOC files from self-detection (False Positives)
 - Improved `release.yml` version extraction with error handling
 - Fixed `detect.sh` argument parsing to support space-separated flags (e.g., `--output results.txt`)
-- Updated `scripts/release.sh` to support releases from `*-dev` branches
 
 ### Fixed
 - Markdown linting issues in READMEs and documentation
