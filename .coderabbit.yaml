@@ -29,16 +29,6 @@ reviews:
   # Approve the review once CodeRabbit’s comments are resolved
   request_changes_workflow: true
 
-chat:
-  # Enable conversational bot on PRs
-  auto_reply: true
-
-  integrations:
-    jira:
-      usage: disabled
-    linear:
-      usage: disabled
-
   # Tools to run during review
   tools:
     shellcheck:
@@ -54,5 +44,17 @@ chat:
 
   # Auto-generate PR title following Conventional Commits
   auto_title_instructions: "Generate the PR title following the Conventional Commits specification (e.g., 'feat:', 'fix:', 'chore:', 'docs:'). Keep it concise and descriptive."
+
+chat:
+  # Enable conversational bot on PRs
+  auto_reply: true
+
+  integrations:
+    jira:
+      usage: disabled
+    linear:
+      usage: disabled
+
+
 
 
