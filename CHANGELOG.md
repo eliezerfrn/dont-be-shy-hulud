@@ -5,7 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.3.1] - 2025-11-30
+
+### Added
+- Release workflow documentation and script for this repository
+- CodeRabbit PR Reviews badge to READMEs
+- Automated changelog injection into Pull Request descriptions
+- New GitHub Action `pr-changelog.yml`
+- Enabled CodeRabbit auto-approval for clean PRs
+- Portable hash detection in `scripts/detect.sh` (macOS support)
+- `--skip-hash` flag to `scripts/detect.sh`
+
+### Changed
+- Updated all repository URLs from `hunting-worms-guide` to `dont-be-shy-hulud`
+- Updated `softprops/action-gh-release` to v2.4.2
+
+### Fixed
+- Syntax error in `release.yml` workflow (nested mapping issue)
+- Typo in `release.yml` (`head_commit_message` -> `head_commit.message`)
+- Unbound variable error in `scripts/quick-audit.sh` (set -u compatibility)
+- Unbound variable error in `scripts/full-audit.sh` (set -u compatibility)
+- False positive Bun detection in `scripts/detect.sh` (ignoring `node_modules`)
+- `find` command compatibility issues on macOS in `scripts/detect.sh`
+
+## [1.3.0] - 2025-11-30
+
+### Added
+- **CRITICAL**: Dead Man's Switch warning section in README (EN/CS)
+- **URGENT**: npm Token Migration Deadline section (December 9, 2025)
+- Hash-based IOC detection in detect.sh (3 known SHA256 hashes)
+- Secondary phase detection ("Continued Coming" patterns)
+- Cloud metadata service abuse detection (169.254.169.254)
+- Bun-specific security checks in detect.sh
+- Automated GitHub CLI check for suspicious repos
+- Network IOCs to malicious-packages.json
+- Hardened GitHub Actions workflow (supply-chain-security.yml)
+- Bun `.npmrc` bug documentation
+
+### Changed
+- **Timeline**: Corrected to 796 packages (not 700+), added UTC timestamps
+- **IOC Database**: Extended with hash values, network indicators, secondary phase patterns
+- **detect.sh**: Now has 12 detection sections (was 8)
+- **Packages list**: Added ngx-bootstrap, tinycolor2 (corrected from tinycolor), @zapier/zapier-sdk versions
+- Updated Czech README.md with all critical warnings
+
+### Fixed
+- Corrected package name: tinycolor2 (not tinycolor)
+- Added missing @zapier/zapier-sdk version info (0.15.5-0.15.7)
+
+---
+
+## [1.2.0] - 2025-11-28
 
 ### Added
 - Complete English translations for all documentation
@@ -47,5 +97,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - IOC database
 - Configuration templates (Renovate, Socket.dev, npm)
 
-[Unreleased]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.0.0...HEAD
+[1.3.1]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/miccy/dont-be-shy-hulud/releases/tag/v1.0.0
 [1.0.0]: https://github.com/miccy/dont-be-shy-hulud/releases/tag/v1.0.0

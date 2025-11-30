@@ -32,3 +32,4 @@ credentials.json
 # Agents
 .agents/task.md
 .agents/implementation_plan.md
+.agents/research/

@@ -1,4 +1,10 @@
 #!/bin/bash
+VERSION="1.3.1"
+
+if [[ "$1" == "--version" ]]; then
+    echo "$VERSION"
+    exit 0
+fi
 #
 # set-language.sh - Removes unwanted language files from the repository
 # Usage: ./scripts/set-language.sh [en|cs|both]
@@ -7,6 +13,17 @@
 set -euo pipefail
 
 LANG="${1:-both}"
+
+# Update CodeRabbit config if it exists
+if [ -f ".coderabbit.yaml" ]; then
+    if [ "$LANG" == "cs" ]; then
+        sed -i.bak 's/language: "en-US"/language: "cs-CZ"/' .coderabbit.yaml && rm .coderabbit.yaml.bak
+        echo "  ✓ Updated CodeRabbit language to cs-CZ"
+    elif [ "$LANG" == "en" ]; then
+        sed -i.bak 's/language: "cs-CZ"/language: "en-US"/' .coderabbit.yaml && rm .coderabbit.yaml.bak
+        echo "  ✓ Updated CodeRabbit language to en-US"
+    fi
+fi
 
 echo "Setting repository language to: $LANG"
 
