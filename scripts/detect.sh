@@ -83,12 +83,19 @@ if [[ -n "${OUTPUT_FILE:-}" ]]; then
 fi
 
 # Ensure we always append a summary on exit (runs on normal and error exits)
+# Ensure we always append a summary on exit (runs on normal and error exits)
 _trap_write_summary() {
   # Avoid failing in the trap (|| true assures non-zero in trap doesn't abort)
   if [[ -n "${OUTPUT_FILE:-}" ]]; then
-    echo "" >> "$OUTPUT_FILE" || true
-    echo "Issues found: ${FOUND_ISSUES:-0}" >> "$OUTPUT_FILE" || true
-    echo "Scan finished at: $(date)" >> "$OUTPUT_FILE" || true
+    # If file is empty or doesn't exist, write NO_FINDINGS (unless we have found issues)
+    if [[ ! -s "$OUTPUT_FILE" ]] && [[ "${FOUND_ISSUES:-0}" -eq 0 ]]; then
+        echo "NO_FINDINGS" > "$OUTPUT_FILE" || true
+    else
+        # If we have content or issues, append summary
+        echo "" >> "$OUTPUT_FILE" || true
+        echo "Issues found: ${FOUND_ISSUES:-0}" >> "$OUTPUT_FILE" || true
+        echo "Scan finished at: $(date)" >> "$OUTPUT_FILE" || true
+    fi
   fi
 }
 trap _trap_write_summary EXIT
