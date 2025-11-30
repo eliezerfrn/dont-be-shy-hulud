@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Updated `packageManager` to `pnpm@10.24.0`
+
+### Fixed
+- Added `pnpm-lock.yaml` to ensure consistent dependency installation in CI
+
 ## [1.3.4] - 2025-11-30
 
 ### Added
@@ -16,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New badge**: GitHub Release version badge (dynamic)
 
 ### Changed
+- Updated `packageManager` to `pnpm@10.24.0`
 - License badge: Yellow → Green, now links to LICENSE file
 - PRs Welcome badge: Now links to CONTRIBUTING.md instead of external site
 - Removed static Security Advisories badge (redundant with Community section)
