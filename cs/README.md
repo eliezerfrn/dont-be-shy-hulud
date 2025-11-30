@@ -7,6 +7,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+![CodeRabbit PR Reviews](https://img.shields.io/coderabbit/prs/github/miccy/dont-be-shy-hulud?utm_source=oss&utm_medium=github&utm_campaign=miccy%2Fdont-be-shy-hulud&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 ## ⚠️ KRITICKÉ: Varování Dead Man's Switch
 

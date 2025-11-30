@@ -9,6 +9,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/miccy/dont-be-shy-hulud?style=social)](https://github.com/miccy/dont-be-shy-hulud)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Security Advisories](https://img.shields.io/badge/security-advisories-red)](https://github.com/miccy/dont-be-shy-hulud/security/advisories)
+![CodeRabbit PR Reviews](https://img.shields.io/coderabbit/prs/github/miccy/dont-be-shy-hulud?utm_source=oss&utm_medium=github&utm_campaign=miccy%2Fdont-be-shy-hulud&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 ## ⚠️ CRITICAL: Dead Man's Switch Warning
 
