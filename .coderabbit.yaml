@@ -1,0 +1,44 @@
+# CodeRabbit Configuration File
+# Documentation: https://coderabbit.ai/docs/using-coderabbit/configuration
+version: "2"
+
+settings:
+  # Language for reviews and chat
+  language: "en-US"
+
+  # Tone of the review
+  tone: "friendly" # options: "objective", "friendly", "assertive"
+
+  # Enable early access to new features
+  early_access: true
+
+reviews:
+  # Enable high-level summary of changes
+  high_level_summary: true
+
+  # Enable detailed walkthrough of changes
+  poem: true # Fun easter egg, but standard is 'walkthrough: true' - using poem for friendly tone :)
+  walkthrough: true
+
+  # Enable auto-review on pull requests
+  auto_review:
+    enabled: true
+    drafts: false # Don't review draft PRs automatically
+
+  # Feedback filter
+  # "standard" - focuses on critical issues and best practices
+  # "strict" - includes nitpicks and style suggestions
+  profile: "standard"
+
+  # Request changes if critical issues are found
+  request_changes_workflow: false
+
+chat:
+  # Enable conversational bot on PRs
+  auto_reply: true
+
+integrations:
+  jira:
+    enabled: false
+  linear:
+    enabled: false

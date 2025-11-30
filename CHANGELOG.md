@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Release workflow documentation and script for this repository
+- CodeRabbit PR Reviews badge to READMEs
 
+### Changed
+- Updated CodeRabbit PR Reviews badge to READMEs
 
 ## [1.3.0] - 2025-11-30
 

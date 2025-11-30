@@ -14,6 +14,19 @@ set -euo pipefail
 
 LANG="${1:-both}"
 
+    # Update CodeRabbit config if it exists
+    if [ -f ".coderabbit.yaml" ]; then
+        if [ "$LANG_CHOICE" == "cs" ]; then
+            sed -i '' 's/language: "en-US"/language: "cs-CZ"/' .coderabbit.yaml
+            echo "  ✓ Updated CodeRabbit language to cs-CZ"
+        elif [ "$LANG_CHOICE" == "en" ]; then
+            sed -i '' 's/language: "cs-CZ"/language: "en-US"/' .coderabbit.yaml
+            echo "  ✓ Updated CodeRabbit language to en-US"
+        fi
+    fi
+
+    echo -e "${GREEN}Done! Language set to: $LANG_CHOICE${NC}"
+
 echo "Setting repository language to: $LANG"
 
 case "$LANG" in
