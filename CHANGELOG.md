@@ -5,14 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.3.4] - 2025-11-30
 
 ### Added
-- Updated `scripts/sync-version.sh` to automatically synchronize version in `package.json`
+- Community section to README.md (EN) with links to Discussions, Issues, Security advisories
+- Komunita section to cs/README.md (CZ)
+- Shared Renovate preset reference (`github>miccy/renovate-config`) in both READMEs
+- `scripts/sync-version.sh` now automatically synchronizes version in `package.json`
 
 ### Fixed
-- Cleaned up `.coderabbit.yaml` configuration
-- Corrected nesting of `tools` and `auto_title_instructions` in `.coderabbit.yaml`
+- Removed duplicate `drafts: false` line in `.coderabbit.yaml`
+- Removed duplicate `[1.0.0]` link in CHANGELOG.md
+- Added missing `[1.3.2]` and `[1.3.3]` links in CHANGELOG.md
+- Removed duplicate comments (`# Config`, `# Parse arguments`, trap comment) in `scripts/detect.sh`
+- Corrected `.coderabbit.yaml` nesting for `tools` and `auto_title_instructions`
 
 ## [1.3.3] - 2025-11-30
 
@@ -149,6 +155,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - IOC database
 - Configuration templates (Renovate, Socket.dev, npm)
 
+[1.3.4]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.3...v1.3.4
+[1.3.3]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.2.0...v1.3.0
