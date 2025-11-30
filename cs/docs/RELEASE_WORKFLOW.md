@@ -1,11 +1,11 @@
 # Release Workflow
 
-Tento dokument popisuje proces vydávání nových verzí projektu **Don't Be Shy Hulud**.
+Tento dokument popisuje proces vydávání nových verzí projektu **Don't Be Shy, Hulud!**.
 
 ## 1. Příprava
 Ujistěte se, že máte:
 - Čistý pracovní adresář (žádné necommitnuté změny).
-- Jste na větvi `main` (nebo `master`).
+- Jste na větvi `dev`.
 - Máte stažené nejnovější změny (`git pull`).
 
 ## 2. Spuštění procesu

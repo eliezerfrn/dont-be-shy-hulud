@@ -5,7 +5,7 @@ This document describes the process of releasing new versions of the **Don't Be 
 ## 1. Preparation
 Ensure that you have:
 - A clean working directory (no uncommitted changes).
-- You are on the `main` (or `master`) branch.
+- You are on the `dev` branch.
 - You have pulled the latest changes (`git pull`).
 
 ## 2. Starting the Process
