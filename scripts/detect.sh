@@ -22,6 +22,7 @@ OUTPUT_FILE=""
 VERBOSE=false
 CI_MODE=false
 SKIP_HASH=false
+GITHUB_CHECK=false
 FOUND_ISSUES=0
 VERSION="1.3.1"
 
@@ -43,6 +44,9 @@ for arg in "$@"; do
             ;;
         --skip-hash)
             SKIP_HASH=true
+            ;;
+        --github-check)
+            GITHUB_CHECK=true
             ;;
         -*)
             # Unknown flag, ignore or handle
@@ -342,16 +346,22 @@ echo "         → Look for repos with description: 'Sha1-Hulud: The Continued C
 echo "         → Look for repos with '-migration' suffix"
 echo "         → Check for unauthorized self-hosted runners named 'SHA1HULUD'"
 
-# If gh CLI is available, offer automated check
-if command -v gh &> /dev/null; then
-    log_info "GitHub CLI detected. Running automated check..."
-    gh_repos=$(gh repo list --json name,description 2>/dev/null | grep -i "hulud" || true)
-    if [[ -n "$gh_repos" ]]; then
-        log_error "Found suspicious repositories on your account!"
-        echo "$gh_repos"
+# If gh CLI is available and user opted in
+if [[ "$GITHUB_CHECK" == true ]]; then
+    if command -v gh &> /dev/null; then
+        log_info "GitHub CLI detected. Running automated check..."
+        gh_repos=$(gh repo list --json name,description 2>/dev/null | grep -i "hulud" || true)
+        if [[ -n "$gh_repos" ]]; then
+            log_error "Found suspicious repositories on your account!"
+            echo "$gh_repos"
+        else
+            log_ok "No suspicious repos found via GitHub CLI"
+        fi
     else
-        log_ok "No suspicious repos found via GitHub CLI"
+        log_warn "GitHub check requested (--github-check) but 'gh' CLI not found."
     fi
+else
+    $VERBOSE && log_info "Skipping GitHub API check (use --github-check to enable)"
 fi
 
 # =============================================================================

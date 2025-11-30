@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- pnpm support steps to `release.yml` workflow
+- `recommended_action` field to IOC timeline
+- `--github-check` flag to `scripts/detect.sh` (opt-in)
+
+### Changed
+- Standardized `affected_versions` in `ioc/malicious-packages.json`
+- Improved editor detection in `scripts/release.sh` (nano, vim, vi)
+
+### Fixed
+- Markdown linting issues in READMEs and documentation
+- Unbound variable in `scripts/check-github-repos.sh`
+- Duplicate step in `release.yml`
+
 ## [1.3.1] - 2025-11-30
 
 ### Added
