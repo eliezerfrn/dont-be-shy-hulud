@@ -26,6 +26,10 @@ VERSION="1.3.1"
 # Parse arguments
 for arg in "$@"; do
     case $arg in
+        --version)
+            echo "$VERSION"
+            exit 0
+            ;;
         --output=*)
             OUTPUT_FILE="${arg#*=}"
             ;;

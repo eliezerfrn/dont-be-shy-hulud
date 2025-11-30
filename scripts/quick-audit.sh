@@ -1,5 +1,10 @@
 #!/bin/bash
 VERSION="1.3.1"
+
+if [[ "$1" == "--version" ]]; then
+    echo "$VERSION"
+    exit 0
+fi
 #
 # quick-audit.sh - Quick security audit for Shai-Hulud 2.0
 # https://github.com/miccy/dont-be-shy-hulud

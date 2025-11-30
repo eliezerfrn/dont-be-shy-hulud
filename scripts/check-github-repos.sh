@@ -1,5 +1,10 @@
 #!/bin/bash
 VERSION="1.3.1"
+
+if [[ "$1" == "--version" ]]; then
+    echo "$VERSION"
+    exit 0
+fi
 #
 # check-github-repos.sh - Check GitHub account for compromise
 # https://github.com/miccy/dont-be-shy-hulud
@@ -51,8 +56,8 @@ FOUND_ISSUES=0
 echo -e "\n${BLUE}[1/6] Searching for Shai-Hulud repos...${NC}"
 
 gh repo list "$USERNAME" --limit 1000 --json name,description,createdAt,visibility 2>/dev/null | \
-    jq -r '.[] | select(.description != null) | 
-    select(.description | test("hulud|Hulud|migration"; "i")) | 
+    jq -r '.[] | select(.description != null) |
+    select(.description | test("hulud|Hulud|migration"; "i")) |
     "\(.name)|\(.description)|\(.createdAt)|\(.visibility)"' > "$REPORT_DIR/hulud-repos.txt" || true
 
 if [ -s "$REPORT_DIR/hulud-repos.txt" ]; then
@@ -81,7 +86,7 @@ else
 fi
 
 gh repo list "$USERNAME" --limit 100 --json name,createdAt,description,visibility 2>/dev/null | \
-    jq -r --arg date "$WEEK_AGO" '.[] | select(.createdAt > $date) | 
+    jq -r --arg date "$WEEK_AGO" '.[] | select(.createdAt > $date) |
     "\(.name)|\(.createdAt)|\(.visibility)|\(.description // "no description")"' > "$REPORT_DIR/recent-repos.txt" || true
 
 if [ -s "$REPORT_DIR/recent-repos.txt" ]; then
@@ -122,11 +127,11 @@ echo -e "\n${BLUE}[4/6] Checking GitHub Actions workflows...${NC}"
 echo "Checking repos with workflows..."
 gh repo list "$USERNAME" --limit 100 --json name 2>/dev/null | \
     jq -r '.[].name' | while read -r repo; do
-    
+
     # Check for existence of discussion.yaml
     WORKFLOWS=$(gh api "/repos/$USERNAME/$repo/contents/.github/workflows" 2>/dev/null | \
         jq -r '.[].name' 2>/dev/null || echo "")
-    
+
     if echo "$WORKFLOWS" | grep -qi "discussion"; then
         echo -e "${RED}🚨 Suspicious workflow in $repo: discussion workflow${NC}"
         FOUND_ISSUES=$((FOUND_ISSUES + 1))
