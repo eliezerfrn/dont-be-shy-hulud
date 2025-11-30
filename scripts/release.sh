@@ -63,13 +63,13 @@ if grep -q "## \[Unreleased\]" CHANGELOG.md; then
     echo -e "${YELLOW}$HEADER${NC}"
 else
     # Insert at line 8
-    sed -i '' "8i\\
+    sed -i.bak "8i\\
 $HEADER\\
 \\
 ### Added\\
 - \\
 \\
-" CHANGELOG.md
+" CHANGELOG.md && rm CHANGELOG.md.bak
 fi
 
 # 7. Open Editor

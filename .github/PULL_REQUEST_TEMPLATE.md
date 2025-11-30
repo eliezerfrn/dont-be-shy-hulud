@@ -3,6 +3,10 @@
 ## Description
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 
+## Changelog
+<!-- CHANGELOG_PLACEHOLDER -->
+
+
 ## Type of change
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)

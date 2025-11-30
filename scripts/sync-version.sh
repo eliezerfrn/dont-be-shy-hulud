@@ -39,19 +39,19 @@ for script in "${SCRIPTS[@]}"; do
         # Check if VERSION var exists
         if grep -q "VERSION=" "$script"; then
             # Update existing VERSION
-            sed -i '' "s/VERSION=\".*\"/VERSION=\"$LATEST_VERSION\"/" "$script"
+            sed -i.bak "s/VERSION=\".*\"/VERSION=\"$LATEST_VERSION\"/" "$script" && rm "$script.bak"
             echo -e "  ✓ Updated $script"
         else
             # Insert VERSION after the header/shebang/config
             # Trying to find a good insertion point.
             # If "Config" section exists, put it there.
             if grep -q "# Config" "$script"; then
-                sed -i '' "/# Config/a\\
-VERSION=\"$LATEST_VERSION\"" "$script"
+                sed -i.bak "/# Config/a\\
+VERSION=\"$LATEST_VERSION\"" "$script" && rm "$script.bak"
             else
                 # Fallback: Insert after shebang
-                sed -i '' "2i\\
-VERSION=\"$LATEST_VERSION\"" "$script"
+                sed -i.bak "2i\\
+VERSION=\"$LATEST_VERSION\"" "$script" && rm "$script.bak"
             fi
             echo -e "  + Added version to $script"
         fi

@@ -17,10 +17,10 @@ LANG="${1:-both}"
 # Update CodeRabbit config if it exists
 if [ -f ".coderabbit.yaml" ]; then
     if [ "$LANG" == "cs" ]; then
-        sed -i '' 's/language: "en-US"/language: "cs-CZ"/' .coderabbit.yaml
+        sed -i.bak 's/language: "en-US"/language: "cs-CZ"/' .coderabbit.yaml && rm .coderabbit.yaml.bak
         echo "  ✓ Updated CodeRabbit language to cs-CZ"
     elif [ "$LANG" == "en" ]; then
-        sed -i '' 's/language: "cs-CZ"/language: "en-US"/' .coderabbit.yaml
+        sed -i.bak 's/language: "cs-CZ"/language: "en-US"/' .coderabbit.yaml && rm .coderabbit.yaml.bak
         echo "  ✓ Updated CodeRabbit language to en-US"
     fi
 fi

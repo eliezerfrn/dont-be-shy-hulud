@@ -1,0 +1,50 @@
+name: Update PR Description with Changelog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  update-pr-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract latest changelog entry
+        id: changelog
+        run: |
+          # Extract the first version section from CHANGELOG.md
+          # This assumes the format "## [Version] - Date"
+          CHANGELOG=$(awk '/^## \[/ { if (p) exit; p=1; print; next } p && !/^## \[/ { print }' CHANGELOG.md)
+
+          # Escape newlines for GitHub Output
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "content<<$EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+
+      - name: Update PR Body
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          CHANGELOG_CONTENT: ${{ steps.changelog.outputs.content }}
+        run: |
+          # Get current body
+          BODY=$(gh pr view $PR_NUMBER --json body --jq .body)
+
+          # Check if placeholder exists
+          if [[ "$BODY" == *"<!-- CHANGELOG_PLACEHOLDER -->"* ]]; then
+            # Replace placeholder with changelog content
+            # We use awk to do the replacement to handle multi-line strings safely
+            NEW_BODY=$(echo "$BODY" | awk -v r="$CHANGELOG_CONTENT" '{gsub("<!-- CHANGELOG_PLACEHOLDER -->", r)}1')
+
+            # Update PR
+            gh pr edit $PR_NUMBER --body "$NEW_BODY"
+          else
+            echo "Placeholder not found in PR body. Skipping update."
+          fi

@@ -10,9 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Release workflow documentation and script for this repository
 - CodeRabbit PR Reviews badge to READMEs
+- Automated changelog injection into Pull Request descriptions
+- New GitHub Action `pr-changelog.yml`
 
 ### Changed
-- Updated CodeRabbit PR Reviews badge to READMEs
+- Updated all repository URLs from `hunting-worms-guide` to `dont-be-shy-hulud`
+
+### Fixed
+- Syntax error in `release.yml` workflow (nested mapping issue)
 
 ## [1.3.0] - 2025-11-30
 
