@@ -248,6 +248,18 @@ Praktický příklad analýzy 78 alertů ze Socket.dev:
 | [`socket.yml`](../configs/socket.yml) | Socket.dev konfigurace |
 | [`.npmrc-secure`](../configs/.npmrc-secure) | Bezpečná .npmrc template |
 
+**👉 Pro sdílený preset použitelný ve všech repozitářích viz [miccy/renovate-config](https://github.com/miccy/renovate-config)**:
+
+```json
+{ "extends": ["github>miccy/renovate-config"] }
+```
+
+Tento sdílený preset obsahuje:
+- 7-denní `stabilityDays` a `minimumReleaseAge`
+- `npm:unpublishSafe` ochrana
+- Varování na Shai-Hulud postižené balíčky
+- Žádný automerge pro produkční závislosti
+
 ## 📊 IOC databáze
 
 Aktualizované seznamy IOC (Indicators of Compromise):

@@ -333,6 +333,18 @@ See [configs/renovate-secure.json](configs/renovate-secure.json) for a hardened 
 - Requires security review labels
 - Blocks preinstall/postinstall changes
 
+**👉 For a shared preset you can use across all repos, see [miccy/renovate-config](https://github.com/miccy/renovate-config)**:
+
+```json
+{ "extends": ["github>miccy/renovate-config"] }
+```
+
+This shared preset includes:
+- 7-day `stabilityDays` and `minimumReleaseAge`
+- `npm:unpublishSafe` protection
+- Warnings on Shai-Hulud affected packages
+- No automerge for production dependencies
+
 ### GitHub Settings
 
 See [docs/GITHUB-HARDENING.md](docs/GITHUB-HARDENING.md) for:
