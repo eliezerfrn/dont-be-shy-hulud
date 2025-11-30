@@ -12,17 +12,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `recommended_action` field to IOC timeline
 - `--github-check` flag to `scripts/detect.sh` (opt-in)
 - Fallback `results.txt` generation in `scripts/detect.sh` to ensure artifact upload
+- Standardized project structure with `package.json` and `pnpm-lock.yaml` for tooling support
+- Automated detection script documentation in `docs/DETECTION.md` and `cs/docs/DETECTION.md`
 
 ### Changed
 - Standardized `affected_versions` in `ioc/malicious-packages.json`
 - Improved editor detection in `scripts/release.sh` (nano, vim, vi)
 - Refined `scripts/detect.sh` to exclude documentation and IOC files from self-detection (False Positives)
+- Improved `release.yml` version extraction with error handling
+- Fixed `detect.sh` argument parsing to support space-separated flags (e.g., `--output results.txt`)
 
 ### Fixed
 - Markdown linting issues in READMEs and documentation
 - Unbound variable in `scripts/check-github-repos.sh`
 - Duplicate step in `release.yml`
 - False positives in `scripts/detect.sh` where the script detected its own patterns in documentation
+- CodeRabbit configuration errors in `.coderabbit.yaml`
 
 ## [1.3.1] - 2025-11-30
 
