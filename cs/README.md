@@ -80,6 +80,7 @@ chmod +x scripts/*.sh
 ## 📋 Obsah
 
 - [Přehled hrozby](#-přehled-hrozby)
+- [Roadmapa](#-roadmapa)
 - [Detekce](#-detekce)
 - [Remediation](#-remediation)
 - [Prevence](#-prevence)
@@ -96,7 +97,7 @@ chmod +x scripts/*.sh
 | Vlastnost | Hodnota |
 |-----------|---------|
 | **Typ** | Self-propagating npm worm |
-| **Kompromitované packages** | 796+ unique, 1092+ versions |
+| **Kompromitované packages** | 800+ unique, 1092+ versions |
 | **Zasažené GitHub repos** | 25,000+ |
 | **Weekly downloads zasažených** | 20+ milionů |
 | **Peak propagace** | 1,000 nových repos každých 30 minut |
@@ -275,14 +276,26 @@ Aktualizované seznamy IOC (Indicators of Compromise):
 - [SafeDep Response](https://github.com/safedep/shai-hulud-migration-response)
 - [Wiz IOC CSV](https://github.com/wiz-sec-public/wiz-research-iocs)
 
+## 🗺️ Roadmapa
+
+Tento projekt je v aktivním vývoji. Viz podrobná **[ROADMAP.md](ROADMAP.md)** pro:
+
+- ✅ Dokončené funkce
+- 🚧 Rozpracované
+- 📋 Plánované vylepšení
+- 🤝 Příležitosti k přispění
+
+Chcete pomoci? Vyberte si jakoukoliv nezaškrtnutou položku z roadmapy a pošlete PR!
+
 ## 🤝 Contributing
 
-PRs jsou vítány! Zejména:
-- Nové detekční scripty
-- Aktualizace IOC
-- Dokumentace pro specifické platformy
-- Překlady
-- CI/CD integrace
+PRs jsou vítány! Viz [ROADMAP.md](ROADMAP.md) pro priority:
+
+- [ ] SIGSTOP suspend script (kritické pro bezpečnou manipulaci s malwarem)
+- [ ] Rozšířená IOC databáze (800+ balíčků)
+- [ ] Stack-specific dokumentace (Expo, Bun, Tauri)
+- [ ] Network IOCs a file hashes
+- [ ] SARIF výstupní formát
 
 ## 🛠️ Správa repozitáře
 

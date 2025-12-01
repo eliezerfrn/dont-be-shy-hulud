@@ -81,6 +81,7 @@ chmod +x scripts/detect.sh
 
 - [What is Shai-Hulud 2.0?](#what-is-shai-hulud-20)
 - [Am I Affected?](#am-i-affected)
+- [Roadmap](#roadmap)
 - [Immediate Actions](#immediate-actions)
 - [Detection Scripts](#detection-scripts)
 - [Remediation Guide](#remediation-guide)
@@ -105,7 +106,7 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 | Nov 24, 2025 04:11 UTC | PostHog packages compromised | PostHog |
 | Nov 24, 2025 05:09 UTC | Postman packages compromised | Postman |
 | Nov 24, 2025 | Peak: **1,000 new repos every 30 minutes** | Datadog |
-| Nov 25, 2025 | **796 packages**, 25,000+ repos, **20M+ weekly downloads** | Wiz |
+| Nov 25, 2025 | **800+ packages**, 25,000+ repos, **1,200+ orgs**, **20M+ weekly downloads** | Wiz, Check Point |
 | Nov 25, 2025 | Secondary phase detected ("Continued Coming") | Wiz |
 | Nov 26, 2025 | GitHub reduces public malicious repos to ~300 | GitHub |
 | **Dec 9, 2025** | **npm legacy token revocation deadline** | npm |
@@ -119,7 +120,7 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 | Runtime | Node.js | Bun |
 | Fallback | None | Dead-man switch (wipe data) |
 | Persistence | None | GitHub Actions backdoor |
-| Propagation | ~500 packages | **796 packages** (20M+ downloads) |
+| Propagation | ~500 packages | **800+ packages** (20M+ downloads) |
 
 ### How It Works
 
@@ -427,17 +428,28 @@ Have questions, found new IOCs, or want to share your experience?
 - **[Report Security Issue](https://github.com/miccy/dont-be-shy-hulud/security/advisories/new)** — For sensitive security reports
 - **[Open an Issue](https://github.com/miccy/dont-be-shy-hulud/issues)** — Bug reports and feature requests
 
+## Roadmap
+
+This project is under active development. See our detailed **[ROADMAP.md](ROADMAP.md)** for:
+
+- ✅ Completed features
+- 🚧 Work in progress
+- 📋 Planned improvements
+- 🤝 Contribution opportunities
+
+Want to help? Pick any unchecked item from the roadmap and submit a PR!
+
 ## Contributing
 
 Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
 
-### Priority Areas
+### Priority Areas (see [ROADMAP.md](ROADMAP.md) for details)
 
-- [ ] Additional IOCs
-- [ ] Detection improvements
-- [ ] Language translations
-- [ ] CI/CD integrations
-- [ ] Tool configurations
+- [ ] SIGSTOP suspend script (critical for safe malware handling)
+- [ ] Expanded IOC database (800+ packages)
+- [ ] Stack-specific documentation (Expo, Bun, Tauri)
+- [ ] Network IOCs and file hashes
+- [ ] SARIF output format
 
 ## 🛠️ Repository Maintenance
 

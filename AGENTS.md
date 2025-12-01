@@ -22,17 +22,46 @@ This repository provides:
 - Security teams
 - Organizations using npm/bun ecosystem
 
+### Current Status
+
+**Version**: 1.5.0 (in development)  
+**Roadmap**: See [ROADMAP.md](ROADMAP.md) for detailed progress tracking
+
+**Key Metrics (as of 2025-12-01):**
+- 800+ compromised npm packages
+- 25,000+ affected GitHub repositories
+- 1,200+ impacted organizations
+- 20M+ weekly downloads affected
+
+### Multi-Model Security Audit
+
+This project has been audited by multiple AI models for comprehensive security analysis:
+- **Claude Opus 4.5** (Deep Research + Repo Audit + Roadmap Synthesis)
+- GPT-5.1-Pro (Deep Research + Repo Audit)
+- Grok-4.1 (Deep Research + 2× Repo Audit)
+- Perplexity (Deep Research + Repo Audit)
+- Proton-Lumo (Deep Research + Repo Audit)
+- Gemini-3-Pro (Audit + Deep Research + Review Roadmap)
+
+Audit findings are stored in `.agents/research/` and have been synthesized into the [ROADMAP.md](ROADMAP.md).
+
 ## Repository Structure
 
 ```
 dont-be-shy-hulud/
-├── docs/
-│   ├── en/          # English documentation
-│   └── cs/          # Czech documentation
-├── scripts/         # Detection and audit scripts
-├── configs/         # Security configuration templates
-├── ioc/             #Indicators of Compromise databases
-└── .agents/         # AI assistant tools and workflows
+├── docs/                # English documentation
+├── cs/                  # Czech documentation (translations)
+│   ├── docs/            # Czech docs
+│   └── README.md        # Czech README
+├── scripts/             # Detection and audit scripts
+├── configs/             # Security configuration templates
+├── ioc/                 # Indicators of Compromise databases
+├── .agents/             # AI assistant tools and workflows
+│   ├── research/        # Multi-model audit findings
+│   └── skills/          # MCP skills for AI assistants
+├── ROADMAP.md           # Detailed project roadmap with checkboxes
+├── CHANGELOG.md         # Version history
+└── README.md            # Main documentation
 ```
 
 ## Language Support
@@ -115,10 +144,12 @@ Primary tools referenced:
 When making changes, prioritize in this order:
 
 1. ✅ **Critical security updates** (new IOCs, vulnerability fixes)
-2. ✅ **Broken functionality** (scripts, links)
-3. ✅ **Documentation accuracy** (outdated info)
-4. ⚠️ **Enhancements** (new features, refactoring)
-5. ℹ️ **Style/formatting** (cosmetic changes)
+2. ✅ **Roadmap P0 items** (SIGSTOP script, IOC expansion, network IOCs)
+3. ✅ **Broken functionality** (scripts, links)
+4. ✅ **Documentation accuracy** (outdated info)
+5. ⚠️ **Roadmap P1 items** (stack-specific docs, automation)
+6. ⚠️ **Enhancements** (new features, refactoring)
+7. ℹ️ **Style/formatting** (cosmetic changes)
 
 ### Forbidden Actions
 
@@ -133,10 +164,21 @@ When making changes, prioritize in this order:
 
 #### Adding a New IOC
 
-1. Verify IOC from official source
+1. Verify IOC from official source (Datadog, Wiz, Tenable, SafeDep)
 2. Add to `ioc/malicious-packages.json`
-3. Update documentation if needed
-4. Commit with message: `feat(ioc): add [package-name] IOC`
+3. Include: package name, affected versions, risk level, source URL
+4. Update documentation if needed
+5. Update CHANGELOG.md
+6. Commit with message: `feat(ioc): add [package-name] IOC`
+
+#### Implementing Roadmap Items
+
+1. Check [ROADMAP.md](ROADMAP.md) for unchecked items
+2. Create feature branch
+3. Implement with tests where applicable
+4. Update ROADMAP.md checkbox to `[x]`
+5. Update CHANGELOG.md
+6. Submit PR referencing roadmap item
 
 #### Updating Documentation
 
@@ -153,12 +195,39 @@ When making changes, prioritize in this order:
 4. Document in appropriate guide (DETECTION.md)
 5. Update CHANGELOG.md
 
+## Critical Security Context
+
+### Dead Man's Switch Warning
+
+> ⚠️ **CRITICAL**: Shai-Hulud 2.0 contains a destructive "dead man's switch". If the malware cannot exfiltrate data, it will **WIPE THE ENTIRE $HOME DIRECTORY**.
+
+**Safe handling procedures:**
+1. Use `SIGSTOP` (not `SIGKILL`) to freeze malicious processes
+2. Create snapshots/backups BEFORE any remediation
+3. Do NOT disconnect network until process is frozen
+4. See `suspend-malware.sh` script (in development)
+
+### Key Attack Characteristics
+
+- **Execution**: `preinstall` phase (not postinstall)
+- **Runtime**: Bun (evades Node.js monitoring)
+- **Payload files**: `setup_bun.js`, `bun_environment.js`
+- **Exfil method**: Public GitHub repos with description "Sha1-Hulud: The Second Coming"
+- **Persistence**: GitHub Actions backdoor via `discussion.yaml`
+- **C2 domains**: `shaihulud-c2.io`, `shai-hulud.net`
+
 ## Skills and Tools
 
 Located in `.agents/skills/`:
 
 - `shai-hulud-detector.json` - Detection automation
 - `shai-hulud-remediation.json` - Remediation workflows
+
+Research findings in `.agents/research/`:
+
+- Multi-model audit reports (GPT, Grok, Perplexity, Lumo, Gemini)
+- `Gemini-3-Pro-suspend_process.sh` - SIGSTOP-based process suspension
+- `Gemini-3-Pro-renovate_defense.md` - Anti-worm Renovate config
 
 See `.agents/README.md` for usage instructions.
 
@@ -179,7 +248,7 @@ See `.agents/README.md` for usage instructions.
 - **Repository**: https://github.com/miccy/dont-be-shy-hulud
 - **License**: MIT
 - **Maintainer**: @miccy
-- **Status**: Active development (preparing for public release)
+- **Status**: Active development (public release, seeking contributors)
 
 ---
 

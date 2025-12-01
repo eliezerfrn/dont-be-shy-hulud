@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **ROADMAP.md** - Comprehensive project roadmap with nested checkboxes based on multi-model AI security audits (Claude Opus 4.5, GPT-5.1-Pro, Grok-4.1, Perplexity, Proton-Lumo, Gemini-3-Pro)
+- **cs/ROADMAP.md** - Czech translation of the roadmap
+- Roadmap section in README.md (EN) with link to ROADMAP.md
+- Roadmapa section in cs/README.md (CZ) with link to ROADMAP.md
+- Multi-model security audit documentation in AGENTS.md
+- Critical security context section in AGENTS.md (Dead Man's Switch warning, attack characteristics)
+- Research findings reference in AGENTS.md (`.agents/research/` directory)
+
+### Changed
+- Updated attack metrics: 796 → 800+ packages, added 1,200+ organizations impacted
+- Updated Contributing/Priority Areas section in both READMEs to reference ROADMAP.md
+- Updated repository structure in AGENTS.md to reflect current layout
+- Updated task priorities in AGENTS.md to include roadmap items
+- Updated project status in AGENTS.md to "public release, seeking contributors"
+
 ## [1.4.1] - 2025-12-01
 
 ### Fixed
