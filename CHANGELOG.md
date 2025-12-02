@@ -15,6 +15,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-model security audit documentation in AGENTS.md
 - Critical security context section in AGENTS.md (Dead Man's Switch warning, attack characteristics)
 - Research findings reference in AGENTS.md (`.agents/research/` directory)
+- **scripts/suspend-malware.sh** - Safe process suspension using SIGSTOP (prevents wiper trigger)
+  - Auto-detection of malicious processes by known signatures
+  - `--dry-run` mode for safe testing
+  - `--resume` mode to unfreeze processes after backup
+  - State file tracking of suspended PIDs
+  - Interactive and auto modes
+- **ioc/network.json** - Network Indicators of Compromise
+  - C2 domain monitoring (suspected domains)
+  - Exfiltration webhook patterns (webhook.site, pipedream, requestbin)
+  - GitHub API abuse patterns and endpoints
+  - Cloud metadata service abuse detection (169.254.169.254)
+  - Firewall rule recommendations for CI/CD
+  - SIEM/IDS detection queries
+- **`.github/workflows/socket-security.yml`** - Socket.dev GitHub Actions integration
+- **`socket.yml`** - Root-level Socket.dev configuration for GitHub App
 
 ### Changed
 - Updated attack metrics: 796 → 800+ packages, added 1,200+ organizations impacted
@@ -22,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated repository structure in AGENTS.md to reflect current layout
 - Updated task priorities in AGENTS.md to include roadmap items
 - Updated project status in AGENTS.md to "public release, seeking contributors"
+- **ioc/malicious-packages.json** - Updated statistics with credential exfiltration counts (775+ GitHub, 373+ AWS, 300+ GCP, 115+ Azure)
+- Updated ROADMAP progress: Core Detection 70%→75%, IOC Database 30%→45%
 
 ## [1.4.1] - 2025-12-01
 

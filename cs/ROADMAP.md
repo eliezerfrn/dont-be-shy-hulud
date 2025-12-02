@@ -14,8 +14,8 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 | Kategorie | Pokrok | Priorita |
 |----------|----------|----------|
-| [Jádro detekce](#-jádro-detekce) | 🟡 70% | P0 |
-| [IOC databáze](#-ioc-databáze) | 🔴 30% | P0 |
+| [Jádro detekce](#-jádro-detekce) | 🟡 75% | P0 |
+| [IOC databáze](#-ioc-databáze) | 🟡 45% | P0 |
 | [Dokumentace](#-dokumentace) | 🟡 60% | P1 |
 | [Automatizace & CI/CD](#-automatizace--cicd) | 🟡 50% | P1 |
 | [Nástroje](#-nástroje) | 🔴 20% | P2 |
@@ -47,14 +47,17 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [ ] Detekce self-hosted runnerů (`SHA1HULUD`)
   - [ ] Detekce injection do workflow
 
-- [ ] **`suspend-malware.sh`** - Bezpečné pozastavení procesu (P0 - Kritické)
+- [x] **`suspend-malware.sh`** - Bezpečné pozastavení procesu (P0 - Kritické) ✅ Přidáno v v1.5.0
   ```bash
   # Používá SIGSTOP místo SIGKILL k prevenci aktivace wiperu
   kill -STOP $PID  # Zmrazit, ne zabít!
   ```
-  - [ ] Automatická detekce škodlivých procesů
+  - [x] Automatická detekce škodlivých procesů
   - [ ] Vytvoření memory dumpu před pozastavením
-  - [ ] Pokyny pro síťovou izolaci
+  - [x] Pokyny pro síťovou izolaci (v dokumentaci)
+  - [x] `--dry-run` mód
+  - [x] `--resume` mód pro odmrazení
+  - [x] State file tracking
 
 - [ ] **`gh-scan-exfil.sh`** - GitHub API skener pro exfiltrační repozitáře
   - [ ] Vyhledávání repozitářů podle vzoru popisu (`Sha1-Hulud: The Second Coming`)
@@ -70,9 +73,13 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [ ] Známé hashe `setup_bun.js`
   - [ ] Známé hashe `bun_environment.js`
   - [ ] v1 hashe `bundle.js` (7 variant)
-- [ ] **Detekce síťových IOC**
-  - [ ] Monitoring C2 domén
-  - [ ] Upozornění na podezřelá odchozí připojení
+- [x] **Detekce síťových IOC** ✅ Přidáno `ioc/network.json` v v1.5.0
+  - [x] Monitoring C2 domén
+  - [x] Vzory exfiltračních webhooků
+  - [x] Vzory zneužití GitHub API
+  - [x] Detekce zneužití cloud metadata
+  - [x] Doporučení pro firewall pravidla
+  - [ ] Upozornění na podezřelá odchozí připojení (real-time)
 - [ ] **Behaviorální analýza**
   - [ ] Detekce neočekávané instalace Bun
   - [ ] Detekce stahování TruffleHog

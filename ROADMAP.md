@@ -14,8 +14,8 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 | Category | Progress | Priority |
 |----------|----------|----------|
-| [Core Detection](#-core-detection) | 🟡 70% | P0 |
-| [IOC Database](#-ioc-database) | 🔴 30% | P0 |
+| [Core Detection](#-core-detection) | 🟡 75% | P0 |
+| [IOC Database](#-ioc-database) | 🟡 45% | P0 |
 | [Documentation](#-documentation) | 🟡 60% | P1 |
 | [Automation & CI/CD](#-automation--cicd) | 🟡 50% | P1 |
 | [Tooling](#-tooling) | 🔴 20% | P2 |
@@ -47,14 +47,17 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [ ] Self-hosted runner detection (`SHA1HULUD`)
   - [ ] Workflow injection detection
 
-- [ ] **`suspend-malware.sh`** - Safe process suspension (P0 - Critical)
+- [x] **`suspend-malware.sh`** - Safe process suspension (P0 - Critical) ✅ Added in v1.5.0
   ```bash
   # Uses SIGSTOP instead of SIGKILL to prevent wiper activation
   kill -STOP $PID  # Freeze, don't kill!
   ```
-  - [ ] Auto-detect malicious processes
+  - [x] Auto-detect malicious processes
   - [ ] Create memory dump before suspension
-  - [ ] Network isolation guidance
+  - [x] Network isolation guidance (in docs)
+  - [x] `--dry-run` mode
+  - [x] `--resume` mode to unfreeze
+  - [x] State file tracking
 
 - [ ] **`gh-scan-exfil.sh`** - GitHub API scanner for exfiltration repos
   - [ ] Search repos by description pattern (`Sha1-Hulud: The Second Coming`)
@@ -70,9 +73,13 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [ ] `setup_bun.js` known hashes
   - [ ] `bun_environment.js` known hashes
   - [ ] `bundle.js` v1 hashes (7 variants)
-- [ ] **Network IOC detection**
-  - [ ] C2 domain monitoring
-  - [ ] Suspicious outbound connection alerts
+- [x] **Network IOC detection** ✅ Added `ioc/network.json` in v1.5.0
+  - [x] C2 domain monitoring
+  - [x] Exfiltration webhook patterns
+  - [x] GitHub API abuse patterns
+  - [x] Cloud metadata abuse detection
+  - [x] Firewall rule recommendations
+  - [ ] Suspicious outbound connection alerts (real-time)
 - [ ] **Behavioral analysis**
   - [ ] Unexpected Bun installation detection
   - [ ] TruffleHog download detection

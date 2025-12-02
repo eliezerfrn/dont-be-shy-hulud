@@ -1,7 +1,7 @@
 {
   "meta": {
     "description": "Indicators of Compromise (IOCs) for Shai-Hulud 2.0 npm worm",
-    "last_updated": "2025-11-30",
+    "last_updated": "2025-12-01",
     "update_frequency": "Daily during active incidents",
     "sources": [
       "https://github.com/DataDog/indicators-of-compromise/tree/main/shai-hulud-2.0",
@@ -13,10 +13,18 @@
     ],
     "note": "This list is regularly updated from vendor sources. Always cross-reference with official vendor IOC lists for the most current data.",
     "statistics": {
-      "packages_compromised": 796,
+      "packages_compromised": "800+",
+      "versions_affected": "1092+",
+      "organizations_impacted": "1200+",
       "weekly_downloads_affected": "20M+",
       "github_repos_created": "25,000+",
-      "peak_propagation_rate": "1,000 new repos every 30 minutes"
+      "peak_propagation_rate": "1,000 new repos every 30 minutes",
+      "credentials_exfiltrated": {
+        "github_tokens": "775+",
+        "aws_credentials": "373+",
+        "gcp_credentials": "300+",
+        "azure_credentials": "115+"
+      }
     }
   },
   "high_risk_packages": {

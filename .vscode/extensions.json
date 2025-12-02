@@ -1,9 +1,7 @@
 {
     "recommendations": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
         "tamasfe.even-better-toml",
         "foxundermoon.shell-format",
-        "streetsidesoftware.code-spell-checker"
+        "SocketSecurity.vscode-socket-security"
     ]
 }
