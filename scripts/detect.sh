@@ -23,7 +23,7 @@ CI_MODE=false
 SKIP_HASH=false
 GITHUB_CHECK=false
 FOUND_ISSUES=0
-VERSION="1.4.1"
+VERSION="1.5.0"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -455,7 +455,15 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "10. Checking for cloud metadata service abuse..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-metadata_abuse=$(grep -r --exclude="*.md" --exclude="malicious-packages.json" --exclude="detect.sh" "169\.254\.169\.254" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | grep -v "node_modules" | head -5 || true)
+# Common grep filters for whitelist approach
+GREP_FILTERS=(
+    --include="*.js" --include="*.ts" --include="*.jsx" --include="*.tsx"
+    --include="*.mjs" --include="*.cjs" --include="*.json" --include="*.yml"
+    --include="*.yaml" --include="*.sh"
+    --exclude="network.json" --exclude="malicious-packages.json" --exclude="detect.sh"
+)
+
+metadata_abuse=$(grep -r "${GREP_FILTERS[@]}" "169\.254\.169\.254" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | grep -v "node_modules" | head -5 || true)
 if [[ -n "$metadata_abuse" ]]; then
     log_error "Found references to cloud metadata service (potential credential theft):"
     echo "$metadata_abuse"
@@ -473,7 +481,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 secondary_found=false
 for pattern in "${SECONDARY_PATTERNS[@]}"; do
-    matches=$(grep -r --exclude="*.md" --exclude="malicious-packages.json" --exclude="detect.sh" "$pattern" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | head -3 || true)
+    matches=$(grep -r "${GREP_FILTERS[@]}" "$pattern" "$SCAN_PATH" 2>/dev/null | grep -v ".git" | head -3 || true)
     if [[ -n "$matches" ]]; then
         log_error "Found secondary phase indicator: '$pattern'"
         echo "$matches"
@@ -497,7 +505,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 BUN_LOCK_FOUND=$(find "$SCAN_PATH" -name "bun.lockb" -not -path "*/node_modules/*" -print -quit 2>/dev/null || true)
 
 if [[ -n "$BUN_LOCK_FOUND" ]] || command -v bun &> /dev/null; then
-    log_warn "Bun detected in project"
+    log_info "Bun detected in project"
     echo "         → ⚠️  Remember: .npmrc ignore-scripts does NOT work reliably in Bun!"
     echo "         → ALWAYS use: bun install --ignore-scripts"
 

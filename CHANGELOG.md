@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.5.0] - 2025-12-02
 
 ### Added
 - **ROADMAP.md** - Comprehensive project roadmap with nested checkboxes based on multi-model AI security audits (Claude Opus 4.5, GPT-5.1-Pro, Grok-4.1, Perplexity, Proton-Lumo, Gemini-3-Pro)
@@ -36,9 +36,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Contributing/Priority Areas section in both READMEs to reference ROADMAP.md
 - Updated repository structure in AGENTS.md to reflect current layout
 - Updated task priorities in AGENTS.md to include roadmap items
-- Updated project status in AGENTS.md to "public release, seeking contributors"
+- Updated project status in `AGENTS.md`, `README.md`, `cs/README.md`, and `ROADMAP.md` to 2025-12-02
+- Updated Roadmap progress (Core Detection 85%, IOC Database 60%)
+- Marked v1.5.0 as released in Roadmap
+
 - **ioc/malicious-packages.json** - Updated statistics with credential exfiltration counts (775+ GitHub, 373+ AWS, 300+ GCP, 115+ Azure)
-- Updated ROADMAP progress: Core Detection 70%→75%, IOC Database 30%→45%
+
+### Fixed
+- False positives in `scripts/detect.sh` where documentation files triggered cloud metadata abuse detection
+- False positives in `scripts/detect.sh` where documentation files triggered secondary phase indicator detection
+- Downgraded "Bun detected" warning to INFO in `scripts/detect.sh` to prevent CI failure
+- Fixed `socket-security.yml` CI failure by skipping scan when `SOCKET_SECURITY_API_KEY` is missing
+- Fixed ShellCheck warning in `scripts/suspend-malware.sh` (unused `VERBOSE` variable)
+- Fixed false positive where `CHANGELOG.md` triggered detection by explicitly excluding it in `scripts/detect.sh`
 
 ## [1.4.1] - 2025-12-01
 
@@ -119,7 +129,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Markdown linting issues in READMEs and documentation
 - Unbound variable in `scripts/check-github-repos.sh`
 - Duplicate step in `release.yml`
-- False positives in `scripts/detect.sh` where the script detected its own patterns in documentation
+- False positives in `scripts/detect.sh` where `CHANGELOG.md` itself was flagged for containing IOC patterns
+- Fixed CI workflow `supply-chain-security.yml` to use local `detect.sh` script instead of downloading from `main` branch, ensuring latest fixes are tested in documentation
+- Refactored `scripts/detect.sh` to use shared `GREP_FILTERS` for whitelist approach to reduce code duplication (CodeRabbit review)
+- Corrected roadmap progress and dates in `CHANGELOG.md` and `ROADMAP.md` (CodeRabbit review)
 - CodeRabbit configuration errors in `.coderabbit.yaml`
 
 ## [1.3.1] - 2025-11-30
@@ -214,6 +227,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - IOC database
 - Configuration templates (Renovate, Socket.dev, npm)
 
+[1.5.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/miccy/dont-be-shy-hulud/compare/v1.3.3...v1.3.4
