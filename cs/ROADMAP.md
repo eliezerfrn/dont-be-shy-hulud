@@ -1,7 +1,7 @@
 # 🗺️ Roadmapa projektu
 
-> **Stav:** Aktivní vývoj  
-> **Poslední aktualizace:** 2025-12-01  
+> **Stav:** Aktivní vývoj
+> **Poslední aktualizace:** 2025-12-01
 > **Maintainer:** [@miccy](https://github.com/miccy)
 
 Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI modelů (Claude Opus 4.5, GPT-5.1-Pro, Grok-4.1, Perplexity, Proton-Lumo, Gemini-3-Pro) a zpětné vazbě komunity. Jsme transparentní ohledně toho, co je hotové a co ještě potřebuje práci.
@@ -305,10 +305,10 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 ### Vylepšení CLI
 
-- [ ] **npx podpora** - `npx dont-be-shy-hulud scan .`
-  - [ ] `bin/cli.js` entry point
-  - [ ] `package.json` bin pole
-  - [ ] Cross-platform kompatibilita
+- [x] **npx podpora** - `npx hulud scan .`
+  - [x] `bin/cli.js` entry point
+  - [x] `package.json` bin pole
+  - [x] Cross-platform kompatibilita
 
 - [ ] **Interaktivní mód** - Průvodce remediací
   - [ ] Step-by-step wizard

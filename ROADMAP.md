@@ -305,10 +305,10 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 ### CLI Improvements
 
-- [ ] **npx support** - `npx dont-be-shy-hulud scan .`
-  - [ ] `bin/cli.js` entry point
-  - [ ] `package.json` bin field
-  - [ ] Cross-platform compatibility
+- [x] **npx support** - `npx hulud scan .`
+  - [x] `bin/cli.js` entry point
+  - [x] `package.json` bin field
+  - [x] Cross-platform compatibility
 
 - [ ] **Interactive mode** - Guided remediation
   - [ ] Step-by-step wizard

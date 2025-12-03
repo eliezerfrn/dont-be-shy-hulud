@@ -5,6 +5,7 @@
 > **Incident Response & Protection Guide for npm Supply Chain Attacks**
 > Defense guide for detection & remediation against npm supply-chain worms | Shai-Hulud 2.0 (November 2025) and future threats
 
+[![npm version](https://img.shields.io/npm/v/dont-be-shy-hulud?color=cb3837&logo=npm)](https://www.npmjs.com/package/dont-be-shy-hulud)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/miccy/dont-be-shy-hulud?include_prereleases&label=Release)](https://github.com/miccy/dont-be-shy-hulud/releases)
 [![GitHub Stars](https://img.shields.io/github/stars/miccy/dont-be-shy-hulud?style=social)](https://github.com/miccy/dont-be-shy-hulud)
@@ -68,12 +69,32 @@ npm token list
 If you suspect you're compromised, run this immediately:
 
 ```bash
-# Clone this repo
+# One-liner — no installation needed
+npx hulud
+```
+
+Or scan a specific directory:
+
+```bash
+npx hulud scan /path/to/your/project
+```
+
+### CLI Commands
+
+```bash
+npx hulud              # Scan current directory
+npx hulud scan .       # Same as above
+npx hulud check        # Quick check
+npx hulud suspend      # Safely freeze malicious processes (SIGSTOP)
+npx hulud info         # Show attack info and IOCs
+npx hulud --help       # Show all options
+```
+
+### Alternative: Clone and Run
+
+```bash
 git clone https://github.com/miccy/dont-be-shy-hulud.git
 cd dont-be-shy-hulud
-
-# Run the detector
-chmod +x scripts/detect.sh
 ./scripts/detect.sh /path/to/your/project
 ```
 

@@ -1,7 +1,11 @@
 {
   "name": "dont-be-shy-hulud",
-  "version": "1.5.0",
-  "description": "Shai-Hulud 2.0 Detection and Remediation",
+  "version": "1.5.1",
+  "description": "🪱 npm supply chain attack detection toolkit — Shai-Hulud 2.0 detection, defense & remediation",
+  "type": "module",
+  "bin": {
+    "hulud": "./bin/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "./scripts/release.sh",
@@ -10,19 +14,47 @@
     "audit:quick": "./scripts/quick-audit.sh",
     "harden": "./scripts/harden-npm.sh",
     "lang": "./scripts/set-language.sh",
-    "check:repos": "./scripts/check-github-repos.sh"
+    "check:repos": "./scripts/check-github-repos.sh",
+    "cli": "node bin/cli.js"
   },
   "keywords": [
     "security",
+    "npm",
+    "supply-chain",
     "detection",
+    "malware",
     "shai-hulud",
-    "malware"
+    "worm",
+    "cybersecurity",
+    "ioc",
+    "remediation",
+    "defense",
+    "hardening",
+    "audit",
+    "scanner"
   ],
-  "author": "Miccy",
+  "author": "Miccy <miccy@miccy.dev>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miccy/dont-be-shy-hulud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/miccy/dont-be-shy-hulud/issues"
+  },
+  "homepage": "https://github.com/miccy/dont-be-shy-hulud#readme",
+  "files": [
+    "bin/",
+    "scripts/",
+    "ioc/",
+    "configs/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
   "devDependencies": {},
   "packageManager": "pnpm@10.24.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   }
 }

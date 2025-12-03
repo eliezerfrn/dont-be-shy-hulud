@@ -5,6 +5,7 @@
 > **Praktický průvodce detekcí a ochranou proti npm supply-chain útokům**
 > Zaměřeno na Shai-Hulud 2.0 (listopad 2025) a podobné hrozby
 
+[![npm version](https://img.shields.io/npm/v/dont-be-shy-hulud?color=cb3837&logo=npm)](https://www.npmjs.com/package/dont-be-shy-hulud)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/miccy/dont-be-shy-hulud?include_prereleases&label=Release)](https://github.com/miccy/dont-be-shy-hulud/releases)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](../CONTRIBUTING.md)
@@ -65,16 +66,33 @@ npm token list
 ## ⚡ TL;DR – Co dělat HNED
 
 ```bash
-# 1. Stáhni tento repo
+# Jednoduchý příkaz — nic nemusíš instalovat
+npx hulud
+```
+
+Nebo skenuj konkrétní adresář:
+
+```bash
+npx hulud scan /cesta/k/projektu
+```
+
+### CLI příkazy
+
+```bash
+npx hulud              # Skenuj aktuální adresář
+npx hulud scan .       # Totéž
+npx hulud check        # Rychlá kontrola
+npx hulud suspend      # Bezpečně zmraz škodlivé procesy (SIGSTOP)
+npx hulud info         # Zobraz info o útoku a IOCs
+npx hulud --help       # Nápověda
+```
+
+### Alternativa: Klon a spuštění
+
+```bash
 git clone https://github.com/miccy/dont-be-shy-hulud.git
 cd dont-be-shy-hulud
-
-# 2. Spusť rychlý audit (macOS/Linux)
-chmod +x scripts/*.sh
-./scripts/quick-audit.sh
-
-# 3. Pokud jsi kompromitovaný, rotuj VŠECHNY credentials
-./scripts/rotate-credentials.sh --help
+./scripts/detect.sh /cesta/k/projektu
 ```
 
 ## 📋 Obsah

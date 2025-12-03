@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **CLI tool** — `npx hulud` for easy scanning (primary command)
+  - `scan [path]` — Scan directory for IOCs (default command)
+  - `check` — Quick check of current project
+  - `suspend` — Safely suspend malicious processes with SIGSTOP
+  - `info` — Show attack information and known IOCs
+  - `--verbose`, `--json`, `--output` flags
+  - Colorful terminal output with ASCII banner
+- **bin/cli.js** — Node.js CLI entry point (ESM)
+- npm package configuration for `npx` usage
+- Additional keywords for npm discoverability
+
+### Changed
+- **package.json** — Added `bin` field with `hulud` command, `type: module`, `files`, `repository`, `bugs`, `homepage`
+- Updated `engines` to Node.js >=18 for broader compatibility
+- Updated all documentation (README.md, cs/README.md, ROADMAP.md, cs/ROADMAP.md) to use `npx hulud`
+
+---
+
 ## [1.5.0] - 2025-12-02
 
 ### Added
