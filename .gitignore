@@ -4,7 +4,10 @@ Thumbs.db
 
 # Editor
 .idea/
+
 # .vscode/
+.vscode/dont-be-shy-hulud.code-workspace
+.vscode/settings.json
 *.swp
 *.swo
 *~
@@ -22,7 +25,7 @@ npm-debug.log*
 *.temp
 .cache/
 
-# Secrets (nikdy necommituj!)
+# Secrets (do not commit sensitive files)
 .env
 .env.local
 *.pem
@@ -32,8 +35,8 @@ credentials.json
 # Agents
 .agents/task.md
 .agents/implementation_plan.md
-.agents/research/
 
 # Scan results
 results.txt
 results_*.txt
+
