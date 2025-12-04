@@ -1,0 +1,53 @@
+# Git
+.git
+.gitignore
+
+# Node modules (we don't need them in the scanner image)
+node_modules
+.npm
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist
+build
+coverage
+
+# Logs
+*.log
+logs
+
+# Results (generated at runtime)
+results
+
+# Documentation (not needed in scanner)
+docs
+cs/docs
+*.md
+!README.md
+
+# Test files
+test
+tests
+__tests__
+*.test.js
+*.spec.js
+
+# Development files
+.env
+.env.*
+*.local
+
+# GitHub (not needed in scanner)
+.github
+
+# Agents (AI assistant files)
+.agents

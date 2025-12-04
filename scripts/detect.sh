@@ -3,7 +3,7 @@
 # Shai-Hulud 2.0 Detection Script
 # https://github.com/miccy/dont-be-shy-hulud
 #
-# Usage: ./detect.sh [path] [--output file] [--verbose] [--ci]
+# Usage: ./detect.sh [path] [--output file] [--verbose] [--ci] [--format json|text]
 #
 
 set -euo pipefail
@@ -24,6 +24,8 @@ SKIP_HASH=false
 GITHUB_CHECK=false
 FOUND_ISSUES=0
 VERSION="1.5.1"
+OUTPUT_FORMAT="text"
+JSON_FINDINGS=()
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -54,6 +56,22 @@ while [[ $# -gt 0 ]]; do
             ;;
         --github-check)
             GITHUB_CHECK=true
+            shift
+            ;;
+        --format=*)
+            OUTPUT_FORMAT="${1#*=}"
+            shift
+            ;;
+        --format)
+            OUTPUT_FORMAT="$2"
+            shift 2
+            ;;
+        --json)
+            OUTPUT_FORMAT="json"
+            shift
+            ;;
+        --sarif)
+            OUTPUT_FORMAT="sarif"
             shift
             ;;
         -*)
@@ -98,42 +116,87 @@ _trap_write_summary() {
 trap _trap_write_summary EXIT
 # --- end insertion ---
 
+# JSON helper functions
+json_escape() {
+    local str="$1"
+    str="${str//\\/\\\\}"
+    str="${str//\"/\\\"}"
+    str="${str//$'\n'/\\n}"
+    str="${str//$'\r'/\\r}"
+    str="${str//$'\t'/\\t}"
+    echo "$str"
+}
+
+add_json_finding() {
+    local severity="$1"
+    local category="$2"
+    local message="$3"
+    local file="${4:-}"
+
+    local escaped_message
+    escaped_message=$(json_escape "$message")
+    local escaped_file
+    escaped_file=$(json_escape "$file")
+
+    local finding="{\"severity\":\"$severity\",\"category\":\"$category\",\"message\":\"$escaped_message\""
+    if [[ -n "$file" ]]; then
+        finding="$finding,\"file\":\"$escaped_file\""
+    fi
+    finding="$finding}"
+
+    JSON_FINDINGS+=("$finding")
+}
+
 # Logging
 log_info() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+        echo -e "${BLUE}[INFO]${NC} $1"
+    fi
 }
 
 log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
+    if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+        echo -e "${YELLOW}[WARN]${NC} $1"
+    fi
+    add_json_finding "warning" "general" "$1" "${2:-}"
     ((FOUND_ISSUES++))
 }
 
 log_error() {
-    echo -e "${RED}[CRITICAL]${NC} $1"
+    if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+        echo -e "${RED}[CRITICAL]${NC} $1"
+    fi
+    add_json_finding "critical" "general" "$1" "${2:-}"
     ((FOUND_ISSUES++))
 }
 
 log_ok() {
-    echo -e "${GREEN}[OK]${NC} $1"
+    if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+        echo -e "${GREEN}[OK]${NC} $1"
+    fi
 }
 
-# Header
-echo ""
-echo "╔════════════════════════════════════════════════════════════════╗"
-echo "║           🪱 SHAI-HULUD 2.0 DETECTION SCRIPT                   ║"
-echo "║           https://github.com/miccy/dont-be-shy-hulud              ║"
-echo "╚════════════════════════════════════════════════════════════════╝"
-echo ""
-echo "Scanning: $SCAN_PATH"
-echo "Date: $(date)"
-echo ""
+# Header (skip for JSON output)
+if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+    echo ""
+    echo "╔════════════════════════════════════════════════════════════════╗"
+    echo "║           🪱 SHAI-HULUD 2.0 DETECTION SCRIPT                   ║"
+    echo "║           https://github.com/miccy/dont-be-shy-hulud              ║"
+    echo "╚════════════════════════════════════════════════════════════════╝"
+    echo ""
+    echo "Scanning: $SCAN_PATH"
+    echo "Date: $(date)"
+    echo ""
+fi
 
 # =============================================================================
 # 1. Check for IOC files
 # =============================================================================
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "1. Checking for IOC files..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "1. Checking for IOC files..."
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+fi
 
 # Malicious files
 IOC_FILES=(
@@ -537,12 +600,218 @@ fi
 # Summary
 # =============================================================================
 
+# =============================================================================
+# JSON Output
+# =============================================================================
+output_json() {
+    local timestamp
+    timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+    echo "{"
+    echo "  \"version\": \"$VERSION\","
+    echo "  \"timestamp\": \"$timestamp\","
+    echo "  \"scan_path\": \"$(json_escape "$SCAN_PATH")\","
+    echo "  \"total_issues\": $FOUND_ISSUES,"
+    echo "  \"status\": \"$([ $FOUND_ISSUES -eq 0 ] && echo 'clean' || echo 'compromised')\","
+    echo "  \"findings\": ["
+
+    local first=true
+    for finding in "${JSON_FINDINGS[@]}"; do
+        if [[ "$first" == true ]]; then
+            first=false
+        else
+            echo ","
+        fi
+        echo -n "    $finding"
+    done
+
+    echo ""
+    echo "  ]"
+    echo "}"
+}
+
+# =============================================================================
+# SARIF Output (GitHub Security Tab compatible)
+# =============================================================================
+output_sarif() {
+    local timestamp
+    timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+    cat <<EOF
+{
+  "\$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Shai-Hulud Detector",
+          "version": "$VERSION",
+          "informationUri": "https://github.com/miccy/dont-be-shy-hulud",
+          "rules": [
+            {
+              "id": "HULUD001",
+              "name": "MaliciousFileDetected",
+              "shortDescription": {
+                "text": "Malicious IOC file detected"
+              },
+              "fullDescription": {
+                "text": "A file matching known Shai-Hulud 2.0 indicators of compromise was detected."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/miccy/dont-be-shy-hulud/blob/main/docs/DETECTION.md"
+            },
+            {
+              "id": "HULUD002",
+              "name": "CompromisedPackageDetected",
+              "shortDescription": {
+                "text": "Compromised npm package detected"
+              },
+              "fullDescription": {
+                "text": "A package matching known compromised packages from the Shai-Hulud 2.0 attack was detected."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "https://github.com/miccy/dont-be-shy-hulud/blob/main/docs/DETECTION.md"
+            },
+            {
+              "id": "HULUD003",
+              "name": "SuspiciousWorkflowDetected",
+              "shortDescription": {
+                "text": "Suspicious GitHub workflow detected"
+              },
+              "fullDescription": {
+                "text": "A GitHub Actions workflow matching known malicious patterns was detected."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/miccy/dont-be-shy-hulud/blob/main/docs/GITHUB-HARDENING.md"
+            },
+            {
+              "id": "HULUD004",
+              "name": "SuspiciousDirectoryDetected",
+              "shortDescription": {
+                "text": "Suspicious directory detected"
+              },
+              "fullDescription": {
+                "text": "A directory matching known Shai-Hulud 2.0 staging locations was detected."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "helpUri": "https://github.com/miccy/dont-be-shy-hulud/blob/main/docs/DETECTION.md"
+            }
+          ]
+        }
+      },
+      "results": [
+EOF
+
+    local first=true
+    local result_index=0
+    for finding in "${JSON_FINDINGS[@]}"; do
+        local severity message file rule_id
+        severity=$(echo "$finding" | jq -r '.severity // "warning"')
+        message=$(echo "$finding" | jq -r '.message // "Unknown issue"')
+        file=$(echo "$finding" | jq -r '.file // ""')
+
+        # Map severity to SARIF level
+        local level="warning"
+        case "$severity" in
+            critical) level="error" ;;
+            warning) level="warning" ;;
+            info) level="note" ;;
+        esac
+
+        # Determine rule ID based on message content
+        rule_id="HULUD001"
+        if [[ "$message" == *"package"* ]]; then
+            rule_id="HULUD002"
+        elif [[ "$message" == *"workflow"* ]]; then
+            rule_id="HULUD003"
+        elif [[ "$message" == *"directory"* ]]; then
+            rule_id="HULUD004"
+        fi
+
+        if [[ "$first" == true ]]; then
+            first=false
+        else
+            echo ","
+        fi
+
+        cat <<RESULT
+        {
+          "ruleId": "$rule_id",
+          "level": "$level",
+          "message": {
+            "text": "$(json_escape "$message")"
+          }$(if [[ -n "$file" ]]; then echo ",
+          \"locations\": [
+            {
+              \"physicalLocation\": {
+                \"artifactLocation\": {
+                  \"uri\": \"$(json_escape "$file")\"
+                }
+              }
+            }
+          ]"; fi)
+        }
+RESULT
+        ((result_index++))
+    done
+
+    cat <<EOF
+
+      ],
+      "invocations": [
+        {
+          "executionSuccessful": $([ $FOUND_ISSUES -eq 0 ] && echo 'true' || echo 'false'),
+          "endTimeUtc": "$timestamp"
+        }
+      ]
+    }
+  ]
+}
+EOF
+}
+
 # Output to file if requested (BEFORE exit)
 if [[ -n "$OUTPUT_FILE" ]]; then
-    echo "Issues found: $FOUND_ISSUES" > "$OUTPUT_FILE"
-    echo "Scan completed. Results saved to $OUTPUT_FILE"
+    if [[ "$OUTPUT_FORMAT" == "json" ]]; then
+        output_json > "$OUTPUT_FILE"
+    elif [[ "$OUTPUT_FORMAT" == "sarif" ]]; then
+        output_sarif > "$OUTPUT_FILE"
+    else
+        echo "Issues found: $FOUND_ISSUES" > "$OUTPUT_FILE"
+    fi
+    if [[ "$OUTPUT_FORMAT" != "json" ]]; then
+        echo "Scan completed. Results saved to $OUTPUT_FILE"
+    fi
 fi
 
+# JSON output to stdout
+if [[ "$OUTPUT_FORMAT" == "json" ]]; then
+    output_json
+    if [[ $FOUND_ISSUES -gt 0 ]]; then
+        exit 1
+    fi
+    exit 0
+fi
+
+# SARIF output to stdout
+if [[ "$OUTPUT_FORMAT" == "sarif" ]]; then
+    output_sarif
+    if [[ $FOUND_ISSUES -gt 0 ]]; then
+        exit 1
+    fi
+    exit 0
+fi
+
+# Text output summary
 echo ""
 echo "╔════════════════════════════════════════════════════════════════╗"
 echo "║                         SCAN SUMMARY                          ║"

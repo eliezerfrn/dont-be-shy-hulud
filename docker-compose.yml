@@ -1,0 +1,87 @@
+# =============================================================================
+# Docker Compose - Shai-Hulud Detection Stack
+# =============================================================================
+#
+# Full scanning stack with scanner service and optional results storage.
+#
+# Usage:
+#   # Build and run scanner
+#   docker-compose up scanner
+#
+#   # Run with JSON output
+#   docker-compose run --rm scanner --format json
+#
+#   # Scan specific directory
+#   TARGET_PATH=/path/to/project docker-compose up scanner
+#
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # Main scanner service
+  scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hulud-scanner:latest
+    container_name: hulud-scanner
+    volumes:
+      # Mount target directory (default: current directory)
+      - ${TARGET_PATH:-.}:/target:ro
+      # Mount results directory
+      - ./results:/results
+    environment:
+      - SCAN_PATH=/target
+      - OUTPUT_FORMAT=${OUTPUT_FORMAT:-text}
+    # Override command for custom scans
+    # command: ["--format", "json", "--output", "/results/scan.json"]
+
+  # Interactive shell for debugging
+  shell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hulud-scanner:latest
+    container_name: hulud-shell
+    volumes:
+      - ${TARGET_PATH:-.}:/target:ro
+      - ./results:/results
+    entrypoint: /bin/bash
+    stdin_open: true
+    tty: true
+
+  # Batch scanner for multiple directories
+  batch-scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hulud-scanner:latest
+    container_name: hulud-batch
+    volumes:
+      - ${TARGET_PATH:-.}:/target:ro
+      - ./results:/results
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        echo "Starting batch scan..."
+        for dir in /target/*/; do
+          if [ -d "$$dir" ]; then
+            name=$$(basename "$$dir")
+            echo "Scanning: $$name"
+            /scanner/scripts/detect.sh "$$dir" --format json > "/results/$$name.json" 2>&1 || true
+          fi
+        done
+        echo "Batch scan complete. Results in /results/"
+
+# Networks (isolated by default)
+networks:
+  default:
+    driver: bridge
+    internal: false
+
+# Volumes for persistent results
+volumes:
+  results:
+    driver: local

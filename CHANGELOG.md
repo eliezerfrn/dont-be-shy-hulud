@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **docs/stacks/TYPESCRIPT-ASTRO.md** — TypeScript & Astro security guide (EN/CS) with Vite, PostCSS, and @asyncapi/* hardening
 - **docs/stacks/MONOREPO.md** — Monorepo security guide (EN/CS) for Turborepo, Nx, pnpm workspaces with cache poisoning prevention
 - **ioc/hashes.json** — Known malicious file hashes database (SHA256, SHA1, MD5) for setup_bun.js, bun_environment.js, bundle.js
+- **docs/stacks/RUST-GO-TAURI.md** — Rust, Go & Tauri security guide (EN/CS) with cross-language credential isolation and signing key protection
+- **cs/ROADMAP.md** — Updated Czech translation of ROADMAP to match English version
+- **scripts/gh-scan-exfil.sh** — GitHub API scanner for exfiltration repos with description pattern matching, random repo name detection, runner scanning, and workflow auditing
+- **JSON output format** — Added `--format json` and `--json` flags to detect.sh for machine-readable output
+- **Dockerfile** — Isolated scanning environment with non-root user, Alpine-based image
+- **docker-compose.yml** — Full scanning stack with scanner, shell, and batch-scanner services
+- **scripts/update-iocs.sh** — Automated IOC updater that fetches from Datadog, Wiz, and Tenable vendor sources
+- **SARIF output format** — Added `--format sarif` and `--sarif` flags to detect.sh for GitHub Security tab integration
 - **CLI scan flags** — Multi-location scanning with intuitive options
   - `npx hulud scan --all` — Scan all detected dev directories
   - `npx hulud scan --system` — Scan system locations (~/.npm, ~/.bun, ~/.config)

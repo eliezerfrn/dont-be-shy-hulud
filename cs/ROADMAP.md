@@ -1,7 +1,7 @@
 # 🗺️ Roadmapa projektu
 
 > **Stav:** Aktivní vývoj
-> **Poslední aktualizace:** 2025-12-01
+> **Poslední aktualizace:** 2025-12-04
 > **Maintainer:** [@miccy](https://github.com/miccy)
 
 Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI modelů (Claude Opus 4.5, GPT-5.1-Pro, Grok-4.1, Perplexity, Proton-Lumo, Gemini-3-Pro) a zpětné vazbě komunity. Jsme transparentní ohledně toho, co je hotové a co ještě potřebuje práci.
@@ -12,14 +12,14 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 ## 📊 Přehled pokroku
 
-| Kategorie | Pokrok | Priorita |
-|----------|----------|----------|
-| [Jádro detekce](#-jádro-detekce) | 🟡 75% | P0 |
-| [IOC databáze](#-ioc-databáze) | 🟡 45% | P0 |
-| [Dokumentace](#-dokumentace) | 🟡 60% | P1 |
-| [Automatizace & CI/CD](#-automatizace--cicd) | 🟡 50% | P1 |
-| [Nástroje](#-nástroje) | 🔴 20% | P2 |
-| [Komunita & Ekosystém](#-komunita--ekosystém) | 🔴 10% | P2 |
+| Kategorie                                     | Pokrok | Priorita |
+| --------------------------------------------- | ------ | -------- |
+| [Jádro detekce](#-jádro-detekce)              | 🟢 85%  | P0       |
+| [IOC databáze](#-ioc-databáze)                | 🟡 60%  | P0       |
+| [Dokumentace](#-dokumentace)                  | 🟢 90%  | P1       |
+| [Automatizace & CI/CD](#-automatizace--cicd)  | 🟡 50%  | P1       |
+| [Nástroje](#-nástroje)                        | 🔴 20%  | P2       |
+| [Komunita & Ekosystém](#-komunita--ekosystém) | 🔴 10%  | P2       |
 
 ---
 
@@ -34,7 +34,7 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [x] Inspekce npm cache
   - [x] Verbose mód a CI-friendly exit kódy
   - [x] Barevný výstup
-  - [ ] **SIGSTOP mód** - Zmrazení procesů místo ukončení (zabrání spuštění wiperu)
+  - [x] **SIGSTOP mód** - Zmrazení procesů místo ukončení (zabrání spuštění wiperu)
   - [ ] Příznaky scan módu (`--lockfiles-only`, `--filesystem-only`, `--full`)
   - [ ] JSON/SARIF výstupní formát
   - [ ] Paralelní skenování pro velké monorepa
@@ -59,11 +59,11 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [x] `--resume` mód pro odmrazení
   - [x] State file tracking
 
-- [ ] **`gh-scan-exfil.sh`** - GitHub API skener pro exfiltrační repozitáře
-  - [ ] Vyhledávání repozitářů podle vzoru popisu (`Sha1-Hulud: The Second Coming`)
-  - [ ] Detekce náhodných 18-znakových názvů repozitářů (`[0-9a-z]{18}`)
-  - [ ] Seznam self-hosted runnerů
-  - [ ] Audit nedávných změn workflow
+- [x] **`gh-scan-exfil.sh`** - GitHub API skener pro exfiltrační repozitáře ✅ Přidáno
+  - [x] Vyhledávání repozitářů podle vzoru popisu (`Sha1-Hulud: The Second Coming`)
+  - [x] Detekce náhodných 18-znakových názvů repozitářů (`[0-9a-z]{18}`)
+  - [x] Seznam self-hosted runnerů
+  - [x] Audit nedávných změn workflow
 
 ### Detekční schopnosti
 
@@ -115,19 +115,7 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 ### Hash souborů
 
-- [ ] **`ioc/hashes.json`** - Známé hashe škodlivých souborů
-  ```json
-  {
-    "setup_bun.js": {
-      "sha256": ["a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a"],
-      "description": "Bun installer dropper"
-    },
-    "bun_environment.js": {
-      "sha256": ["62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0"],
-      "description": "Hlavní payload (10MB obfuskovaný)"
-    }
-  }
-  ```
+- [x] **`ioc/hashes.json`** - Známé hashe škodlivých souborů ✅ Přidáno
 
 ### Síťové IOC
 
@@ -165,10 +153,10 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [ ] SafeDep indikátory
   - [ ] Socket.dev alerty
 
-- [ ] **`scripts/update-iocs.sh`** - Auto-update z vendor zdrojů
-  - [ ] Stahování nejnovějších dat z GitHub repozitářů
-  - [ ] Sloučení a deduplikace
-  - [ ] Generování changelogu
+- [x] **`scripts/update-iocs.sh`** - Auto-update z vendor zdrojů ✅ Přidáno
+  - [x] Stahování nejnovějších dat z GitHub repozitářů (Datadog, Wiz, Tenable)
+  - [x] Sloučení a deduplikace
+  - [x] Generování changelogu
 
 ---
 
@@ -180,9 +168,9 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
   - [x] Diagram toku útoku
   - [x] Příkazy pro rychlý start
   - [x] Porovnávací tabulka v1 vs v2
-  - [ ] Aktualizovat metriky (800+ balíčků, 1200+ organizací, 25k+ repozitářů)
-  - [ ] Přidat regex pro vzor názvu repozitáře `[0-9a-z]{18}`
-  - [ ] Mermaid diagram pro tok útoku
+  - [x] Aktualizovat metriky (800+ balíčků, 1200+ organizací, 25k+ repozitářů)
+  - [x] Přidat regex pro vzor názvu repozitáře `[0-9a-z]{18}`
+  - [x] Mermaid diagram pro tok útoku
 
 - [x] `docs/DETECTION.md` - Průvodce detekcí
 - [x] `docs/REMEDIATION.md` - Kroky čištění
@@ -195,37 +183,37 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 - [x] `docs/THREAT-OVERVIEW.md` - Threat intelligence
 - [x] `docs/MACOS-AUDIT.md` - macOS-specific pokyny
 
-### Stack-Specific dokumentace (Chybí - Vysoká priorita)
+### Stack-Specific dokumentace ✅ KOMPLETNÍ
 
-- [ ] **`docs/stacks/EXPO-REACT-NATIVE.md`**
-  - [ ] Rizika z kompromitace `posthog-react-native`
-  - [ ] Expozice Metro bundleru
-  - [ ] Attack surface Expo CLI
-  - [ ] Doporučeno: `--ignore-scripts` v mobile CI
-  - [ ] Strategie pinningu analytics SDK
+- [x] **`docs/stacks/EXPO-REACT-NATIVE.md`** ✅ Přidáno
+  - [x] Rizika z kompromitace `posthog-react-native`
+  - [x] Expozice Metro bundleru
+  - [x] Attack surface Expo CLI
+  - [x] Doporučeno: `--ignore-scripts` v mobile CI
+  - [x] Strategie pinningu analytics SDK
 
-- [ ] **`docs/stacks/BUN.md`**
-  - [ ] Proč Bun NENÍ bezpečnější (je to attack vektor!)
-  - [ ] Hardening `bunfig.toml`
-  - [ ] Detekce neautorizovaných instalací Bun
-  - [ ] Inspekce `~/.bun` a `~/.dev-env`
+- [x] **`docs/stacks/BUN.md`** ✅ Přidáno
+  - [x] Proč Bun NENÍ bezpečnější (je to attack vektor!)
+  - [x] Hardening `bunfig.toml`
+  - [x] Detekce neautorizovaných instalací Bun
+  - [x] Inspekce `~/.bun` a `~/.dev-env`
 
-- [ ] **`docs/stacks/TYPESCRIPT-ASTRO.md`**
-  - [ ] Rizika build pipeline
-  - [ ] Expozice Vite pluginů
-  - [ ] Dopad `@asyncapi/*`
+- [x] **`docs/stacks/TYPESCRIPT-ASTRO.md`** ✅ Přidáno
+  - [x] Rizika build pipeline
+  - [x] Expozice Vite pluginů
+  - [x] Dopad `@asyncapi/*`
 
-- [ ] **`docs/stacks/RUST-GO-TAURI.md`**
-  - [ ] Cross-language krádež credentials
-  - [ ] Sdílená CI/CD rizika
-  - [ ] Expozice `node-gyp`, `wasm-pack`
-  - [ ] Doporučení pro izolaci Tauri buildů
-  - [ ] Ochrana signing klíčů
+- [x] **`docs/stacks/RUST-GO-TAURI.md`** ✅ Přidáno
+  - [x] Cross-language krádež credentials
+  - [x] Sdílená CI/CD rizika
+  - [x] Expozice `node-gyp`, `wasm-pack`
+  - [x] Doporučení pro izolaci Tauri buildů
+  - [x] Ochrana signing klíčů
 
-- [ ] **`docs/stacks/MONOREPO.md`**
-  - [ ] Rizika Turborepo/Nx workspace
-  - [ ] Expozice sdílených tokenů
-  - [ ] Strategie skenování per-package
+- [x] **`docs/stacks/MONOREPO.md`** ✅ Přidáno
+  - [x] Rizika Turborepo/Nx workspace
+  - [x] Expozice sdílených tokenů
+  - [x] Strategie skenování per-package
 
 ### Překlady
 
@@ -267,35 +255,26 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 - [x] `configs/renovate-hardened.json` - Hardened konfigurace
 - [x] `configs/renovate-lockdown.json` - Maximální bezpečnost
 
-- [ ] **`configs/renovate-defense.json`** - Anti-worm specifická pravidla
-  ```json
-  {
-    "packageRules": [{
-      "matchPackageNames": ["@postman/*", "posthog-*", "@asyncapi/*"],
-      "enabled": false,
-      "prBodyNotes": "🚨 Balíček na Shai-Hulud watchlistu!"
-    }]
-  }
-  ```
+- [x] **`configs/renovate-defense.json`** - Anti-worm specifická pravidla ✅ Přidáno
 
 - [x] `configs/dependabot.yml` - Dependabot konfigurace
 - [x] `configs/socket.yml` - Socket.dev policy
 - [x] `configs/.npmrc-secure` - Bezpečná npm konfigurace
 
-- [ ] **`configs/bunfig-secure.toml`** - Bun security konfigurace
-  - [ ] Vypnutí postinstall ve výchozím stavu
-  - [ ] Ověření integrity
+- [x] **`configs/bunfig-secure.toml`** - Bun security konfigurace ✅ Přidáno
+  - [x] Vypnutí postinstall ve výchozím stavu
+  - [x] Ověření integrity
 
-- [ ] **`configs/pnpm-workspace-secure.yaml`** - pnpm bezpečnost
-  - [ ] Omezení lifecycle skriptů
+- [x] **`configs/pnpm-workspace-secure.yaml`** - pnpm bezpečnost ✅ Přidáno
+  - [x] Omezení lifecycle skriptů
 
 ### Výstupní formáty
 
 - [x] Prostý text s barvami
-- [ ] **JSON výstup** (`--format json`)
-- [ ] **SARIF výstup** (`--format sarif`)
-  - [ ] Integrace s GitHub Security tabem
-  - [ ] CodeQL kompatibilita
+- [x] **JSON výstup** (`--format json`) ✅ Přidáno
+- [x] **SARIF výstup** (`--format sarif`) ✅ Přidáno
+  - [x] Integrace s GitHub Security tabem
+  - [x] CodeQL kompatibilita
 - [ ] **Markdown report** (`--format md`)
 - [ ] **HTML report** (`--format html`)
 
@@ -321,19 +300,16 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 ### Kontejnerizace
 
-- [ ] **Dockerfile** - Izolované skenovací prostředí
-  ```dockerfile
-  FROM node:lts-alpine
-  WORKDIR /scan
-  COPY . /tool
-  ENTRYPOINT ["dont-be-shy-hulud", "scan", "/target"]
-  ```
+- [x] **Dockerfile** - Izolované skenovací prostředí ✅ Přidáno
+  - [x] Alpine-based minimální image
+  - [x] Non-root uživatel pro bezpečnost
+  - [x] Volume mounting pro cílové adresáře
   - [ ] Multi-arch podpora (amd64, arm64)
-  - [ ] Minimální attack surface
-  - [ ] Volume mounting pro cílové adresáře
 
-- [ ] **Docker Compose** - Kompletní skenovací stack
-  - [ ] Scanner service
+- [x] **Docker Compose** - Kompletní skenovací stack ✅ Přidáno
+  - [x] Scanner service
+  - [x] Interaktivní shell service
+  - [x] Batch scanner service
   - [ ] Databáze výsledků
   - [ ] Web dashboard (budoucnost)
 
@@ -429,12 +405,12 @@ Tato roadmapa je založena na komplexních bezpečnostních auditech od více AI
 
 Pro přispěvatele testující detekční schopnosti:
 
-| Metoda | Úroveň bezpečnosti | Poznámky |
-|--------|--------------|-------|
-| VM (UTM/Parallels/VMware) | ✅ Nejbezpečnější | Plná izolace |
-| Docker container | ✅ Bezpečné | Dobré pro testování skriptů |
-| Separátní uživatelský účet | ⚠️ Částečné | `$HOME` stále v riziku |
-| Produkční stroj | ❌ Nebezpečné | Nikdy netestujte na produkci |
+| Metoda                     | Úroveň bezpečnosti | Poznámky                     |
+| -------------------------- | ------------------ | ---------------------------- |
+| VM (UTM/Parallels/VMware)  | ✅ Nejbezpečnější   | Plná izolace                 |
+| Docker container           | ✅ Bezpečné         | Dobré pro testování skriptů  |
+| Separátní uživatelský účet | ⚠️ Částečné         | `$HOME` stále v riziku       |
+| Produkční stroj            | ❌ Nebezpečné       | Nikdy netestujte na produkci |
 
 **Vždy:**
 - Mějte připravený Time Machine / zálohu
@@ -445,12 +421,12 @@ Pro přispěvatele testující detekční schopnosti:
 
 ## 📅 Release milníky
 
-### v1.1.0 (Aktuální cíl)
-- [ ] SIGSTOP suspend script
-- [ ] Rozšířená IOC databáze (100+ balíčků)
-- [ ] Síťové IOC
-- [ ] Ověření hash souborů
-- [ ] Stack-specific dokumentace (alespoň 2)
+### v1.5.0 (Vydáno)
+- [x] SIGSTOP suspend script
+- [x] Rozšířená IOC databáze (100+ balíčků)
+- [x] Síťové IOC
+- [x] Ověření hash souborů
+- [x] Stack-specific dokumentace (všech 5!)
 
 ### v1.2.0
 - [ ] Kompletní IOC databáze (500+ balíčků)
@@ -517,5 +493,5 @@ Hledejte položky s nízkým úsilím:
 ---
 
 <p align="center">
-  <i>Tato roadmapa je živý dokument. Poslední aktualizace: 2025-12-01</i>
+  <i>Tato roadmapa je živý dokument. Poslední aktualizace: 2025-12-04</i>
 </p>

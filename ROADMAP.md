@@ -59,11 +59,11 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [x] `--resume` mode to unfreeze
   - [x] State file tracking
 
-- [ ] **`gh-scan-exfil.sh`** - GitHub API scanner for exfiltration repos
-  - [ ] Search repos by description pattern (`Sha1-Hulud: The Second Coming`)
-  - [ ] Detect random 18-char repo names (`[0-9a-z]{18}`)
-  - [ ] List self-hosted runners
-  - [ ] Audit recent workflow changes
+- [x] **`gh-scan-exfil.sh`** - GitHub API scanner for exfiltration repos ✅ Added
+  - [x] Search repos by description pattern (`Sha1-Hulud: The Second Coming`)
+  - [x] Detect random 18-char repo names (`[0-9a-z]{18}`)
+  - [x] List self-hosted runners
+  - [x] Audit recent workflow changes
 
 ### Detection Capabilities
 
@@ -153,10 +153,10 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [ ] SafeDep indicators
   - [ ] Socket.dev alerts
 
-- [ ] **`scripts/update-iocs.sh`** - Auto-update from vendor sources
-  - [ ] Fetch latest from GitHub repos
-  - [ ] Merge and deduplicate
-  - [ ] Generate changelog
+- [x] **`scripts/update-iocs.sh`** - Auto-update from vendor sources ✅ Added
+  - [x] Fetch latest from GitHub repos (Datadog, Wiz, Tenable)
+  - [x] Merge and deduplicate
+  - [x] Generate changelog
 
 ---
 
@@ -203,12 +203,12 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [x] Vite plugin exposure
   - [x] `@asyncapi/*` impact
 
-- [ ] **`docs/stacks/RUST-GO-TAURI.md`**
-  - [ ] Cross-language credential theft
-  - [ ] Shared CI/CD risks
-  - [ ] `node-gyp`, `wasm-pack` exposure
-  - [ ] Tauri build isolation recommendations
-  - [ ] Signing key protection
+- [x] **`docs/stacks/RUST-GO-TAURI.md`** ✅ Added
+  - [x] Cross-language credential theft
+  - [x] Shared CI/CD risks
+  - [x] `node-gyp`, `wasm-pack` exposure
+  - [x] Tauri build isolation recommendations
+  - [x] Signing key protection
 
 - [x] **`docs/stacks/MONOREPO.md`** ✅ Added
   - [x] Turborepo/Nx workspace risks
@@ -220,7 +220,7 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 - [x] Czech (`cs/`) - Full translation
   - [x] README.md
   - [x] docs/* (all files)
-  - [ ] ROADMAP.md (this file)
+  - [x] ROADMAP.md (this file)
 
 - [ ] Other languages (community contributions welcome)
   - [ ] German (`de/`)
@@ -271,10 +271,10 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 ### Output Formats
 
 - [x] Plain text with colors
-- [ ] **JSON output** (`--format json`)
-- [ ] **SARIF output** (`--format sarif`)
-  - [ ] GitHub Security tab integration
-  - [ ] CodeQL compatibility
+- [x] **JSON output** (`--format json`) ✅ Added
+- [x] **SARIF output** (`--format sarif`) ✅ Added
+  - [x] GitHub Security tab integration
+  - [x] CodeQL compatibility
 - [ ] **Markdown report** (`--format md`)
 - [ ] **HTML report** (`--format html`)
 
@@ -300,19 +300,16 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 ### Containerization
 
-- [ ] **Dockerfile** - Isolated scanning environment
-  ```dockerfile
-  FROM node:lts-alpine
-  WORKDIR /scan
-  COPY . /tool
-  ENTRYPOINT ["dont-be-shy-hulud", "scan", "/target"]
-  ```
+- [x] **Dockerfile** - Isolated scanning environment ✅ Added
+  - [x] Alpine-based minimal image
+  - [x] Non-root user for security
+  - [x] Volume mounting for target directories
   - [ ] Multi-arch support (amd64, arm64)
-  - [ ] Minimal attack surface
-  - [ ] Volume mounting for target directories
 
-- [ ] **Docker Compose** - Full scanning stack
-  - [ ] Scanner service
+- [x] **Docker Compose** - Full scanning stack ✅ Added
+  - [x] Scanner service
+  - [x] Interactive shell service
+  - [x] Batch scanner service
   - [ ] Results database
   - [ ] Web dashboard (future)
 
