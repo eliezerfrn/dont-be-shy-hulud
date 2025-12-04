@@ -1,0 +1,86 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Anti-worm defense configuration for Shai-Hulud 2.0 and similar supply chain attacks",
+  "extends": ["config:recommended", "npm:unpublishSafe", ":disableDependencyDashboard"],
+  "stabilityDays": 7,
+  "minimumReleaseAge": "7 days",
+  "prCreation": "not-pending",
+  "automerge": false,
+  "ignoreScripts": true,
+  "packageRules": [
+    {
+      "description": "Block known Shai-Hulud compromised packages",
+      "matchPackageNames": [
+        "@postman/tunnel-agent",
+        "@postman/postman-mcp-cli",
+        "@postman/*",
+        "posthog-node",
+        "posthog-js",
+        "posthog-react-native",
+        "posthog-*",
+        "@asyncapi/specs",
+        "@asyncapi/openapi-schema-parser",
+        "@asyncapi/*",
+        "@zapier/zapier-sdk",
+        "@zapier/*",
+        "zapier-sdk",
+        "@ensdomains/*",
+        "angulartics2",
+        "koa2-swagger-ui",
+        "tinycolor2",
+        "ngx-bootstrap",
+        "@ctrl/tinycolor",
+        "@crowdstrike/*"
+      ],
+      "enabled": false,
+      "prBodyNotes": [
+        "🚨 **SECURITY WARNING**: This package is on the Shai-Hulud 2.0 watchlist!",
+        "",
+        "This package was compromised in the November 2025 npm supply chain attack.",
+        "Before enabling updates, verify:",
+        "1. Package has been remediated by maintainers",
+        "2. Check [IOC database](https://github.com/miccy/dont-be-shy-hulud/blob/main/ioc/malicious-packages.json)",
+        "3. Review package changelog for security fixes",
+        "",
+        "See: https://github.com/miccy/dont-be-shy-hulud"
+      ]
+    },
+    {
+      "description": "Extra caution for analytics and telemetry packages",
+      "matchPackagePatterns": ["^posthog", "^analytics", "^telemetry", "^@segment/"],
+      "stabilityDays": 14,
+      "prBodyNotes": [
+        "⚠️ **Analytics/Telemetry Package**: Extended stability period (14 days)",
+        "These packages are high-value targets for supply chain attacks."
+      ]
+    },
+    {
+      "description": "Block packages with preinstall scripts by default",
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "allowScripts": false
+    },
+    {
+      "description": "Require manual review for major version bumps",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "prBodyNotes": [
+        "📦 **Major Version Update**: Requires manual security review before merging."
+      ]
+    },
+    {
+      "description": "Pin exact versions for security-sensitive packages",
+      "matchPackagePatterns": ["^@auth", "^passport", "^jsonwebtoken", "^bcrypt", "^crypto"],
+      "rangeStrategy": "pin",
+      "prBodyNotes": ["🔐 **Security-sensitive package**: Pinned to exact version for stability."]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security", "vulnerability"]
+  },
+  "postUpdateOptions": ["npmDedupe"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  }
+}

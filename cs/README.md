@@ -148,6 +148,68 @@ cd dont-be-shy-hulud
 **Exfiltrované soubory:**
 - `cloud.json`, `contents.json`, `environment.json`, `truffleSecrets.json`
 
+**Exfiltrace přes GitHub:**
+- Repos s popisem: `Sha1-Hulud: The Second Coming`
+- Náhodné 18-znakové názvy repo odpovídající patternu: `[0-9a-z]{18}`
+
+### Diagram útoku
+
+```mermaid
+flowchart TD
+    subgraph INFECTION["1. Počáteční infekce"]
+        A[Kompromitovaný npm package] --> B[preinstall script se spustí]
+        B --> C[Uloží setup_bun.js + bun_environment.js]
+    end
+
+    subgraph PAYLOAD["2. Spuštění payloadu"]
+        C --> D[Instaluje Bun runtime]
+        D --> E[Spustí 10MB+ obfuskovaný payload]
+    end
+
+    subgraph HARVEST["3. Sběr credentials"]
+        E --> F[~/.npmrc - npm tokeny]
+        E --> G[~/.aws, ~/.azure, ~/.config/gcloud]
+        E --> H[Environment variables]
+        E --> I[GitHub Actions secrets]
+        E --> J[TruffleHog sken pro secrets]
+    end
+
+    subgraph EXFIL["4. Exfiltrace"]
+        F & G & H & I & J --> K[Vytvoří veřejné GitHub repo]
+        K --> L["Popis: Sha1-Hulud: The Second Coming"]
+        K --> M["Náhodný 18-znakový název: [0-9a-z]{18}"]
+    end
+
+    subgraph PROPAGATE["5. Propagace"]
+        L --> N[Použije ukradený npm token]
+        N --> O[Publikuje infikované verze]
+        O --> P[Až 100 packages na oběť]
+        P --> Q[Cross-victim použití tokenů]
+    end
+
+    subgraph PERSIST["6. Persistence"]
+        Q --> R[GitHub Actions workflow backdoor]
+        R --> S[Spouštění přes repository discussions]
+    end
+
+    subgraph FALLBACK["7. Dead Man's Switch"]
+        T{Exfiltrace zablokována?}
+        T -->|Áno| U[💀 Smaže uživatelská data]
+        T -->|Ne| V[✅ Útok pokračuje]
+    end
+
+    S --> T
+    Q --> T
+
+    style INFECTION fill:#ff6b6b,color:#fff
+    style PAYLOAD fill:#feca57,color:#000
+    style HARVEST fill:#48dbfb,color:#000
+    style EXFIL fill:#ff9ff3,color:#000
+    style PROPAGATE fill:#54a0ff,color:#fff
+    style PERSIST fill:#5f27cd,color:#fff
+    style FALLBACK fill:#ee5a24,color:#fff
+```
+
 ➡️ [Podrobná analýza](docs/THREAT-OVERVIEW.md)
 
 ## 🔍 Detekce

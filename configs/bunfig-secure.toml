@@ -1,0 +1,74 @@
+# Secure Bun configuration for protection against supply chain attacks
+# See: https://github.com/miccy/dont-be-shy-hulud
+#
+# IMPORTANT: Bun's .npmrc ignore-scripts=true is NOT reliable!
+# Always use: bun install --ignore-scripts
+#
+# Place this file as bunfig.toml in your project root or ~/.bunfig.toml
+
+[install]
+# Disable lifecycle scripts by default (preinstall, postinstall, etc.)
+# WARNING: This setting may not be fully respected - always use CLI flag!
+ignoreScripts = true
+
+# Use exact versions to prevent unexpected updates
+exact = true
+
+# Verify package integrity
+verify = true
+
+# Disable optional dependencies that may contain malicious code
+optional = false
+
+# Freeze lockfile - prevent automatic updates
+frozenLockfile = true
+
+[install.cache]
+# Use global cache for better deduplication
+dir = "~/.bun/install/cache"
+
+# Disable cache for CI environments (fresh installs)
+# Uncomment for CI: disable = true
+
+[install.lockfile]
+# Save lockfile in binary format (harder to tamper)
+saveBinaryLockfile = true
+
+# Print lockfile changes for review
+print = "yarn"
+
+[run]
+# Disable shell expansion for security
+shell = false
+
+# Set stricter timeouts
+timeout = "30s"
+
+[test]
+# Isolate test environment
+coverage = false
+
+# Prevent network access during tests (if supported)
+# offline = true
+
+# =============================================================================
+# SECURITY NOTES
+# =============================================================================
+#
+# 1. ALWAYS run: bun install --ignore-scripts
+#    The config setting alone is NOT sufficient!
+#
+# 2. Review trustedDependencies carefully:
+#    Bun has an internal allowlist that may override your settings
+#
+# 3. For CI/CD pipelines:
+#    - name: Install dependencies (Bun)
+#      run: bun install --ignore-scripts --frozen-lockfile
+#
+# 4. Audit your lockfile regularly:
+#    bun pm ls --all | grep -E "(setup_bun|bun_environment)"
+#
+# 5. Check for unexpected Bun installations:
+#    ls -la ~/.bun ~/.dev-env 2>/dev/null
+#
+# =============================================================================

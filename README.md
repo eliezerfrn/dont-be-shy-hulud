@@ -156,6 +156,65 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 
 ### How It Works
 
+```mermaid
+flowchart TD
+    subgraph INFECTION["1. Initial Infection"]
+        A[Compromised npm package] --> B[preinstall script executes]
+        B --> C[Drops setup_bun.js + bun_environment.js]
+    end
+
+    subgraph PAYLOAD["2. Payload Execution"]
+        C --> D[Installs Bun runtime]
+        D --> E[Runs 10MB+ obfuscated payload]
+    end
+
+    subgraph HARVEST["3. Credential Harvesting"]
+        E --> F[~/.npmrc - npm tokens]
+        E --> G[~/.aws, ~/.azure, ~/.config/gcloud]
+        E --> H[Environment variables]
+        E --> I[GitHub Actions secrets]
+        E --> J[TruffleHog scan for secrets]
+    end
+
+    subgraph EXFIL["4. Exfiltration"]
+        F & G & H & I & J --> K[Creates public GitHub repo]
+        K --> L["Description: Sha1-Hulud: The Second Coming"]
+        K --> M["Random 18-char name: [0-9a-z]{18}"]
+    end
+
+    subgraph PROPAGATE["5. Propagation"]
+        L --> N[Uses stolen npm token]
+        N --> O[Publishes infected versions]
+        O --> P[Up to 100 packages per victim]
+        P --> Q[Cross-victim token reuse]
+    end
+
+    subgraph PERSIST["6. Persistence"]
+        Q --> R[GitHub Actions workflow backdoor]
+        R --> S[Triggered via repository discussions]
+    end
+
+    subgraph FALLBACK["7. Dead Man's Switch"]
+        T{Exfiltration blocked?}
+        T -->|Yes| U[💀 Wipes user data]
+        T -->|No| V[✅ Attack continues]
+    end
+
+    S --> T
+    Q --> T
+
+    style INFECTION fill:#ff6b6b,color:#fff
+    style PAYLOAD fill:#feca57,color:#000
+    style HARVEST fill:#48dbfb,color:#000
+    style EXFIL fill:#ff9ff3,color:#000
+    style PROPAGATE fill:#54a0ff,color:#fff
+    style PERSIST fill:#5f27cd,color:#fff
+    style FALLBACK fill:#ee5a24,color:#fff
+```
+
+<details>
+<summary>📋 Text version (for terminals without Mermaid support)</summary>
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    SHAI-HULUD 2.0 ATTACK FLOW                   │
@@ -178,7 +237,8 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 │                                                                 │
 │  4. EXFILTRATION                                                │
 │     └── Creates public GitHub repo with stolen data             │
-│         └── Description: "Sha1-Hulud: The Second Coming"        │
+│         ├── Description: "Sha1-Hulud: The Second Coming"        │
+│         └── Random 18-char name: [0-9a-z]{18}                   │
 │                                                                 │
 │  5. PROPAGATION                                                 │
 │     ├── Uses stolen npm token to publish infected versions      │
@@ -194,6 +254,8 @@ Shai-Hulud 2.0 (aka "The Second Coming") is a **self-propagating npm worm** disc
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+</details>
 
 ## Am I Affected?
 
@@ -424,6 +486,7 @@ See [docs/GITHUB-HARDENING.md](docs/GITHUB-HARDENING.md) for lockdown guide.
 ### Behavioral IOCs
 
 - GitHub repos with description: `Sha1-Hulud: The Second Coming`
+- GitHub repos with random 18-character names matching pattern: `[0-9a-z]{18}`
 - GitHub Actions runners named `SHA1HULUD`
 - Files: `cloud.json`, `contents.json`, `environment.json`, `truffleSecrets.json`
 - `.truffler-cache` directory

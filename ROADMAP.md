@@ -1,7 +1,7 @@
 # 🗺️ Project Roadmap
 
 > **Status:** Active Development
-> **Last Updated:** 2025-12-02
+> **Last Updated:** 2025-12-04
 > **Maintainer:** [@miccy](https://github.com/miccy)
 
 This roadmap is based on comprehensive security audits from multiple AI models (Claude Opus 4.5, GPT-5.1-Pro, Grok-4.1, Perplexity, Proton-Lumo, Gemini-3-Pro) and community feedback. We're transparent about what's done and what needs work.
@@ -12,14 +12,14 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 ## 📊 Progress Overview
 
-| Category | Progress | Priority |
-|----------|----------|----------|
-| [Core Detection](#-core-detection) | 🟢 85% | P0 |
-| [IOC Database](#-ioc-database) | 🟡 60% | P0 |
-| [Documentation](#-documentation) | 🟡 60% | P1 |
-| [Automation & CI/CD](#-automation--cicd) | 🟡 50% | P1 |
-| [Tooling](#-tooling) | 🔴 20% | P2 |
-| [Community & Ecosystem](#-community--ecosystem) | 🔴 10% | P2 |
+| Category                                        | Progress | Priority |
+| ----------------------------------------------- | -------- | -------- |
+| [Core Detection](#-core-detection)              | 🟢 85%    | P0       |
+| [IOC Database](#-ioc-database)                  | 🟡 60%    | P0       |
+| [Documentation](#-documentation)                | 🟡 60%    | P1       |
+| [Automation & CI/CD](#-automation--cicd)        | 🟡 50%    | P1       |
+| [Tooling](#-tooling)                            | 🔴 20%    | P2       |
+| [Community & Ecosystem](#-community--ecosystem) | 🔴 10%    | P2       |
 
 ---
 
@@ -180,9 +180,9 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [x] Attack flow diagram
   - [x] Quick start commands
   - [x] v1 vs v2 comparison table
-  - [ ] Update metrics (800+ packages, 1200+ orgs, 25k+ repos)
-  - [ ] Add regex for repo name pattern `[0-9a-z]{18}`
-  - [ ] Mermaid diagram for attack flow
+  - [x] Update metrics (800+ packages, 1200+ orgs, 25k+ repos)
+  - [x] Add regex for repo name pattern `[0-9a-z]{18}`
+  - [x] Mermaid diagram for attack flow
 
 - [x] `docs/DETECTION.md` - Detection guide
 - [x] `docs/REMEDIATION.md` - Cleanup steps
@@ -267,24 +267,15 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 - [x] `configs/renovate-hardened.json` - Hardened config
 - [x] `configs/renovate-lockdown.json` - Maximum security
 
-- [ ] **`configs/renovate-defense.json`** - Anti-worm specific rules
-  ```json
-  {
-    "packageRules": [{
-      "matchPackageNames": ["@postman/*", "posthog-*", "@asyncapi/*"],
-      "enabled": false,
-      "prBodyNotes": "🚨 Package on Shai-Hulud watchlist!"
-    }]
-  }
-  ```
+- [x] **`configs/renovate-defense.json`** - Anti-worm specific rules ✅ Added
 
 - [x] `configs/dependabot.yml` - Dependabot config
 - [x] `configs/socket.yml` - Socket.dev policy
 - [x] `configs/.npmrc-secure` - Secure npm config
 
-- [ ] **`configs/bunfig-secure.toml`** - Bun security config
-  - [ ] Disable postinstall by default
-  - [ ] Integrity verification
+- [x] **`configs/bunfig-secure.toml`** - Bun security config ✅ Added
+  - [x] Disable postinstall by default
+  - [x] Integrity verification
 
 - [ ] **`configs/pnpm-workspace-secure.yaml`** - pnpm security
   - [ ] Lifecycle script restrictions
@@ -429,12 +420,12 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 For contributors testing detection capabilities:
 
-| Method | Safety Level | Notes |
-|--------|--------------|-------|
-| VM (UTM/Parallels/VMware) | ✅ Safest | Full isolation |
-| Docker container | ✅ Safe | Good for script testing |
-| Separate user account | ⚠️ Partial | `$HOME` still at risk |
-| Production machine | ❌ Dangerous | Never test on production |
+| Method                    | Safety Level | Notes                    |
+| ------------------------- | ------------ | ------------------------ |
+| VM (UTM/Parallels/VMware) | ✅ Safest     | Full isolation           |
+| Docker container          | ✅ Safe       | Good for script testing  |
+| Separate user account     | ⚠️ Partial    | `$HOME` still at risk    |
+| Production machine        | ❌ Dangerous  | Never test on production |
 
 **Always:**
 - Have Time Machine / backup ready
