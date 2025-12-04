@@ -115,19 +115,7 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 ### File Hashes
 
-- [ ] **`ioc/hashes.json`** - Known malicious file hashes
-  ```json
-  {
-    "setup_bun.js": {
-      "sha256": ["a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a"],
-      "description": "Bun installer dropper"
-    },
-    "bun_environment.js": {
-      "sha256": ["62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0"],
-      "description": "Main payload (10MB obfuscated)"
-    }
-  }
-  ```
+- [x] **`ioc/hashes.json`** - Known malicious file hashes ✅ Added
 
 ### Network IOCs
 
@@ -197,12 +185,12 @@ This roadmap is based on comprehensive security audits from multiple AI models (
 
 ### Stack-Specific Documentation (Missing - High Priority)
 
-- [ ] **`docs/stacks/EXPO-REACT-NATIVE.md`**
-  - [ ] Risks from `posthog-react-native` compromise
-  - [ ] Metro bundler exposure
-  - [ ] Expo CLI attack surface
-  - [ ] Recommended: `--ignore-scripts` in mobile CI
-  - [ ] Analytics SDK pinning strategy
+- [x] **`docs/stacks/EXPO-REACT-NATIVE.md`** ✅ Added
+  - [x] Risks from `posthog-react-native` compromise
+  - [x] Metro bundler exposure
+  - [x] Expo CLI attack surface
+  - [x] Recommended: `--ignore-scripts` in mobile CI
+  - [x] Analytics SDK pinning strategy
 
 - [x] **`docs/stacks/BUN.md`** ✅ Added
   - [x] Why Bun is NOT safer (it's the attack vector!)
@@ -210,10 +198,10 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [x] Detecting unauthorized Bun installations
   - [x] `~/.bun` and `~/.dev-env` inspection
 
-- [ ] **`docs/stacks/TYPESCRIPT-ASTRO.md`**
-  - [ ] Build pipeline risks
-  - [ ] Vite plugin exposure
-  - [ ] `@asyncapi/*` impact
+- [x] **`docs/stacks/TYPESCRIPT-ASTRO.md`** ✅ Added
+  - [x] Build pipeline risks
+  - [x] Vite plugin exposure
+  - [x] `@asyncapi/*` impact
 
 - [ ] **`docs/stacks/RUST-GO-TAURI.md`**
   - [ ] Cross-language credential theft
@@ -222,10 +210,10 @@ This roadmap is based on comprehensive security audits from multiple AI models (
   - [ ] Tauri build isolation recommendations
   - [ ] Signing key protection
 
-- [ ] **`docs/stacks/MONOREPO.md`**
-  - [ ] Turborepo/Nx workspace risks
-  - [ ] Shared token exposure
-  - [ ] Per-package scanning strategies
+- [x] **`docs/stacks/MONOREPO.md`** ✅ Added
+  - [x] Turborepo/Nx workspace risks
+  - [x] Shared token exposure
+  - [x] Per-package scanning strategies
 
 ### Translations
 

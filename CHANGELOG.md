@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **configs/bunfig-secure.toml** — Secure Bun configuration with lifecycle script protection
 - **configs/pnpm-workspace-secure.yaml** — Secure pnpm workspace configuration with security best practices
 - **docs/stacks/BUN.md** — Bun-specific security guide (EN/CS) explaining why Bun is the attack vector
+- **docs/stacks/EXPO-REACT-NATIVE.md** — Expo & React Native security guide (EN/CS) with Metro bundler, EAS Build, and analytics SDK hardening
+- **docs/stacks/TYPESCRIPT-ASTRO.md** — TypeScript & Astro security guide (EN/CS) with Vite, PostCSS, and @asyncapi/* hardening
+- **docs/stacks/MONOREPO.md** — Monorepo security guide (EN/CS) for Turborepo, Nx, pnpm workspaces with cache poisoning prevention
+- **ioc/hashes.json** — Known malicious file hashes database (SHA256, SHA1, MD5) for setup_bun.js, bun_environment.js, bundle.js
 - **CLI scan flags** — Multi-location scanning with intuitive options
   - `npx hulud scan --all` — Scan all detected dev directories
   - `npx hulud scan --system` — Scan system locations (~/.npm, ~/.bun, ~/.config)
