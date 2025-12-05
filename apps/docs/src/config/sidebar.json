@@ -1,0 +1,69 @@
+{
+  "main": [
+    {
+      "label": "Getting Started",
+      "translations": {
+        "cs": "Commencer"
+      },
+      "items": [
+        {
+          "label": "[seti:vite] Introduction",
+          "translations": {
+            "cs": "[seti:vite] Introduction"
+          },
+          "autogenerate": { "directory": "getting-started/introduction" }
+        },
+        {
+          "label": "[setting] Global Settings",
+          "translations": {
+            "cs": "[setting] Paramètres globaux"
+          },
+          "autogenerate": { "directory": "getting-started/global-settings" }
+        },
+        {
+          "label": "[seti:plan] Navigation",
+          "translations": {
+            "cs": "[seti:plan] Navigation"
+          },
+          "slug": "getting-started/navigation"
+        }
+      ]
+    },
+    {
+      "label": "Content",
+      "translations": {
+        "cs": "Contenu"
+      },
+      "items": [
+        {
+          "label": "[document] Components and Block",
+          "translations": {
+            "cs": "[document] Composants et blocs"
+          },
+          "autogenerate": { "directory": "contents/components" }
+        },
+        {
+          "label": "[pencil] Editing Content",
+          "translations": {
+            "cs": "[pencil] Édition du contenu"
+          },
+          "autogenerate": { "directory": "contents/editing" }
+        }
+      ]
+    },
+    {
+      "label": "Reference",
+      "translations": {
+        "cs": "Référence"
+      },
+      "autogenerate": { "directory": "reference" }
+    },
+    {
+      "label": "Configurations",
+      "translations": {
+        "cs": "Configurations"
+      },
+      "autogenerate": { "directory": "configurations" }
+    }
+  ]
+}

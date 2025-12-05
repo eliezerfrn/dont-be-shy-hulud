@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "apps/web/**"
-      - "packages/content/**"
+      - "apps/docs/**"
+      - "packages/docs-content/**"
       - ".github/workflows/deploy-docs.yml"
   workflow_dispatch:
 
