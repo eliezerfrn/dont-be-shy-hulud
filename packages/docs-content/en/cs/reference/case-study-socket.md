@@ -1,3 +1,11 @@
+---
+title: "Case Study: Socket.dev Analysis"
+description: Practical example of analyzing security alerts from a real project portfolio
+sidebar:
+  order: 1
+lastUpdated: 2025-12-05
+---
+
 # 📊 Case Study: Socket.dev Alert Analysis
 
 > Praktický příklad analýzy security alertů z reálného portfolia projektů

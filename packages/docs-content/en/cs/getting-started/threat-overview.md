@@ -1,19 +1,30 @@
+---
+title: "Přehled hrozby: Shai-Hulud 2.0"
+description: Kompletní technická analýza npm supply-chain wormu
+sidebar:
+  order: 2
+  badge:
+    text: Důležité
+    variant: caution
+lastUpdated: 2025-12-05
+---
+
 # 🎯 Threat Overview: Shai-Hulud 2.0
 
 > Kompletní technická analýza npm supply-chain wormu
 
 ## Timeline
 
-| Datum | Událost |
-|-------|---------|
-| 2025-09-15 | Shai-Hulud v1 – první vlna, 180+ packages |
-| 2025-09-23 | CISA vydává alert |
-| 2025-11-21 | Shai-Hulud 2.0 – upload prvních malicious packages |
-| 2025-11-24 01:22 UTC | První exfiltration repos na GitHub |
-| 2025-11-24 03:00 UTC | Masivní šíření na npm |
-| 2025-11-25 22:45 UTC | Druhá fáze: "The Continued Coming" |
-| 2025-11-26 | GitHub začíná revoking, ~300 public repos |
-| 2025-12-09 | npm plánuje deprecation classic tokens |
+| Datum                | Událost                                            |
+| -------------------- | -------------------------------------------------- |
+| 2025-09-15           | Shai-Hulud v1 – první vlna, 180+ packages          |
+| 2025-09-23           | CISA vydává alert                                  |
+| 2025-11-21           | Shai-Hulud 2.0 – upload prvních malicious packages |
+| 2025-11-24 01:22 UTC | První exfiltration repos na GitHub                 |
+| 2025-11-24 03:00 UTC | Masivní šíření na npm                              |
+| 2025-11-25 22:45 UTC | Druhá fáze: "The Continued Coming"                 |
+| 2025-11-26           | GitHub začíná revoking, ~300 public repos          |
+| 2025-12-09           | npm plánuje deprecation classic tokens             |
 
 ## Anatomie útoku
 
@@ -69,18 +80,18 @@ Malware aktivně hledá credentials na těchto místech:
 
 #### Lokální soubory
 
-| Cesta | Typ |
-|-------|-----|
-| `~/.npmrc` | npm token |
-| `~/.bun/credentials` | bun credentials |
-| `~/.gitconfig` | Git credentials |
-| `~/.ssh/*` | SSH keys |
-| `~/.aws/credentials` | AWS credentials |
-| `~/.aws/config` | AWS config (skenuje VŠECHNY regiony) |
-| `~/.azure/` | Azure credentials |
-| `~/.config/gcloud/application_default_credentials.json` | GCP credentials |
-| `~/.docker/config.json` | Docker registry tokens |
-| `~/.kube/config` | Kubernetes credentials |
+| Cesta                                                   | Typ                                  |
+| ------------------------------------------------------- | ------------------------------------ |
+| `~/.npmrc`                                              | npm token                            |
+| `~/.bun/credentials`                                    | bun credentials                      |
+| `~/.gitconfig`                                          | Git credentials                      |
+| `~/.ssh/*`                                              | SSH keys                             |
+| `~/.aws/credentials`                                    | AWS credentials                      |
+| `~/.aws/config`                                         | AWS config (skenuje VŠECHNY regiony) |
+| `~/.azure/`                                             | Azure credentials                    |
+| `~/.config/gcloud/application_default_credentials.json` | GCP credentials                      |
+| `~/.docker/config.json`                                 | Docker registry tokens               |
+| `~/.kube/config`                                        | Kubernetes credentials               |
 
 #### Environment Variables
 
@@ -251,13 +262,13 @@ Přes `org.mvnpm` automatickou konverzi npm→Maven byly zasaženy i Java projek
 
 ### Známé prominentní oběti
 
-| Projekt | Packages |
-|---------|----------|
-| **Zapier** | zapier-platform-core, zapier-platform-cli, zapier-sdk |
-| **ENS Domains** | @ensdomains/ensjs, @ensdomains/content-hash |
-| **PostHog** | posthog-node, posthog-js, @posthog/agent |
-| **Postman** | @postman/tunnel-agent, @postman/postman-mcp-cli |
-| **AsyncAPI** | @asyncapi/specs, @asyncapi/openapi-schema-parser |
+| Projekt         | Packages                                              |
+| --------------- | ----------------------------------------------------- |
+| **Zapier**      | zapier-platform-core, zapier-platform-cli, zapier-sdk |
+| **ENS Domains** | @ensdomains/ensjs, @ensdomains/content-hash           |
+| **PostHog**     | posthog-node, posthog-js, @posthog/agent              |
+| **Postman**     | @postman/tunnel-agent, @postman/postman-mcp-cli       |
+| **AsyncAPI**    | @asyncapi/specs, @asyncapi/openapi-schema-parser      |
 
 ## Atribuce
 

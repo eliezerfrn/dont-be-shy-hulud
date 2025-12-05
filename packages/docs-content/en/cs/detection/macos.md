@@ -1,3 +1,11 @@
+---
+title: macOS Security Audit
+description: Comprehensive audit for macOS developer machines after supply chain attacks
+sidebar:
+  order: 2
+lastUpdated: 2025-12-05
+---
+
 # macOS Security Audit Guide (Bezpečnostní audit)
 
 > Komplexní audit macOS vývojářského stroje po supply chain útocích

@@ -1,11 +1,11 @@
 /**
  * @hulud/wiki-sync
- * Synchronizes documentation from packages/docs-content to GitHub Wiki
+ * Synchronizes documentation from apps/docs/src/content/docs to GitHub Wiki
  *
  * Wiki naming convention:
- * - en/getting-started/quick-start.md → Getting-Started-Quick-Start.md
+ * - getting-started/quick-start.md → Getting-Started-Quick-Start.md
  * - cs/getting-started/quick-start.md → Getting-Started-Quick-Start.cs.md
- * - en/index.mdx → Home.md
+ * - index.mdx → Home.md
  * - cs/index.mdx → Home.cs.md
  */
 
@@ -15,7 +15,7 @@ import { join } from 'node:path'
 import { glob } from 'glob'
 import matter from 'gray-matter'
 
-const CONTENT_DIR = join(import.meta.dirname, '../../docs-content')
+const CONTENT_DIR = join(import.meta.dirname, '../../docs-content/en')
 const WIKI_DIR = join(import.meta.dirname, '../../../../dont-be-shy-hulud.wiki')
 
 interface DocFile {
@@ -220,7 +220,7 @@ async function syncToWiki() {
     const content = await readFile(join(CONTENT_DIR, file), 'utf-8')
     const lang = file.startsWith('cs/') ? 'cs' : 'en'
     const slug = file
-      .replace(/^(en|cs)\//, '')
+      .replace(/^cs\//, '') // Remove cs/ prefix for CS files
       .replace(/\.(md|mdx)$/, '')
       .replace(/\/index$/, '')
 

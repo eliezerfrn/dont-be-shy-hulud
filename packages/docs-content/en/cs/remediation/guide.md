@@ -1,3 +1,14 @@
+---
+title: Remediation Guide
+description: Step-by-step guide to recover from Shai-Hulud 2.0 infection
+sidebar:
+  order: 1
+  badge:
+    text: Critical
+    variant: danger
+lastUpdated: 2025-12-05
+---
+
 # 🔧 Remediation Guide
 
 > Kroky k nápravě po kompromitaci Shai-Hulud 2.0

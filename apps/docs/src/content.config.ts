@@ -1,7 +1,14 @@
 import { defineCollection, z } from 'astro:content'
-import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders'
+import { i18nLoader } from '@astrojs/starlight/loaders'
 import { docsSchema, i18nSchema } from '@astrojs/starlight/schema'
 import { glob } from 'astro/loaders'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
+
+// Get absolute path to docs-content package
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const docsContentPath = join(__dirname, '../../../packages/docs-content/en')
 
 const ctaSection = defineCollection({
   loader: glob({
@@ -25,9 +32,13 @@ const ctaSection = defineCollection({
   }),
 })
 
+// All docs content from packages/docs-content/en (includes cs/ subdirectory for Czech)
 export const collections = {
   docs: defineCollection({
-    loader: docsLoader(),
+    loader: glob({
+      pattern: ['**/*.{md,mdx}', '!meta/**'],
+      base: docsContentPath,
+    }),
     schema: docsSchema(),
   }),
   i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),

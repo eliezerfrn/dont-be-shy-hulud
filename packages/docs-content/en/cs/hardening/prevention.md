@@ -1,3 +1,14 @@
+---
+title: Prevention Guide
+description: How to protect against npm supply-chain attacks
+sidebar:
+  order: 1
+  badge:
+    text: Recommended
+    variant: note
+lastUpdated: 2025-12-05
+---
+
 # 🛡️ Prevention Guide
 
 > Jak se chránit proti npm supply-chain útokům

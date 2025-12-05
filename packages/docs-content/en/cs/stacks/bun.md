@@ -1,3 +1,14 @@
+---
+title: Bun Security Guide
+description: "Why Bun is NOT safer — it's the attack vector used by Shai-Hulud 2.0"
+sidebar:
+  order: 1
+  badge:
+    text: Critical
+    variant: danger
+lastUpdated: 2025-12-05
+---
+
 # 🥟 Bun Security Guide
 
 > **Proč Bun NENÍ bezpečnější — je to vektor útoku!**

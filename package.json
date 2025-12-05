@@ -24,6 +24,7 @@
     "harden": "./packages/scripts/harden-npm.sh",
     "docs:dev": "turbo dev --filter=@hulud/docs",
     "docs:build": "turbo build --filter=@hulud/docs",
+    "docs:preview": "turbo preview --filter=@hulud/docs",
     "cli": "turbo dev --filter=@hulud/cli",
     "wiki:sync": "sfw bun run --filter=@hulud/wiki-sync sync",
     "outdated": "sfw bun outdated -r",

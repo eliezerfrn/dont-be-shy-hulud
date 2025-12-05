@@ -29,12 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restructured project as monorepo
 - Moved `bin/cli.js` to `apps/cli/bin/cli.js`
 - Moved `docs/` to `packages/docs-content/en/`
-- Moved `cs/docs/` to `packages/docs-content/cs/`
+- Moved `cs/docs/` to `packages/docs-content/en/cs/` (i18n structure)
 - Moved `cs/*.md` meta files to `packages/docs-content/cs/meta/`
 - Updated all documentation with frontmatter for Astro Starlight
-- Symlinked `apps/docs/src/content/docs/` to `packages/docs-content/en/`
+- **Content loading via glob()** — Using absolute paths with `join(__dirname, ...)` instead of symlinks
 - Updated GitHub workflows for new monorepo structure
 - Updated `set-language.sh` for new docs-content structure
+- Updated `wiki-sync` to read from `packages/docs-content/en/`
 
 ### Fixed
 

@@ -1,3 +1,11 @@
+---
+title: TypeScript & Astro Security
+description: Build pipelines are prime targets for supply chain attacks
+sidebar:
+  order: 4
+lastUpdated: 2025-12-05
+---
+
 # 🚀 TypeScript & Astro Security Guide
 
 > **Build pipelines jsou hlavním cílem supply chain útoků!**

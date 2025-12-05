@@ -1,3 +1,14 @@
+---
+title: Detection Guide
+description: How to detect if you've been compromised by Shai-Hulud 2.0
+sidebar:
+  order: 1
+  badge:
+    text: Essential
+    variant: tip
+lastUpdated: 2025-12-05
+---
+
 # 🔍 Detection Guide
 
 > Jak zjistit, zda jste kompromitovaní Shai-Hulud 2.0

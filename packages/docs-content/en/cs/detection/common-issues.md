@@ -1,3 +1,11 @@
+---
+title: Common Issues & False Positives
+description: Common findings from security scans and how to resolve them
+sidebar:
+  order: 3
+lastUpdated: 2025-12-05
+---
+
 # 🔧 Common Issues & False Positives
 
 > Časté nálezy ze security scanů a jak je řešit

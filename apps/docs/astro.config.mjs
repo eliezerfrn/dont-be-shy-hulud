@@ -56,9 +56,9 @@ export default defineConfig({
     plugins: [tailwindcss(), viewTransitions()],
     resolve: {
       alias: {
-        //'@content': '../../packages/docs-content',
         "@": fileURLToPath(new URL("./src", import.meta.url)),
         "~": fileURLToPath(new URL("./src", import.meta.url)),
+        "@content": fileURLToPath(new URL("../../packages/docs-content", import.meta.url)),
       },
     },
   },

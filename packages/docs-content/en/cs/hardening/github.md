@@ -1,3 +1,11 @@
+---
+title: GitHub Hardening
+description: Security configuration for GitHub Enterprise, Organizations, Repositories, and Personal Accounts
+sidebar:
+  order: 2
+lastUpdated: 2025-12-05
+---
+
 # GitHub Hardening Guide (Průvodce zabezpečením)
 
 > Bezpečnostní konfigurace pro GitHub Enterprise, Organizace, Repozitáře a Osobní účty

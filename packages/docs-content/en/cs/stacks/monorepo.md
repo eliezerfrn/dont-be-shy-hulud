@@ -1,3 +1,11 @@
+---
+title: Monorepo Security Guide
+description: "Shared dependencies = shared risk in Turborepo, Nx, pnpm workspaces"
+sidebar:
+  order: 3
+lastUpdated: 2025-12-05
+---
+
 # 🏗️ Monorepo Security Guide
 
 > **Sdílené závislosti = sdílené riziko!**

@@ -1,3 +1,11 @@
+---
+title: Expo & React Native Security
+description: Mobile apps are NOT immune to npm supply chain attacks
+sidebar:
+  order: 2
+lastUpdated: 2025-12-05
+---
+
 # 📱 Expo & React Native Security Guide
 
 > **Mobilní aplikace NEJSOU imunní vůči npm supply chain útokům!**

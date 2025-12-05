@@ -1,3 +1,11 @@
+---
+title: Rust, Go & Tauri Security
+description: Cross-language projects share npm risks through build tooling
+sidebar:
+  order: 5
+lastUpdated: 2025-12-05
+---
+
 # 🦀 Rust, Go & Tauri Security Guide
 
 > **Cross-language projekty sdílejí npm rizika přes build tooling!**

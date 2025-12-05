@@ -1,3 +1,11 @@
+---
+title: Release Workflow
+description: Process for releasing new versions of the project
+sidebar:
+  order: 10
+lastUpdated: 2025-12-05
+---
+
 # Release Workflow
 
 Tento dokument popisuje proces vydávání nových verzí projektu **Don't Be Shy, Hulud!**.
