@@ -22,7 +22,10 @@
     "docs:dev": "turbo dev --filter=@hulud/docs",
     "docs:build": "turbo build --filter=@hulud/docs",
     "cli": "turbo dev --filter=@hulud/cli",
-    "wiki:sync": "bun run --filter=@hulud/wiki-sync sync",
+    "wiki:sync": "sfw bun run --filter=@hulud/wiki-sync sync",
+    "install": "sfw bun install",
+    "outdated": "sfw bun outdated -r",
+    "update": "sfw bun update -i -r",
     "clean": "./scripts/clean.sh",
     "clean:dry": "./scripts/clean.sh --dry-run"
   },
