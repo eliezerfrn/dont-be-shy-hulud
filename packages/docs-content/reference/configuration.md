@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Configuration Reference
 
 > Security configuration templates and options
 

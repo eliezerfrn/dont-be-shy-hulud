@@ -6,8 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Bezpečnost CI/CD Pipeline
-
 > Chraňte vaše build a deployment pipeline před supply chain útoky
 
 ## Klíčové Principy

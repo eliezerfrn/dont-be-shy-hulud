@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# CLI Reference
 
 > Complete reference for the `hulud` command-line tool
 

@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Immediate Response
 
 > **⏱️ Time-critical actions when you discover an infection**
 

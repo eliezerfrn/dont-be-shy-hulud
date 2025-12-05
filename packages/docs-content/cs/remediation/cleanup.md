@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Čištění Systému
 
 > Odstraňte všechny artefakty Shai-Hulud 2.0 z vašeho systému
 

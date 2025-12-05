@@ -1,7 +1,7 @@
 ---
 import CTA from '../CTA.astro'
 import ImageMod from '../ImageMod.astro'
-import SidebarNav from '../SidebarNav.astro'
+// SidebarNav removed - categories are already in left sidebar
 import Footer from './Footer.astro'
 import MobileMenuToggle from './MobileMenuToggle.astro'
 
@@ -48,7 +48,7 @@ const { hasSidebar } = Astro.locals.starlightRoute
   <header class={"header" + (hasSidebar ? " has-sidebar" : " no-sidebar")}>
     <slot name="header" />
   </header>
-  {hasSidebar && <SidebarNav />}
+  {/* SidebarNav removed - categories shown in left sidebar only */}
   <div class="main-frame">
     <div class="container flex relative">
       {

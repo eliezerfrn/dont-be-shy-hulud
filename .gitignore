@@ -62,6 +62,11 @@ credentials.json
 *.temp
 
 # ===================
+# Tests
+# ===================
+test-results/
+
+# ===================
 # Agents
 # ===================
 .agents/task.md

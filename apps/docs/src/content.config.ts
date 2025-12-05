@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 // Get absolute path to docs-content package
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const docsContentPath = join(__dirname, '../../../packages/docs-content/en')
+const docsContentPath = join(__dirname, '../../../packages/docs-content')
 
 const ctaSection = defineCollection({
   loader: glob({
@@ -32,11 +32,11 @@ const ctaSection = defineCollection({
   }),
 })
 
-// All docs content from packages/docs-content/en (includes cs/ subdirectory for Czech)
+// All docs content from packages/docs-content (root=EN, cs/=Czech)
 export const collections = {
   docs: defineCollection({
     loader: glob({
-      pattern: ['**/*.{md,mdx}', '!meta/**'],
+      pattern: ['**/*.{md,mdx}', '!**/meta/**', '!package.json'],
       base: docsContentPath,
     }),
     schema: docsSchema(),

@@ -28,14 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrated from pnpm to Bun workspaces
 - Restructured project as monorepo
 - Moved `bin/cli.js` to `apps/cli/bin/cli.js`
-- Moved `docs/` to `packages/docs-content/en/`
-- Moved `cs/docs/` to `packages/docs-content/en/cs/` (i18n structure)
-- Moved `cs/*.md` meta files to `packages/docs-content/cs/meta/`
+- Moved `docs/` to `packages/docs-content/` (root = EN)
+- Moved `cs/docs/` to `packages/docs-content/cs/` (i18n structure)
+- Moved `cs/*.md` meta files to `packages/docs-content/cs/meta/` (excluded from content collection)
 - Updated all documentation with frontmatter for Astro Starlight
 - **Content loading via glob()** — Using absolute paths with `join(__dirname, ...)` instead of symlinks
 - Updated GitHub workflows for new monorepo structure
 - Updated `set-language.sh` for new docs-content structure
-- Updated `wiki-sync` to read from `packages/docs-content/en/`
+- Updated `wiki-sync` to read from `packages/docs-content/`
 
 ### Fixed
 

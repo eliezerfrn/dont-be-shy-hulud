@@ -7,9 +7,9 @@ import { viewTransitions } from "astro-vtbot/starlight-view-transitions";
 import config from "./src/config/config.json" assert { type: "json" };
 
 import { fileURLToPath } from "url";
-import locals from "./src/config/locals.json";
-import sidebar from "./src/config/sidebar.json";
-import social from "./src/config/social.json";
+import locals from "./src/config/locals.json" assert { type: "json" };
+import sidebar from "./src/config/sidebar.json" assert { type: "json" };
+import social from "./src/config/social.json" assert { type: "json" };
 
 const { site } = config;
 const { title, logo, logo_darkmode } = site;

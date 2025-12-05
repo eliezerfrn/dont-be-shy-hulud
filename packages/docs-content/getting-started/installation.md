@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Installation
 
 Multiple ways to install and use the detection toolkit.
 

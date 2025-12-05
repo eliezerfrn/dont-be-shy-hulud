@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Okamžitá Reakce
 
 > **⏱️ Časově kritické akce při zjištění infekce**
 

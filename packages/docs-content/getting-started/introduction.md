@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Introduction
 
 **Shai-Hulud 2.0** is a sophisticated self-propagating worm targeting the npm ecosystem. First detected in November 2025, it has compromised over 800 packages and affected more than 25,000 GitHub repositories.
 

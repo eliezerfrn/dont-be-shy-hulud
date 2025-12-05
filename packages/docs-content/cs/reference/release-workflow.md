@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Release Workflow
 
 Tento dokument popisuje proces vydávání nových verzí projektu **Don't Be Shy, Hulud!**.
 

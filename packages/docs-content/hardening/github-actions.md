@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# GitHub Actions Hardening
 
 > Protect your workflows from being exploited by supply chain attacks
 

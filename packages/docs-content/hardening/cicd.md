@@ -6,8 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# CI/CD Pipeline Security
-
 > Protect your build and deployment pipelines from supply chain attacks
 
 ## Key Principles

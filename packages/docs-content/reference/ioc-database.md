@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# IOC Database
 
 > Comprehensive list of Indicators of Compromise for Shai-Hulud 2.0
 

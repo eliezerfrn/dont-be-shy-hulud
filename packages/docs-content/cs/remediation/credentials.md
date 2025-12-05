@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Rotace Přihlašovacích Údajů
 
 > Rotujte VŠECHNY přihlašovací údaje, které mohly být vystaveny Shai-Hulud 2.0
 

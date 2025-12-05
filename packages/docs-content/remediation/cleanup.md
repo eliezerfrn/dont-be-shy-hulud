@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# System Cleanup
 
 > Remove all Shai-Hulud 2.0 artifacts from your system
 

@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Remediation Guide
 
 > Step-by-step guide to recover from Shai-Hulud 2.0 infection
 

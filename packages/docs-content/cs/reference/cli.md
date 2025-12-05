@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Reference CLI
 
 > Kompletní reference pro nástroj příkazového řádku `hulud`
 

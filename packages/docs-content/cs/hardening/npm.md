@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Bezpečnostní Konfigurace npm
 
 > Základní npm nastavení pro ochranu proti supply chain útokům
 

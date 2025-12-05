@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Zpevnění GitHub Actions
 
 > Chraňte vaše workflows před zneužitím supply chain útoky
 

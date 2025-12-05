@@ -5,60 +5,28 @@
       "translations": {
         "cs": "Začínáme"
       },
-      "items": [
-        {
-          "label": "[rocket] Quick Start",
-          "translations": {
-            "cs": "[rocket] Rychlý start"
-          },
-          "autogenerate": { "directory": "getting-started" }
-        }
-      ]
+      "autogenerate": { "directory": "getting-started" }
     },
     {
       "label": "Detection",
       "translations": {
         "cs": "Detekce"
       },
-      "items": [
-        {
-          "label": "[magnifier] Detection Guide",
-          "translations": {
-            "cs": "[magnifier] Průvodce detekcí"
-          },
-          "autogenerate": { "directory": "detection" }
-        }
-      ]
+      "autogenerate": { "directory": "detection" }
     },
     {
       "label": "Remediation",
       "translations": {
         "cs": "Náprava"
       },
-      "items": [
-        {
-          "label": "[setting] Remediation Guide",
-          "translations": {
-            "cs": "[setting] Průvodce nápravou"
-          },
-          "autogenerate": { "directory": "remediation" }
-        }
-      ]
+      "autogenerate": { "directory": "remediation" }
     },
     {
       "label": "Hardening",
       "translations": {
         "cs": "Zabezpečení"
       },
-      "items": [
-        {
-          "label": "[shield] Security Hardening",
-          "translations": {
-            "cs": "[shield] Bezpečnostní zabezpečení"
-          },
-          "autogenerate": { "directory": "hardening" }
-        }
-      ]
+      "autogenerate": { "directory": "hardening" }
     },
     {
       "label": "Stack Guides",

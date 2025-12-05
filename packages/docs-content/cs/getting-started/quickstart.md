@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Rychlý Start
 
 Skenujte váš systém na indikátory Shai-Hulud 2.0 za méně než 5 minut.
 

@@ -6,9 +6,9 @@ enable: true
 fill_button:
   enable: true
   label: Začít
-  link: /getting-started/introduction/overview/
+  link: /cs/getting-started/introduction/
 outline_button:
   enable: true
   label: Zobrazit dokumentaci
-  link: /getting-started/introduction/overview/
+  link: /cs/getting-started/introduction/
 ---

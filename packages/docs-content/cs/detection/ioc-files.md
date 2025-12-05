@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Detekce IOC Souborů
 
 > Hledání známých škodlivých souborů na vašem systému
 

@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Síťová Detekce
 
 > Identifikace škodlivé síťové komunikace
 

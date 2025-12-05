@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# npm Security Configuration
 
 > Essential npm settings to protect against supply chain attacks
 

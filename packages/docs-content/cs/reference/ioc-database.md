@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Databáze IOC
 
 > Kompletní seznam Indikátorů Kompromitace (IOC) pro Shai-Hulud 2.0
 

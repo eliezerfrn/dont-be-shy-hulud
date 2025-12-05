@@ -6,8 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Reference Konfigurace
-
 > Šablony a možnosti bezpečnostní konfigurace
 
 ## Dostupné Konfigurace

@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Quick Start
 
 Scan your system for Shai-Hulud 2.0 indicators in under 5 minutes.
 

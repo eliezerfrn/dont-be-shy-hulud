@@ -3,7 +3,6 @@ title: Úvod
 description: Pochopení Shai-Hulud 2.0 npm supply chain útoku
 ---
 
-# Úvod
 
 **Shai-Hulud 2.0** je sofistikovaný samo-propagující se worm cílící na npm ekosystém. Poprvé detekován v listopadu 2025, kompromitoval přes 800 balíčků a postihl více než 25 000 GitHub repozitářů.
 

@@ -9,7 +9,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Credential Rotation
 
 > Rotate ALL credentials that may have been exposed to Shai-Hulud 2.0
 

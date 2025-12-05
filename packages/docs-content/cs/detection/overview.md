@@ -6,7 +6,6 @@ sidebar:
 lastUpdated: 2025-12-05
 ---
 
-# Přehled Detekce
 
 > Kompletní přehled metod pro detekci infekce Shai-Hulud 2.0
 
