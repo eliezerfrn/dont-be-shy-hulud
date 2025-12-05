@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "glob": "^11.0.0"
+    "glob": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "latest",
