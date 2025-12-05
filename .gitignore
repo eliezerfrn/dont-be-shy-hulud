@@ -1,42 +1,74 @@
+# ===================
 # OS
+# ===================
 .DS_Store
 Thumbs.db
 
+# ===================
 # Editor
+# ===================
 .idea/
-
-# .vscode/
 .vscode/dont-be-shy-hulud.code-workspace
 .vscode/settings.json
 *.swp
 *.swo
 *~
 
-# Node
+# ===================
+# Dependencies
+# ===================
 node_modules/
-npm-debug.log*
 
-# Audit reports (contain sensitive data)
-*-audit-*/
-*.audit.log
-
-# Temp files
-*.tmp
-*.temp
+# ===================
+# Build outputs
+# ===================
+dist/
+.astro/
+.turbo/
+.next/
+.nuxt/
 .cache/
+*.tsbuildinfo
 
-# Secrets (do not commit sensitive files)
+# ===================
+# Logs
+# ===================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ===================
+# Environment & Secrets
+# ===================
 .env
 .env.local
+.env.production
 *.pem
 *.key
 credentials.json
 
+# ===================
+# Audit reports (contain sensitive data)
+# ===================
+*-audit-*/
+*.audit.log
+
+# ===================
+# Temp files
+# ===================
+*.tmp
+*.temp
+
+# ===================
 # Agents
+# ===================
 .agents/task.md
 .agents/implementation_plan.md
 
+# ===================
 # Scan results
+# ===================
 results.txt
 results_*.txt
-
